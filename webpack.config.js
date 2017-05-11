@@ -11,6 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /woff|woff2|eot|ttf|svg/,
+        loaders: ['url-loader']
+      },
+      {
+        test: /\.css/,
+        loaders: ['style-loader', 'css-loader']
+      },
+      {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader'
       },
