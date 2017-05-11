@@ -2,7 +2,6 @@
     <div class="top-screen">
         <top-screen-top-panel></top-screen-top-panel>
         <div class="row top-screen-borders">
-
             <poke-sprite></poke-sprite>
             <poke-list></poke-list>
         </div>
