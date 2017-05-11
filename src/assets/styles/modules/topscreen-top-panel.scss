@@ -1,0 +1,90 @@
+@import '../vars/pallette.scss';
+@import '../vars/image-constants.scss';
+.top-panel{
+  border-bottom: solid 2px $panel--border;
+}
+.top-panel .decoration{
+  position: absolute;
+  width: 100%;
+  height: 25px;
+  bottom:0;
+  left:0;
+}
+.top-panel .decoration::before{
+  position: absolute;
+  content: ' ';
+  width: 10px;
+  height:10px;
+  background-color: $panel--dark;
+  left: 5px;
+  bottom:7px;
+}
+.top-panel .decoration::after{
+  position: absolute;
+  content: ' ';
+  width: 10px;
+  height:10px;
+  background-color: $panel--dark;
+  right: 10px;
+  bottom:7px;
+}
+
+.top-panel .image-container{
+  position: relative;
+  height: 32px;
+  background-color: $panel--light;
+  padding:0 2px 0 3px;
+  margin: 3px 0 3px 25px;
+  border-radius: 32px;
+  border: solid 2px $panel--dark;
+  max-width: 300px;
+  width:75%;
+}
+
+.image-container img{
+  position: absolute;
+  display: inline-block;
+  padding-top: 2px;
+  height:28px;
+  width:70%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.image-container .pokeball {
+  position: absolute;
+  top:2px;
+
+  display: inline-block;
+  background: $panel--base;
+  width: $img-pokeball+px;
+  //height: $img-pokeball+px;
+  border: solid 3px $panel--base;
+  border-radius: 50%;
+  margin: 1px;
+}
+.image-container .pokeball:before{
+  content: " ";
+  position: absolute;
+  top:-2px;left:-3px;
+  width:$img-pokeball+6+px;
+  //height:($img-pokeball/2)+px;
+  border-radius: 24px 24px 0 0;
+  background: transparent;
+  border-bottom: solid 3px $panel--light;
+}
+.image-container .pokeball:after{
+  content:" ";
+  position: absolute;
+  top:0;right:0;bottom:0;
+  width: unquote(($img-pokeball/4)+px);
+  background: $panel--base;
+  border-radius: 50%;
+  border: solid 3px $panel--light;
+  margin:auto;
+}
+.image-container .hang-right{
+  position: absolute;
+  right: 2px;
+  top:2px;
+}

@@ -1,0 +1,24 @@
+.panel{
+  position: relative;
+  background-color: $panel--base;
+  width: 85% !important;
+}
+.panel:after{
+  position:absolute;
+  content: ' ';
+  width: 4px;
+  height:calc(100% + 4px);
+  right:0;
+  top:-2px;
+  background-color: $panel--dark;
+}
+.panel:before{
+  position: absolute;
+  content: ' ';
+  width:18%;
+  height: 100%;
+  right: calc(-18% - 4px);
+  top:-2px;
+  background-color: $panel--light;
+  border: solid 2px $panel--border;
+}

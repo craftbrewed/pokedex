@@ -1,0 +1,33 @@
+@import "../vars/pallette";
+@import "../vars/image-constants";
+.pokeball {
+  position: relative;
+  display: inline-block;
+  background: $pokeball-white;
+  width: $pokeball-square+px;
+  height: $pokeball-square+px;
+  border: solid 2px $pokeball--border;
+  border-radius: 50%;
+  margin: 1px;
+}
+.pokeball:before{
+  content: " ";
+  position: absolute;
+  top:0;left:0;
+  width:$pokeball-square+px;
+  height:($pokeball-square/2)+px;
+  border-radius: 24px 24px 0 0;
+  background: $pokeball--red;
+  border-bottom: solid 2px $pokeball--border;
+}
+.pokeball:after{
+  content:" ";
+  position: absolute;
+  top:0;right:0;bottom:0;left:0;
+  width: unquote(($pokeball-square/4)+px);
+  height: unquote(($pokeball-square/4)+px);
+  background: $pokeball-white;
+  border-radius: 50%;
+  border: solid 2px $pokeball--border;
+  margin:auto;
+}
