@@ -1,0 +1,44 @@
+$glyph-sheet: url('../images/glyphs.png');
+$tr-h: 15px;
+$tr-w: 16px;
+$br-h: 26px;
+$br-w: 28px;
+
+span.button-glyph{
+    display: inline-block;
+    background-color: transparent;
+    background-image: $glyph-sheet;
+}
+.button-glyph.arrow-default,
+.button-glyph.arrow-press,
+.button-glyph.back{
+    height:$tr-h;
+    width: $tr-w;
+}
+
+.button-glyph.search,
+.button-glyph.swap,
+.button-glyph.book{
+    height:$br-h;
+    width: $br-w;
+    opacity: 0.7;
+}
+
+.button-glyph.arrow-default{
+    background-position: 0 0;
+}
+.button-glyph.arrow-press{
+    background-position: -$tr-w 0;
+}
+.button-glyph.back{
+    background-position: -$tr-w*2 0;
+}
+.button-glyph.search{
+    background-position: 0px (-$tr-h);
+}
+.button-glyph.swap{
+    background-position: -$br-w $br-h;
+}
+.button-glyph.book{
+    background-position: -($br-w*2)+1 $br-h;
+}

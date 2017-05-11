@@ -1,0 +1,71 @@
+$type-spriteW:48;
+$type-spriteH: 16;
+$sprite-gapH: 2;
+span.type{
+    height:$type-spriteH+px;
+    width:$type-spriteW+px;
+    display:inline-block;
+    background-color: #000066;
+    background-image: url('../images/typesheet.png');
+}
+.type-normal{
+    background-position: 0 0;
+}
+.type-fighting{
+    background-position: $type-spriteW+px 0;
+}
+.type-flying{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*1)+px);
+}
+.type-poison{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*1)+px);
+}
+.type-ground{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*2)+px);
+}
+.type-rock{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*2)+px);
+
+}
+.type-bug{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*3)+px);
+}
+.type-ghost{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*3)+px);
+
+}
+.type-fire{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*4)+px);
+
+}
+.type-water{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*4)+px);
+
+}
+.type-grass{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*5)+px);
+
+}
+.type-electric{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*5)+px);
+
+}
+.type-psychic{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*6)+px);
+
+}
+.type-ice{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*6)+px);
+
+}
+.type-dragon{
+    background-position: 0px (-(($type-spriteH+$sprite-gapH)*7)+px);
+
+}
+.type-dark{
+    background-position: (($type-spriteW*1)+px) (-(($type-spriteH+$sprite-gapH)*7)+px);
+
+}
+.type-steel{
+    background-position: (0px) (-(($type-spriteH+$sprite-gapH)*8)+px);
+}
