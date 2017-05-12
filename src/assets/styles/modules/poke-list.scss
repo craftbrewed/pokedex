@@ -1,0 +1,95 @@
+@import "../vars/pallette.scss";
+
+ul{
+  list-style: none;
+  margin:0;
+  padding:0;
+  overflow-y: hidden;
+  width:90%;
+}
+
+ul li {
+  position: relative;
+  text-transform: uppercase;
+  padding: 2px 2px 2px 2px;
+  font-size: 25px;
+  font-weight: bold;
+  height: 27px;
+  border-radius: 25px unquote((25/3)+px) unquote((25/3)+px) 25px;
+  width: 80%;
+  min-width:160px;
+  max-width: 225px;
+  visibility: hidden;
+  line-height: 0;
+  display: inline-block;
+}
+
+ul li p{
+  margin: 0;
+  display: inline-block;
+  vertical-align: sub;
+}
+
+ul li div {
+  display: inline-block;
+  vertical-align: super;
+}
+
+li.selected{
+  background-color: $name--selected;
+  margin: 8px 0;
+  visibility: visible;
+}
+
+li.n1{
+  background-color: $name--n1;
+  visibility: visible;
+  margin: 0 0 0 4px;
+  z-index: 25;
+}
+
+li.n2{
+  background-color: $name--n2;
+  visibility: visible;
+  margin: -4px 0 -4px 8px;
+  z-index: 20;
+}
+li.n3{
+  background-color: $name--n3;
+  visibility: visible;
+  margin: -4px 0 -4px 20px;
+  z-index: 15;
+}
+
+li.n3--top{
+}
+
+li.n3--top:after{
+  position: absolute;
+  content: ' ';
+  z-index: -1;
+  width: 120px;
+  height:25px;
+  border-radius:0 0 unquote(((25/3)-4)+px) 0;
+  padding:2px;
+  right: 5px;
+  bottom: -5px;
+  background-color: $name--n3;
+}
+
+li.n3--bottom{
+  position: relative;
+}
+
+li.n3--bottom:after{
+  position: absolute;
+  content: ' ';
+  z-index: -1;
+  width: 120px;
+  height:25px;
+  border-radius:0 unquote(((25/3)-4)+px) 0 0;
+  padding:2px;
+  right: 5px;
+  top: -5px;
+  background-color: $name--n3;
+}

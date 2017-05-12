@@ -8,7 +8,6 @@
 <script>
     import topScreen from './components/topScreen.vue';
     import bottomScreen from './components/bottomScreen.vue';
-
     export default {
         name: 'pokedex',
         components: {topScreen, bottomScreen},

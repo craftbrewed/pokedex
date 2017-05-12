@@ -31,7 +31,7 @@
 
     .top-screen{
         background: $sprite--topscreen-bg;
-        background-size: cover;
+        background-size: contain;
         overflow: hidden;
         position: relative;
         height: calc(50vh);
