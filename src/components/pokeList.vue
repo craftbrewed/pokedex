@@ -1,6 +1,6 @@
 <template>
     <ul class="select" data-size="7">
-        <li v-for="(pokemon, idx) in collection">
+        <li v-for="(pokemon, idx) in collection" :class=" { 'selected' : idx === 0 } ">
             <span class="pokeball"></span>
             <p class="pokedex-pokemon-number"> {{ self.pad( idx+1 ) }}</p>
             <p class="pokedex-pokemon-name"> {{ pokemon.name }} </p>
