@@ -36,36 +36,43 @@ ul li div {
   vertical-align: super;
 }
 
-
-
+//n1
+li.selected + li, li.n1{
+  background-color: $name--n1;
+  visibility: visible;
+  margin: 0 0 0 4px;
+  z-index: 25;
+}
+//n2
+li.selected + li + li, li.n2{
+  background-color: $name--n2;
+  visibility: visible;
+  margin: -4px 0 -4px 8px;
+  z-index: 20;
+}
+//n3
+li.selected + li + li + li, li.n3{
+  background-color: $name--n3;
+  visibility: visible;
+  margin: -4px 0 -4px 20px;
+  z-index: 15;
+}
+//precendence over above styles
 li.selected{
   background-color: $name--selected;
   margin-top: 8px;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 8px;
   visibility: visible;
 }
 li:first-child{
   margin-top: 27px * 3;
 }
-li.n1{
-  background-color: $name--n1;
-  visibility: visible;
-  margin: 0 0 0 4px;
-  z-index: 25;
+li:last-child{
+  margin-bottom: 27px * 5;
 }
 
-li.n2{
-  background-color: $name--n2;
-  visibility: visible;
-  margin: -4px 0 -4px 8px;
-  z-index: 20;
-}
-li.n3{
-  background-color: $name--n3;
-  visibility: visible;
-  margin: -4px 0 -4px 20px;
-  z-index: 15;
-}
 
 li.n3--top{
 }
@@ -83,11 +90,11 @@ li.n3--top:after{
   background-color: $name--n3;
 }
 
-li.n3--bottom{
+li.selected + li + li + li{
   position: relative;
 }
 
-li.n3--bottom:after{
+li.selected + li + li + li:after{
   position: absolute;
   content: ' ';
   z-index: -1;

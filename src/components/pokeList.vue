@@ -1,10 +1,12 @@
 <template>
     <div class="col-8">
         <ul class="select" data-size="7">
-            <li v-for="(pokemon, idx) in collection" :class=" { 'selected' : idx === 0 } ">
+            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="pokemon.url">
                 <span class="pokeball"></span>
-                <p class="pokedex-pokemon-number"> {{ self.pad( idx+1 ) }}</p>
-                <p class="pokedex-pokemon-name"> {{ pokemon.name }} </p>
+                <div>
+                    <p class="pokedex-pokemon-number"> {{ self.pad( idx+1 ) }}</p>
+                    <p class="pokedex-pokemon-name"> {{ pokemon.name }} </p>
+                </div>
             </li>
         </ul>
     </div>
@@ -17,99 +19,67 @@
         data(){
             return{
                 self : this,
-                current: 0,
+                current: null,
+                ul : null,
+                firstLi: null,
+                ulRect: null,
+                ulMidpoint: null,
                 url: '',
-                collection: [
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/1/",
-                        "name": "bulbasaur"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/2/",
-                        "name": "ivysaur"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/3/",
-                        "name": "venusaur"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/4/",
-                        "name": "charmander"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/5/",
-                        "name": "charmeleon"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/6/",
-                        "name": "charizard"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/7/",
-                        "name": "squirtle"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/8/",
-                        "name": "wartortle"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/9/",
-                        "name": "blastoise"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/10/",
-                        "name": "caterpie"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/11/",
-                        "name": "metapod"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/12/",
-                        "name": "butterfree"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/13/",
-                        "name": "weedle"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/14/",
-                        "name": "kakuna"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/15/",
-                        "name": "beedrill"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/16/",
-                        "name": "pidgey"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/17/",
-                        "name": "pidgeotto"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/18/",
-                        "name": "pidgeot"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/19/",
-                        "name": "rattata"
-                    },
-                    {
-                        "url": "http://pokeapi.co/api/v2/pokemon/20/",
-                        "name": "raticate"
-                    }
-                ]
-            }
-        },
-        computed:{
-            pokeIndex: function(){
-                return current+1;
+                collection: []
             }
         },
         methods:{
+            centerListItem(){
+                var selectRect =this.current.getBoundingClientRect(),
+                    offset = (( selectRect.top + selectRect.height/2 ) - this.ulRect.top) + this.ul.scrollTop,
+                    scrollPoint = offset-this.ulMidpoint;
 
+                this.ul.scrollTop = scrollPoint;
+            },
+            setPrevious(){
+                var previous = this.current.previousElementSibling,
+                    n = 0;
+
+                while(previous && n++ < 3){
+                    previous.classList.remove("n1","n2", "n3");
+                    previous.classList.add("n"+n);
+                    previous = previous.previousElementSibling;
+                }
+                console.log(n);
+                if(previous && n === 4){
+                    previous.classList.remove("n1", "n2", "n3");
+                }
+            },
+            next() {
+                if(!this.current.nextElementSibling){
+                    return
+                }
+                var next = this.current.nextElementSibling;
+                next.classList.add('selected');
+                this.current.classList.remove('selected');
+                this.current = next;
+                this.setPrevious();
+                this.centerListItem();
+            },
+            prev(){
+                if(!this.current.previousElementSibling){
+                    return;
+                }
+                var prev = this.current.previousElementSibling;
+                prev.classList.remove("n1");
+                prev.classList.add('selected');
+                this.current.classList.remove('selected');
+                this.current = prev;
+                this.setPrevious();
+                this.centerListItem();
+            }
+        },
+        mounted(){
+            this.current = this.$el.querySelector('.selected');
+            this.ul = this.$el.querySelector('.select');
+            this.firstLi = this.ul.firstElementChild;
+            this.ulRect = this.ul.getBoundingClientRect();
+            this.ulMidpoint = this.ulRect.height/2;
         },
         created(){
             /*
@@ -117,6 +87,8 @@
                 this.collection = pokemans.data.results;
             });
             */
+
+            //load a pokedex
 
         }
     }
