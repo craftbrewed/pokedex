@@ -1,7 +1,7 @@
 <template>
     <div class="col-4">
         <div class="sprite">
-            <img v-bind:src="currentPokemonSprite">
+            <img @listChange="updateSprite" v-bind:src="currentPokemonSprite">
         </div>
     </div>
 </template>
@@ -11,6 +11,11 @@
         data(){
             return{
                 currentPokemonSprite: 'http://lorempixel.com/400/400/'
+            }
+        },
+        methods: {
+            updateSprite(){
+                console.log("Sprite detects list change");
             }
         }
     }
