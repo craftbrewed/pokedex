@@ -5,6 +5,7 @@ ul{
   margin:0;
   padding:0;
   overflow-y: hidden;
+  height: 27px*8;
   width:90%;
 }
 
@@ -35,12 +36,17 @@ ul li div {
   vertical-align: super;
 }
 
+
+
 li.selected{
   background-color: $name--selected;
-  margin: 8px 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
   visibility: visible;
 }
-
+li:first-child{
+  margin-top: 27px * 3;
+}
 li.n1{
   background-color: $name--n1;
   visibility: visible;

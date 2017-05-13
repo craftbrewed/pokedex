@@ -1,7 +1,7 @@
 <template>
     <div id="pokedex">
-        <top-screen></top-screen>
-        <bottom-screen></bottom-screen>
+            <top-screen></top-screen>
+            <bottom-screen></bottom-screen>
     </div>
 </template>
 

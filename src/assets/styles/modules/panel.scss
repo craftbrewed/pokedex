@@ -15,9 +15,9 @@
 .panel:before{
   position: absolute;
   content: ' ';
-  width:18%;
+  width:20%;
   height: 100%;
-  right: calc(-18% - 4px);
+  right: calc(-20% - 4px);
   top:-2px;
   background-color: $panel--light;
   border: solid 2px $panel--border;
