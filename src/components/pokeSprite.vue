@@ -1,7 +1,7 @@
 <template>
     <div class="col-4">
         <div class="sprite">
-            <img @listChange="updateSprite" v-bind:src="currentPokemonSprite">
+            <img v-bind:src="currentPokemonSprite">
         </div>
     </div>
 </template>
@@ -17,6 +17,11 @@
             updateSprite(){
                 console.log("Sprite detects list change");
             }
+        },
+        created(){
+            Pokedex.dispatch.$on('pokemonUpdated', obj => {
+                this.currentPokemonSprite = obj.sprite;
+            });
         }
     }
 </script>

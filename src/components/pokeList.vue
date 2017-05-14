@@ -1,7 +1,7 @@
 <template>
     <div class="col-8">
         <ul class="select" data-size="7">
-            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="lookupUrl+idx">
+            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="lookupUrl+pokemon.entry_number" :data-entry="pokemon.entry_number">
                 <span class="pokeball"></span>
                 <div>
                     <p class="pokedex-pokemon-number"> {{ self.pad( pokemon.entry_number ) }}</p>
@@ -36,7 +36,6 @@
                     scrollPoint = offset-this.ulMidpoint;
 
                 this.ul.scrollTop = scrollPoint;
-                this.$emit('listChange', this.current);
             },
             setPrevious(){
                 var previous = this.current.previousElementSibling,
@@ -73,6 +72,21 @@
                 this.current = prev;
                 this.setPrevious();
                 this.centerListItem();
+            },
+            changeItem(action){
+                switch(action){
+                    case 'next':
+                        this.next();
+                        break;
+                    case 'prev':
+                        this.prev();
+                        break;
+                }
+
+                Pokedex.dispatch.$emit('listChange', {
+                    url: this.current.dataset.url,
+                    entry_number: this.current.dataset.entry
+                })
             }
         },
         mounted(){
@@ -83,16 +97,10 @@
             this.ulMidpoint = this.ulRect.height/2;
         },
         created(){
-            /*
-            axios.get('http://pokeapi.co/api/v2/pokemon/').then(pokemans => {
-                this.collection = pokemans.data.results;
-            });
-            */
-
             //load a pokedex
             this.collection = JSON.parse(localStorage.getItem('pokedex'));
             if(!this.collection){
-                axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
+                axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
                     console.log(pokedex);
                     this.collection = pokedex.data.pokemon_entries;
                     localStorage.setItem('pokedex', JSON.stringify(this.collection));
@@ -103,10 +111,10 @@
             window.addEventListener('keydown', e => {
                 switch(e.which){
                     case 38:
-                        this.prev();
+                        this.changeItem('prev');
                         break;
                     case 40:
-                        this.next();
+                        this.changeItem('next');
                         break;
                 }
             });

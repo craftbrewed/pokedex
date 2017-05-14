@@ -7,11 +7,19 @@ require('./assets/fonts/pokefont/stylesheet.css');
 require('./assets/styles/modules/helpers.scss');
 
 Vue.mixin({
+  created(){
+
+  },
   methods: {
     pad: require('./mixins/pad')
   }
 });
+window.Pokedex = {};
+Pokedex.dispatch = new Vue();
+
 new Vue({
   el: '#app',
   render: h => h(App)
 });
+
+
