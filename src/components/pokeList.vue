@@ -14,7 +14,7 @@
 
 <script type="text/babel">
     import  axios from 'axios';
-
+    import _ from 'lodash';
     export default {
         data(){
             return{
@@ -73,6 +73,13 @@
                 this.setPrevious();
                 this.centerListItem();
             },
+            emitChange: _.debounce(function(){
+                console.log('debounce');
+                Pokedex.dispatch.$emit('listChange', {
+                    url: this.current.dataset.url,
+                    entry_number: this.current.dataset.entry
+                });
+            }, 150),
             changeItem(action){
                 switch(action){
                     case 'next':
@@ -83,10 +90,6 @@
                         break;
                 }
 
-                Pokedex.dispatch.$emit('listChange', {
-                    url: this.current.dataset.url,
-                    entry_number: this.current.dataset.entry
-                })
             }
         },
         mounted(){
@@ -117,6 +120,7 @@
                         this.changeItem('next');
                         break;
                 }
+                this.emitChange();
             });
         }
     }

@@ -11,7 +11,8 @@ Vue.mixin({
 
   },
   methods: {
-    pad: require('./mixins/pad')
+    pad: require('./mixins/pad'),
+    debounce: require('lodash/debounce')
   }
 });
 window.Pokedex = {};
