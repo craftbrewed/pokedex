@@ -9,7 +9,8 @@
     import topScreen from './components/topScreen.vue';
     import bottomScreen from './components/bottomScreen.vue';
 
-    import  axios from 'axios';
+
+
     export default {
         name: 'pokedex',
         components: {topScreen, bottomScreen},
@@ -28,8 +29,8 @@
                 if(!this.pokeData[idx]){
                     Promise.all(
                         [
-                            axios.get(this.apiUrls.pokemon+idx),
-                            axios.get(this.apiUrls.description+(idx+1))
+                            this.axios.get(this.apiUrls.pokemon+idx),
+                            this.axios.get(this.apiUrls.description+(idx+1))
                         ]).then((data) => {
                             var poke = data[0].data,
                                 mon = data[1].data;

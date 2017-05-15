@@ -13,8 +13,6 @@
 </template>
 
 <script type="text/babel">
-    import  axios from 'axios';
-    import _ from 'lodash';
     export default {
         data(){
             return{
@@ -73,14 +71,16 @@
                 this.setPrevious();
                 this.centerListItem();
             },
-            emitChange: _.debounce(function(){
-                console.log('debounce');
+
+            broadcastChange(){
+                console.log("debounce");
                 Pokedex.dispatch.$emit('listChange', {
                     url: this.current.dataset.url,
                     entry_number: this.current.dataset.entry
                 });
-            }, 150),
-            changeItem(action){
+            },
+            changeItem(action)
+            {
                 switch(action){
                     case 'next':
                         this.next();
@@ -103,13 +103,15 @@
             //load a pokedex
             this.collection = JSON.parse(localStorage.getItem('pokedex'));
             if(!this.collection){
-                axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
+                this.axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
                     console.log(pokedex);
                     this.collection = pokedex.data.pokemon_entries;
                     localStorage.setItem('pokedex', JSON.stringify(this.collection));
                 });
             }
-
+            var debounceWrapper = this.$lodash.debounce(() => {
+                this.broadcastChange();
+            }, 150);
             //for now, TODO: DELETE THIS NOT FOR PRODUCTION DAMNIT
             window.addEventListener('keydown', e => {
                 switch(e.which){
@@ -120,7 +122,7 @@
                         this.changeItem('next');
                         break;
                 }
-                this.emitChange();
+                debounceWrapper();
             });
         }
     }
