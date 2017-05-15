@@ -1,7 +1,7 @@
 <template>
     <div class="col-8">
         <ul class="select" data-size="7">
-            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="lookupUrl+pokemon.entry_number" :data-entry="pokemon.entry_number">
+            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="pokemon.pokemon_species.url" :data-entry="pokemon.entry_number">
                 <span class="pokeball"></span>
                 <div>
                     <p class="pokedex-pokemon-number"> {{ self.pad( pokemon.entry_number ) }}</p>
@@ -71,14 +71,6 @@
                 this.setPrevious();
                 this.centerListItem();
             },
-
-            broadcastChange(){
-                console.log("debounce");
-                Pokedex.dispatch.$emit('listChange', {
-                    url: this.current.dataset.url,
-                    entry_number: this.current.dataset.entry
-                });
-            },
             changeItem(action)
             {
                 switch(action){
@@ -92,6 +84,11 @@
 
             }
         },
+        computed: {
+            pokemon_index_number: function(){
+                return this.current.dataset.url.split('/').filter(el => {return el !== "";}).pop();
+            }
+        },
         mounted(){
             this.current = this.$el.querySelector('.selected');
             this.ul = this.$el.querySelector('.select');
@@ -100,20 +97,26 @@
             this.ulMidpoint = this.ulRect.height/2;
         },
         created(){
+            this.broadcastChange = this.$lodash.debounce(() => {
+                Pokedex.dispatch.$emit('listChange', {
+                    url: this.current.dataset.url,
+                    entry_number: this.pokemon_index_number
+                });
+            }, 150);
+
             //load a pokedex
             this.collection = JSON.parse(localStorage.getItem('pokedex'));
             if(!this.collection){
-                this.axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
-                    console.log(pokedex);
+                this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
                     this.collection = pokedex.data.pokemon_entries;
                     localStorage.setItem('pokedex', JSON.stringify(this.collection));
                 });
             }
-            var debounceWrapper = this.$lodash.debounce(() => {
-                this.broadcastChange();
-            }, 150);
+            this.broadcastChange();
+
             //for now, TODO: DELETE THIS NOT FOR PRODUCTION DAMNIT
             window.addEventListener('keydown', e => {
+                this.broadcastChange();
                 switch(e.which){
                     case 38:
                         this.changeItem('prev');
@@ -122,7 +125,7 @@
                         this.changeItem('next');
                         break;
                 }
-                debounceWrapper();
+
             });
         }
     }

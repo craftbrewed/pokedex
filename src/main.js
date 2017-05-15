@@ -14,7 +14,6 @@ import axios from 'axios';
 
 
 
-
 Vue.mixin({
   created(){
 

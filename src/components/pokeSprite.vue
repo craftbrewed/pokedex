@@ -10,7 +10,7 @@
     export default {
         data(){
             return{
-                currentPokemonSprite: 'http://lorempixel.com/400/400/'
+                currentPokemonSprite: ''
             }
         },
         methods: {

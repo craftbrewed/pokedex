@@ -25,30 +25,32 @@
             }
         },
         methods:{
-            pokemonLookup(idx){
+            pokemonLookup(idx, url){
+
                 if(!this.pokeData[idx]){
-                    Promise.all(
-                        [
-                            this.axios.get(this.apiUrls.pokemon+idx),
-                            this.axios.get(this.apiUrls.description+(idx+1))
-                        ]).then((data) => {
-                            var poke = data[0].data,
-                                mon = data[1].data;
+                    var pokeData = this.axios.get(this.apiUrls.pokemon+idx).then(poke =>{
+                            this.pokeData[idx] = this.pokeData[idx] || {};
+                            var thisPokemon = this.pokeData[idx];
+                            poke = poke.data;
 
+                            thisPokemon.name = poke.name;
+                            thisPokemon.weight = poke.weight;
+                            thisPokemon.height = poke.height;
+                            thisPokemon.sprite = poke.sprites.front_default;
+                    }),
+                        speciesData = this.axios.get(url).then(species =>{
+                            this.pokeData[idx] = this.pokeData[idx] || {};
+                            var thisPokemon = this.pokeData[idx];
 
-                            this.pokeData[idx] = {
-                                name : poke.name,
-                                weight: poke.weight,
-                                height: poke.height,
-                                sprite: poke.sprites.front_default,
-                                description: mon.description
-                            };
-
+                            thisPokemon.description = species.data.flavor_text_entries.filter(obj => {
+                               return obj.version.name === "pearl";
+                            });
+                        });
+                    Promise.all([pokeData, speciesData]).then((data) => {
                             localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
                             this.currentPokemon = this.pokeData[idx];
 
                             Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
-
                     });
                 }else{
                     this.currentPokemon = this.pokeData[idx];
@@ -64,7 +66,7 @@
             }
 
             Pokedex.dispatch.$on('listChange', data => {
-                this.pokemonLookup(data.entry_number);
+                this.pokemonLookup(data.entry_number, data.url);
             });
         }
     }
