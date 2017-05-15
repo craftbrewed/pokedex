@@ -19,8 +19,8 @@
             }
         },
         created(){
-            Pokedex.dispatch.$on('pokemonUpdated', obj => {
-                this.currentPokemonSprite = obj.sprite;
+            Pokedex.dispatch.$on('pokemonSpriteUpdate', sprite => {
+                this.currentPokemonSprite = sprite;
             });
         }
     }

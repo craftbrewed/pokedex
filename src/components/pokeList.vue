@@ -106,13 +106,19 @@
 
             //load a pokedex
             this.collection = JSON.parse(localStorage.getItem('pokedex'));
-            if(!this.collection){
-                this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
-                    this.collection = pokedex.data.pokemon_entries;
-                    localStorage.setItem('pokedex', JSON.stringify(this.collection));
-                });
-            }
-            this.broadcastChange();
+            new Promise((res) => {
+                if(!this.collection){
+                    this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
+                        this.collection = pokedex.data.pokemon_entries;
+                        localStorage.setItem('pokedex', JSON.stringify(this.collection));
+                    });
+                    res();
+                }else{
+                    res();
+                }
+            }).then(() =>{
+                this.broadcastChange();
+            });
 
             //for now, TODO: DELETE THIS NOT FOR PRODUCTION DAMNIT
             window.addEventListener('keydown', e => {

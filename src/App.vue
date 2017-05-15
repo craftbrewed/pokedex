@@ -37,6 +37,8 @@
                             thisPokemon.weight = poke.weight;
                             thisPokemon.height = poke.height;
                             thisPokemon.sprite = poke.sprites.front_default;
+
+                            Pokedex.dispatch.$emit('pokemonSpriteUpdate', thisPokemon.sprite);
                     }),
                         speciesData = this.axios.get(url).then(species =>{
                             this.pokeData[idx] = this.pokeData[idx] || {};
@@ -50,11 +52,12 @@
                             localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
                             this.currentPokemon = this.pokeData[idx];
 
-                            Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
+                            //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
                     });
                 }else{
                     this.currentPokemon = this.pokeData[idx];
-                    Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
+                    //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
+                    Pokedex.dispatch.$emit('pokemonSpriteUpdate', this.currentPokemon.sprite);
                 }
 
             }
