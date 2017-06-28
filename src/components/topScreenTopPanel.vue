@@ -8,7 +8,6 @@
                 <span class="pokeball hang-right"></span>
             </div>
         </div>
-
     </div>
 </template>
 

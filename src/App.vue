@@ -9,8 +9,6 @@
     import topScreen from './components/topScreen.vue';
     import bottomScreen from './components/bottomScreen.vue';
 
-
-
     export default {
         name: 'pokedex',
         components: {topScreen, bottomScreen},
@@ -26,7 +24,7 @@
         },
         methods:{
             pokemonLookup(idx, url){
-
+                Pokedex.dispatch.$emit('pokemonSpriteUpdate', "./pokesprites/"+idx+"/front_default/"+idx+".png");
                 if(!this.pokeData[idx]){
                     var pokeData = this.axios.get(this.apiUrls.pokemon+idx).then(poke =>{
                             this.pokeData[idx] = this.pokeData[idx] || {};
@@ -36,9 +34,8 @@
                             thisPokemon.name = poke.name;
                             thisPokemon.weight = poke.weight;
                             thisPokemon.height = poke.height;
-                            thisPokemon.sprite = poke.sprites.front_default;
-
-                            Pokedex.dispatch.$emit('pokemonSpriteUpdate', thisPokemon.sprite);
+                    }).then((data) => {
+                                this.currentPokemon = this.pokeData[idx];
                     }),
                         speciesData = this.axios.get(url).then(species =>{
                             this.pokeData[idx] = this.pokeData[idx] || {};
@@ -51,13 +48,11 @@
                     Promise.all([pokeData, speciesData]).then((data) => {
                             localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
                             this.currentPokemon = this.pokeData[idx];
-
                             //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
                     });
                 }else{
                     this.currentPokemon = this.pokeData[idx];
                     //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
-                    Pokedex.dispatch.$emit('pokemonSpriteUpdate', this.currentPokemon.sprite);
                 }
 
             }
