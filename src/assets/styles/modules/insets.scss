@@ -1,0 +1,34 @@
+@import "../vars/pallette.scss";
+@import "../vars/image-constants.scss";
+
+.inset-line{
+  position:absolute;
+  background-color: $dark-yellow--background;
+}
+
+.inset-line.horz{
+  width:100%;
+  height:10px;
+  border-top: solid 2px $bottom-panel-border--dark;
+  border-bottom: solid 2px $bottom-panel-border--light;
+  left:0;
+}
+.inset-line.vert{
+  height:100%;
+  width:10px;
+  top:0;
+  border-left: solid 2px $bottom-panel-border--dark;
+  border-right:solid 2px $bottom-panel-border--light;
+}
+.inset-line.top{
+  top: $line-space/2;
+}
+.inset-line.bottom{
+  bottom: $line-space/2;
+}
+.inset-line.left{
+  left:$line-space;
+}
+.inset-line.right{
+  right:$line-space;
+}

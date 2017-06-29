@@ -4,12 +4,26 @@
             <insets></insets>
             <div class="row full-height">
                 <div class="col-4">
-                    <square-button id="search-pokemon"></square-button>
-                    <square-button id="check-pokedex"></square-button>
+                    <square-button id="search-pokemon">
+                        <span class="button-text">SEARCH POKéMON</span>
+                        <span slot="glyph" class="button-glyph search" ></span>
+                    </square-button>
+                    <square-button id="check-pokedex">
+                        <span class="button-text">CHECK  POKéDEX</span>
+                        <span slot="glyph" class="button-glyph book" ></span>
+                    </square-button>
                 </div>
                 <div class="col-2">
-                    <circle-button id="navigation-up"></circle-button>
-                    <circle-button id="navigation-down"></circle-button>
+                    <div class="center-btn-container">
+                        <circle-button id="navigation-up">
+                            <span class="button-glyph arrow-default arrow-default-up"></span>
+                        </circle-button>
+                        <circle-button id="navigation-down">
+                            <span class="button-glyph arrow-default arrow-default-down"></span>
+
+                        </circle-button>
+                    </div>
+
                 </div>
                 <div class="col-6">
                     <big-pokeball></big-pokeball>
@@ -33,10 +47,14 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+    @import "../assets/styles/modules/insets.scss";
+    @import "../assets/styles/vars/pallette.scss";
     .bottom-screen{
+        background-color: $light-yellow--background;
         overflow: hidden;
         position: relative;
-        height: calc(50vh);
+        height: calc(49vh);
+        padding: 5px 0 5px 10px;
     }
 </style>

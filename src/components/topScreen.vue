@@ -34,7 +34,7 @@
     .top-screen{
         overflow: hidden;
         position: relative;
-        height: calc(50vh);
+        height: calc(49vh);
     }
 
     .top-screen-borders{
