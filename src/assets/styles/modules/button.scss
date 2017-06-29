@@ -97,7 +97,7 @@ button.square-button .button-glyph{
 .center-btn-container{
   height:75%;
   max-height: 265px;
-  width:80%;
+  width:calc(100% - 38px);
   background-color: $dark-yellow--background;
   border: solid 4px $bottom-panel-border--dark;
   border-radius: 50px;

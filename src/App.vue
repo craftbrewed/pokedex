@@ -78,7 +78,7 @@
         overflow-y: hidden;
     }
     #pokedex{
-        max-width: 550px;
+        max-width: (2*100vh) / 3;
         margin: 0 auto;
     }
 </style>

@@ -80,6 +80,17 @@
                     case 'prev':
                         this.prev();
                         break;
+                    case 'prevTen':
+                        var i = 10;
+                        while(i-- > 0){
+                            this.prev();
+                        }
+                        break;
+                    case 'nextTen':
+                        var i = 10;
+                        while(i-- > 0){
+                            this.next();
+                        }
                 }
 
             }
@@ -124,6 +135,12 @@
             window.addEventListener('keydown', e => {
                 this.broadcastChange();
                 switch(e.which){
+                    case 33:
+                        this.changeItem('prevTen');
+                        break;
+                    case 34:
+                        this.changeItem('nextTen');
+                        break;
                     case 38:
                         this.changeItem('prev');
                         break;

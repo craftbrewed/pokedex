@@ -3,7 +3,7 @@
         <div class="container">
             <insets></insets>
             <div class="row full-height">
-                <div class="col-4">
+                <div class="col-5">
                     <square-button id="search-pokemon">
                         <span class="button-text">SEARCH POKéMON</span>
                         <span slot="glyph" class="button-glyph search" ></span>
@@ -25,7 +25,7 @@
                     </div>
 
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <big-pokeball></big-pokeball>
                 </div>
             </div>
