@@ -21,24 +21,16 @@
         border-radius: 50%;
         border: solid $border-width #907850;
         position: absolute;
-        top: -1vh;
+        top: -1.5vh;
         overflow: hidden;
         background-color: $pokeball-white;
         z-index: 9999;
-        animation: testRotate .5s linear infinite;
-    }
-    @keyframes testRotate{
-        0%{
-            transform: rotate(0deg)
-        }
-        100%{
-            transform: rotate(360deg)
-        }
+        animation: testRotate 25s linear infinite;
     }
     .big-pokeball:before{
         position: absolute;
         content: '';
-        height:calc(50% - #{$border-width});
+        height:calc(50% - #{$border-width + $border-half});
         width:100%;
         //background-color: $pokeball--red;
         border-bottom: solid $border-width  #907850;
@@ -72,6 +64,13 @@
         margin: auto;
         border-radius: 50%;
         background-color: $pokeball--border;
+    }
+    @media(max-width:600px){
+        .big-pokeball{
+            top: 1vh;
+            width: 45vh;
+            height: 45vh;
+        }
     }
 
 </style>

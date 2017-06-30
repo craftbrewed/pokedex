@@ -75,7 +75,7 @@ button.square-button:active:after{
 }
 button.square-button .button-text{
   margin-top: 1px;
-  width: 55%;
+  width: 45%;
   white-space: normal;
 }
 button.square-button .button-glyph{
@@ -175,4 +175,14 @@ button.circle-button .button-glyph{
 }
 #navigation-down .button-glyph{
  // transform: rotate( 180deg ) translateX(-1px);
+}
+
+@media (max-width: 600px){
+  .center-btn-container {
+    margin: auto 0;
+    width: calc(100% - 8px);
+  }
+  button.square-button{
+    max-width: 90%;
+  }
 }
