@@ -52,7 +52,6 @@
                     });
                 }else{
                     this.currentPokemon = this.pokeData[idx];
-                    //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
                 }
 
             }

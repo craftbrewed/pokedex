@@ -9,8 +9,8 @@ require('./assets/fonts/pokefont/stylesheet.css');
 require('./assets/styles/modules/helpers.scss');
 
 var _ = require('lodash');
+import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
-
 
 
 

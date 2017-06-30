@@ -131,24 +131,14 @@
                 this.broadcastChange();
             });
 
-            //for now, TODO: DELETE THIS NOT FOR PRODUCTION DAMNIT
-            window.addEventListener('keydown', e => {
+            //catch events that alter the list
+            Pokedex.dispatch.$on('listItemChange', (e) => {
                 this.broadcastChange();
-                switch(e.which){
-                    case 33:
-                        this.changeItem('prevTen');
-                        break;
-                    case 34:
-                        this.changeItem('nextTen');
-                        break;
-                    case 38:
-                        this.changeItem('prev');
-                        break;
-                    case 40:
-                        this.changeItem('next');
-                        break;
+                try{
+                    this.changeItem(e);
+                }catch (e){
+                    console.error('Critical Error Shutting Down Core Reactor');
                 }
-
             });
         }
     }
