@@ -19,6 +19,7 @@
                 lookupUrl : "http://pokeapi.co/api/v2/pokemon/",
                 self : this,
                 current: null,
+                currentPokedex: 5,
                 ul : null,
                 firstLi: null,
                 ulRect: null,
@@ -30,12 +31,19 @@
         methods:{
             loadPokedex(){
                 //load a pokedex
-                this.collection = JSON.parse(localStorage.getItem('pokedex'));
+                this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
+                this.collection = this.collection[ this.currentPokedex ];
                 new Promise((res) => {
-                    if(!this.collection){
-                        this.axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
+                    if( !this.collection ){
+                        var url = 'http://pokeapi.co/api/v2/pokedex/'+this.currentPokedex+'/';
+                        this.axios.get(url).then(pokedex => {
+                            var bigCollection = this.completeCollection;
+
                             this.collection = pokedex.data.pokemon_entries;
-                            localStorage.setItem('pokedex', JSON.stringify(this.collection));
+
+                            bigCollection[this.currentPokedex] = this.collection;
+                            localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
+
                             res();
                         });
                     }else{
@@ -89,31 +97,10 @@
                 this.setPrevious();
                 this.centerListItem();
             },
-            changeItem(by){
-                /*
-                switch(action){
-                    case 'next':
-                        this.next();
-                        break;
-                    case 'prev':
-                        this.prev();
-                        break;
-                    case 'prevTen':
-                        var i = 10;
-                        while(i-- > 0){
-                            this.prev();
-                        }
-                        break;
-                    case 'nextTen':
-                        var i = 10;
-                        while(i-- > 0){
-                            this.next();
-                        }
-                }
-                */
-                console.log(by);
-                var exFunc = (by > 0) ?  this['next'] : this['prev'];
-                for(var i = 0; i < Math.abs(by); i+=1){
+            changeItem(delta){
+
+                var exFunc = (delta >= 0) ?  this['next'] : this['prev'];
+                for(var i = 0; i < Math.abs(delta); i+=1){
                     exFunc();
                 }
 
