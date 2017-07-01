@@ -15,12 +15,11 @@
                 </div>
                 <div class="col-2">
                     <div class="center-btn-container">
-                        <circle-button id="navigation-up">
+                        <circle-button id="navigation-up" @click="navUp">
                             <span class="button-glyph arrow-default arrow-default-up"></span>
                         </circle-button>
-                        <circle-button id="navigation-down">
+                        <circle-button  id="navigation-down" @click="navDown">
                             <span class="button-glyph arrow-default arrow-default-down"></span>
-
                         </circle-button>
                     </div>
 
@@ -37,12 +36,20 @@
 
     import insets from  './insets.vue';
     import squareButton from './squareButton.vue';
-    import circleButton from './circleButton.vue';
+    import circleButton from './buttons/circleButton.vue';
     import bigPokeball from './bigPokeball.vue';
 
     export default{
         components: {
             insets, squareButton, circleButton, bigPokeball
+        },
+        methods:{
+            navUp(){
+                Pokedex.dispatch.$emit('listItemChange', -1);
+            },
+            navDown(){
+                Pokedex.dispatch.$emit('listItemChange', 1);
+            }
         }
     }
 </script>

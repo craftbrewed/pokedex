@@ -1,7 +1,5 @@
 <template>
-    <button class="circle-button">
-        <slot></slot>
-    </button>
+
 </template>
 
 <script type="text/babel">
