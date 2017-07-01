@@ -28,6 +28,24 @@
             }
         },
         methods:{
+            loadPokedex(){
+                //load a pokedex
+                this.collection = JSON.parse(localStorage.getItem('pokedex'));
+                new Promise((res) => {
+                    if(!this.collection){
+                        this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
+                            this.collection = pokedex.data.pokemon_entries;
+                            localStorage.setItem('pokedex', JSON.stringify(this.collection));
+                            res();
+                        });
+                    }else{
+                        res();
+                    }
+                }).then(() =>{
+                    this.current = this.$el.querySelector('.selected');
+                    this.broadcastChange();
+                });
+            },
             centerListItem(){
                 var selectRect =this.current.getBoundingClientRect(),
                     offset = (( selectRect.top + selectRect.height/2 ) - this.ulRect.top) + this.ul.scrollTop,
@@ -71,8 +89,7 @@
                 this.setPrevious();
                 this.centerListItem();
             },
-            changeItem(action)
-            {
+            changeItem(action){
                 switch(action){
                     case 'next':
                         this.next();
@@ -92,7 +109,7 @@
                             this.next();
                         }
                 }
-
+                this.broadcastChange();
             }
         },
         computed: {
@@ -101,39 +118,24 @@
             }
         },
         mounted(){
-            this.current = this.$el.querySelector('.selected');
+
             this.ul = this.$el.querySelector('.select');
-            this.firstLi = this.ul.firstElementChild;
             this.ulRect = this.ul.getBoundingClientRect();
             this.ulMidpoint = this.ulRect.height/2;
+
+
         },
         created(){
+            this.loadPokedex();
             this.broadcastChange = this.$lodash.debounce(() => {
                 Pokedex.dispatch.$emit('listChange', {
-                    url: this.current.dataset.url,
-                    entry_number: this.pokemon_index_number
+                    speciesUrl: this.current.dataset.url,
+                    entryNumber: this.pokemon_index_number
                 });
             }, 150);
 
-            //load a pokedex
-            this.collection = JSON.parse(localStorage.getItem('pokedex'));
-            new Promise((res) => {
-                if(!this.collection){
-                    this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
-                        this.collection = pokedex.data.pokemon_entries;
-                        localStorage.setItem('pokedex', JSON.stringify(this.collection));
-                    });
-                    res();
-                }else{
-                    res();
-                }
-            }).then(() =>{
-                this.broadcastChange();
-            });
-
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {
-                this.broadcastChange();
                 try{
                     this.changeItem(e);
                 }catch (e){

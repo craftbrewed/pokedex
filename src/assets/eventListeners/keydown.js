@@ -28,7 +28,6 @@ var keydown = (function () {
         //broadcast that event
 
         if(event){
-            console.log(event);
             Pokedex.dispatch.$emit(event, action);
         }
     };

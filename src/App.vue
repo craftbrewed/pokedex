@@ -15,55 +15,80 @@
         data () {
             return {
                 apiUrls : {
-                    description: 'http://pokeapi.co/api/v1/description/',
                     pokemon: 'http://pokeapi.co/api/v2/pokemon/'
                 },
                 pokeData: {},
-                currentPokemon: {}
+                currentPokemon: {},
+                currentIdx: null,
+                speciesUrl: null
             }
         },
         methods:{
-            pokemonLookup(idx, url){
-                Pokedex.dispatch.$emit('pokemonSpriteUpdate', "./pokesprites/"+idx+"/front_default/"+idx+".png");
-                if(!this.pokeData[idx]){
-                    var pokeData = this.axios.get(this.apiUrls.pokemon+idx).then(poke =>{
-                            this.pokeData[idx] = this.pokeData[idx] || {};
-                            var thisPokemon = this.pokeData[idx];
-                            poke = poke.data;
+            updateSprite(){
+                var idx = this.currentIdx,
+                    imagePath = './pokesprites/'+idx+'/front_default/'+idx+'.png';
 
-                            thisPokemon.name = poke.name;
-                            thisPokemon.weight = poke.weight;
-                            thisPokemon.height = poke.height;
-                    }).then((data) => {
-                                this.currentPokemon = this.pokeData[idx];
-                    }),
-                        speciesData = this.axios.get(url).then(species =>{
-                            this.pokeData[idx] = this.pokeData[idx] || {};
-                            var thisPokemon = this.pokeData[idx];
+                Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
+            },
+            fetchPokemonData() {
+                var idx = this.currentIdx,
+                    url = this.apiUrls.pokemon+idx;
 
-                            thisPokemon.description = species.data.flavor_text_entries.filter(obj => {
-                               return obj.version.name === "pearl";
-                            });
-                        });
-                    Promise.all([pokeData, speciesData]).then((data) => {
-                            localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
-                            this.currentPokemon = this.pokeData[idx];
-                            //Pokedex.dispatch.$emit('pokemonUpdated', this.currentPokemon);
+                return this.axios.get(url).then(mon => {
+                    this.pokeData[idx] = this.pokeData[idx] || {};
+                    var poke = this.pokeData[idx];
+                    mon = mon.data;
+
+                    poke = mon.name;
+                    poke = mon.weight;
+                    poke = mon.height;
+                });
+            },
+            fetchSpeciesData(){
+                var idx = this.currentIdx,
+                    url = this.speciesUrl;
+
+                return this.axios.get(url).then(species => {
+                    this.pokeData[idx] = this.pokeData[idx] || {};
+
+                    this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
+                        return obj.version.name === "pearl";
                     });
-                }else{
-                    this.currentPokemon = this.pokeData[idx];
-                }
+                });
+            },
 
+            loadPokeData(){
+                var pokemonData = this.fetchPokemonData(),
+                    speciesData = this.fetchSpeciesData();
+
+                //cache pokemon
+                Promise.all([pokemonData, speciesData]).then((data) => {
+                    localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
+                    this.currentPokemon = this.pokeData[this.currentIdx];
+                });
+            },
+            pokemonLookup(){
+                this.updateSprite();
+                if(!this.pokeData[this.currentIdx]){
+                    this.loadPokeData();
+                }else{
+                    this.currentPokemon = this.pokeData[this.currentIdx];
+                }
             }
         },
         created(){
+            console.log("app created");
             this.pokeData = JSON.parse(localStorage.getItem('pokeCache'));
+
             if(!this.pokeData){
                 this.pokeData = {};
             }
 
             Pokedex.dispatch.$on('listChange', data => {
-                this.pokemonLookup(data.entry_number, data.url);
+                this.currentIdx = data.entryNumber;
+                this.speciesUrl = data.speciesUrl;
+
+                this.pokemonLookup();
             });
         }
     }
