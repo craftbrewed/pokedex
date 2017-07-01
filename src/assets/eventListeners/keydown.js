@@ -7,21 +7,22 @@ var keydown = (function () {
         var event = '',
             action;
         switch(e.which){
-            case 33:
+            case 33: //Page Up
                 event = 'listItemChange';
-                action = 'prevTen';
+                action = -10;
                 break;
-            case 34:
+
+            case 34: //Page Down
                 event = 'listItemChange';
-                action = 'nextTen';
+                action = 10;
                 break;
-            case 38:
+            case 38: //Up Arrow
                 event = 'listItemChange';
-                action = 'prev';
+                action = -1;
                 break;
-            case 40:
+            case 40: //Down Arrow
                 event = 'listItemChange';
-                action = 'next';
+                action = 1;
                 break;
         }
 

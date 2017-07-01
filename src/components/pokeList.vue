@@ -33,7 +33,7 @@
                 this.collection = JSON.parse(localStorage.getItem('pokedex'));
                 new Promise((res) => {
                     if(!this.collection){
-                        this.axios.get('http://pokeapi.co/api/v2/pokedex/5/').then(pokedex => {
+                        this.axios.get('http://pokeapi.co/api/v2/pokedex/1/').then(pokedex => {
                             this.collection = pokedex.data.pokemon_entries;
                             localStorage.setItem('pokedex', JSON.stringify(this.collection));
                             res();
@@ -89,7 +89,8 @@
                 this.setPrevious();
                 this.centerListItem();
             },
-            changeItem(action){
+            changeItem(by){
+                /*
                 switch(action){
                     case 'next':
                         this.next();
@@ -109,6 +110,13 @@
                             this.next();
                         }
                 }
+                */
+                console.log(by);
+                var exFunc = (by > 0) ?  this['next'] : this['prev'];
+                for(var i = 0; i < Math.abs(by); i+=1){
+                    exFunc();
+                }
+
                 this.broadcastChange();
             }
         },
