@@ -35,7 +35,7 @@
                 this.collection = this.collection[ this.currentPokedex ];
                 new Promise((res) => {
                     if( !this.collection ){
-                        var url = 'http://pokeapi.co/api/v2/pokedex/'+this.currentPokedex+'/';
+                        var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
                         this.axios.get(url).then(pokedex => {
                             var bigCollection = this.completeCollection;
 

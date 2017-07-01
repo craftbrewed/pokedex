@@ -14,9 +14,6 @@
         components: {topScreen, bottomScreen},
         data () {
             return {
-                apiUrls : {
-                    pokemon: 'http://pokeapi.co/api/v2/pokemon/'
-                },
                 pokeData: {},
                 currentPokemon: {},
                 currentIdx: null,
@@ -32,7 +29,7 @@
             },
             fetchPokemonData() {
                 var idx = this.currentIdx,
-                    url = this.apiUrls.pokemon+idx;
+                    url = Pokedex.apiUrls.pokemon+idx;
 
                 return this.axios.get(url).then(mon => {
                     this.pokeData[idx] = this.pokeData[idx] || {};

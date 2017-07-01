@@ -34,6 +34,10 @@ Vue.prototype.axios = axios;
 
 window.Pokedex = {};
 Pokedex.dispatch = new Vue();
+Pokedex.apiUrls = {
+    pokemon: 'https://pokeapi.co/api/v2/pokemon/',
+    pokedex: 'https://pokeapi.co/api/v2/pokedex/'
+};
 
 new Vue({
   el: '#app',
