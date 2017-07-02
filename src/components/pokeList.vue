@@ -83,7 +83,6 @@
                 }
             },
             setCurrent(idx){
-                
                 this.ulIdx = idx;
                 this.current.classList.remove('selected');
                 this.current = this.ulArray[ idx ];
@@ -97,6 +96,7 @@
                 if(nextIdx > this.collection.length-1){
                     nextIdx = this.collection.length-1;
                 }
+
                 if(nextIdx < 0){
                     nextIdx = 0;
                 }

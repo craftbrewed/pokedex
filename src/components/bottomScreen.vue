@@ -45,10 +45,10 @@
         },
         methods:{
             navUp(){
-                Pokedex.dispatch.$emit('listItemChange', -1);
+                Pokedex.dispatch.$emit('listItemChange', -999);
             },
             navDown(){
-                Pokedex.dispatch.$emit('listItemChange', 1);
+                Pokedex.dispatch.$emit('listItemChange', 999);
             }
         }
     }
