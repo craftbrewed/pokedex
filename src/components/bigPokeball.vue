@@ -34,7 +34,7 @@
                         this.emitChange();
                         this.spinAtVelocity(v, count);
                     }else{
-                        this.spinnign = false;
+                        this.spinning = false;
                         clearInterval(a);
                     }
                 }, 100/count*2);
@@ -59,7 +59,6 @@
                 if(!touches && this.touch === true){
                     this.touch = false;
                 }
-
             },
             //events
             pointerDown(e){

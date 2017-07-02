@@ -1,7 +1,7 @@
 <template>
     <div class="col-8">
         <ul class="select" data-size="7">
-            <li v-for="(pokemon, idx) in collection" :class=" { 'selected first-visible' : idx === 0 } " :data-url="pokemon.pokemon_species.url" :data-entry="pokemon.entry_number">
+            <li v-for="(pokemon, idx) in collection" :class=" { 'first-visible' : idx === 0 } " :data-url="pokemon.pokemon_species.url" :data-entry="pokemon.entry_number">
                 <span class="pokeball"></span>
                 <div>
                     <p class="pokedex-pokemon-number"> {{ self.pad( pokemon.entry_number ) }}</p>
@@ -21,11 +21,14 @@
                 current: null,
                 currentPokedex: 5,
                 ul : null,
+                ulArray: [],
+                ulIdx: 0,
                 firstLi: null,
                 ulRect: null,
                 ulMidpoint: null,
                 url: '',
-                collection: []
+                collection: [],
+                previousList: []
             }
         },
         methods:{
@@ -50,7 +53,9 @@
                         res();
                     }
                 }).then(() =>{
-                    this.current = this.$el.querySelector('.selected');
+                    this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
+                    this.current = this.ulArray[this.ulIdx];
+                    this.current.classList.add('selected');
                     this.broadcastChange();
                 });
             },
@@ -61,49 +66,46 @@
 
                 this.ul.scrollTop = scrollPoint;
             },
+            //we set the next 3 siblings via css, but we have to assign values to the previous siblings
             setPrevious(){
                 var previous = this.current.previousElementSibling,
                     n = 0;
 
+                this.previousList.forEach(item => {
+                   item.classList.remove('n1', 'n2', 'n3');
+                });
+                this.previousList = [];
+
                 while(previous && n++ < 3){
-                    previous.classList.remove("n1","n2", "n3");
                     previous.classList.add("n"+n);
+                    this.previousList.push(previous);
                     previous = previous.previousElementSibling;
                 }
-                if(previous && n === 4){
-                    previous.classList.remove("n1", "n2", "n3");
-                }
             },
-            next() {
-                if(!this.current.nextElementSibling){
-                    return
-                }
-                var next = this.current.nextElementSibling;
-                next.classList.add('selected');
+            setCurrent(idx){
+                
+                this.ulIdx = idx;
                 this.current.classList.remove('selected');
-                this.current = next;
-                this.setPrevious();
-                this.centerListItem();
-            },
-            prev(){
-                if(!this.current.previousElementSibling){
-                    return;
-                }
-                var prev = this.current.previousElementSibling;
-                prev.classList.remove("n1");
-                prev.classList.add('selected');
-                this.current.classList.remove('selected');
-                this.current = prev;
+                this.current = this.ulArray[ idx ];
+                this.current.classList.add('selected');
                 this.setPrevious();
                 this.centerListItem();
             },
             changeItem(delta){
-
-                var exFunc = (delta >= 0) ?  this['next'] : this['prev'];
-                for(var i = 0; i < Math.abs(delta); i+=1){
-                    exFunc();
+                var nextIdx = this.ulIdx + delta;
+                
+                if(nextIdx > this.collection.length-1){
+                    nextIdx = this.collection.length-1;
+                }
+                if(nextIdx < 0){
+                    nextIdx = 0;
                 }
 
+                if(nextIdx === this.ulIdx){
+                    return;
+                }
+
+                this.setCurrent(nextIdx);
                 this.broadcastChange();
             }
         },
@@ -117,7 +119,6 @@
             this.ul = this.$el.querySelector('.select');
             this.ulRect = this.ul.getBoundingClientRect();
             this.ulMidpoint = this.ulRect.height/2;
-
 
         },
         created(){
