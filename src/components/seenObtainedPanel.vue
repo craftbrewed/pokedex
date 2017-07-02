@@ -21,6 +21,14 @@
                 seen: 0,
                 obtained: 0
             }
+        },
+        created(){
+            Pokedex.dispatch.$on('closeTopPanels', () =>{
+                this.$el.classList.add('closed');
+            });
+            Pokedex.dispatch.$on('openTopPanels', () => {
+                this.$el.classList.remove('closed');
+            });
         }
     }
 </script>
@@ -31,6 +39,15 @@
 
     .bottom-panel{
         border-top: solid 2px $panel--border;
+        position: absolute !important;
+        bottom:0;
+        left: 0;
+        z-index: 99999;
+        transition: all 250ms ease-out;
+        height:23%
+    }
+    .bottom-panel.closed{
+        height: 40%;
     }
     .bottom-panel .decoration{
         position: absolute;

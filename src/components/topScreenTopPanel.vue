@@ -12,7 +12,16 @@
 </template>
 
 <script type="text/babel">
-    export default {}
+    export default {
+        created(){
+            Pokedex.dispatch.$on('closeTopPanels', () =>{
+                this.$el.classList.add('closed');
+            });
+            Pokedex.dispatch.$on('openTopPanels', () => {
+                this.$el.classList.remove('closed');
+            });
+        }
+    }
 </script>
 
 <style lang="scss">

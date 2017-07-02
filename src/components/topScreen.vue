@@ -20,6 +20,14 @@
 
         components: {
             topScreenTopPanel, pokeSprite, pokeList, seenObtainedPanel
+        },
+        created(){
+            Pokedex.dispatch.$on('topScreenCloseOpen', () => {
+                Pokedex.dispatch.$emit('closeTopPanels');
+                setTimeout(()=>{
+                    Pokedex.dispatch.$emit('openTopPanels');
+                },350);
+            });
         }
 
     }

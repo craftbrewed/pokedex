@@ -46,9 +46,11 @@
         methods:{
             navUp(){
                 Pokedex.dispatch.$emit('listItemChange', -999);
+                Pokedex.dispatch.$emit('topScreenCloseOpen');
             },
             navDown(){
                 Pokedex.dispatch.$emit('listItemChange', 999);
+                Pokedex.dispatch.$emit('topScreenCloseOpen');
             }
         }
     }

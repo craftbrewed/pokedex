@@ -2,6 +2,16 @@
 @import '../vars/image-constants.scss';
 .top-panel{
   border-bottom: solid 2px $panel--border;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  height:10%;
+  transition: all 250ms ease-out;
+
+}
+.top-panel.closed{
+  height: 60%;
 }
 .top-panel .decoration{
   position: absolute;
