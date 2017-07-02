@@ -74,7 +74,6 @@
             }
         },
         created(){
-            console.log("app created");
             this.pokeData = JSON.parse(localStorage.getItem('pokeCache'));
 
             if(!this.pokeData){
