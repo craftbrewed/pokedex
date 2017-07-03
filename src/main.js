@@ -16,10 +16,11 @@ import axios from 'axios';
 
 Vue.mixin({
   created(){
-
+      this.transEndEvt = this.whichTransitionEnd();
   },
   methods: {
-    pad: require('./mixins/pad')
+      pad: require('./mixins/pad'),
+      whichTransitionEnd: require('./mixins/transitionEnd')
   }
 });
 

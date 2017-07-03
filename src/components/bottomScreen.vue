@@ -45,12 +45,14 @@
         },
         methods:{
             navUp(){
-                Pokedex.dispatch.$emit('listItemChange', -999);
-                Pokedex.dispatch.$emit('topScreenCloseOpen');
+                Pokedex.dispatch.$emit('topScreenCloseOpen', function(){
+                    Pokedex.dispatch.$emit('listItemChange', -999, true);
+                });
             },
             navDown(){
-                Pokedex.dispatch.$emit('listItemChange', 999);
-                Pokedex.dispatch.$emit('topScreenCloseOpen');
+                Pokedex.dispatch.$emit('topScreenCloseOpen', function(){
+                    Pokedex.dispatch.$emit('listItemChange', 999, true);
+                });
             }
         }
     }

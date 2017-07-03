@@ -22,12 +22,17 @@
             topScreenTopPanel, pokeSprite, pokeList, seenObtainedPanel
         },
         created(){
-            Pokedex.dispatch.$on('topScreenCloseOpen', () => {
+            Pokedex.dispatch.$on('topScreenCloseOpen', (callback) => {
                 Pokedex.dispatch.$emit('closeTopPanels');
-                setTimeout(()=>{
-                    Pokedex.dispatch.$emit('openTopPanels');
-                },350);
+                Pokedex.dispatch.$once('panelsClosed', () => {
+                    callback();
+                    setTimeout(()=>{
+                        Pokedex.dispatch.$emit('openTopPanels');
+                    },150)
+
+                });
             });
+
         }
 
     }

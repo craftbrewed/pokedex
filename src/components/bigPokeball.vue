@@ -121,8 +121,8 @@
                 lastSpinDelta: 0,
                 lastSpinDirection: 0
             };
-            Pokedex.dispatch.$on('listItemChange', (by) =>{
-                if(this.spinning === false || this.spinVars.pointerDown === false){
+            Pokedex.dispatch.$on('listItemChange', (by, noSpin) =>{
+                if(!noSpin && (this.spinning === false || this.spinVars.pointerDown === false)){
                     this.rotatePokeball(by + this.spinVars.lastSpinDelta);
                 }
             });
