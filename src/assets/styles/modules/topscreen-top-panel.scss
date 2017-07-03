@@ -40,7 +40,8 @@
 }
 
 .top-panel .image-container{
-  position: relative;
+  position: absolute;
+  bottom: 0;
   height: 32px;
   background-color: $panel--light;
   padding:0 2px 0 3px;

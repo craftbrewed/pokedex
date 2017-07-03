@@ -19,7 +19,7 @@
                 lookupUrl : "http://pokeapi.co/api/v2/pokemon/",
                 self : this,
                 current: null,
-                currentPokedex: 5,
+                currentPokedex: 6,
                 ul : null,
                 ulArray: [],
                 ulIdx: 0,
