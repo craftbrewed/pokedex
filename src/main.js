@@ -30,6 +30,9 @@ Vue.mixin({
 //===========================================
 Vue.prototype.$lodash = _;
 Vue.prototype.axios = axios;
+Vue.prototype.eventtObject = {
+    keydown : keydown
+};
 //===========================================
 
 
