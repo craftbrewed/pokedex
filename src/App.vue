@@ -32,14 +32,15 @@
                     url = Pokedex.apiUrls.pokemon+idx;
 
                 return this.axios.get(url).then(mon => {
-                    this.pokeData[idx] = this.pokeData[idx] || {};
-                    var poke = this.pokeData[idx];
-                    mon = mon.data;
+                            this.pokeData[idx] = this.pokeData[idx] || {};
+                            var poke = this.pokeData[idx];
+                            mon = mon.data;
 
-                    poke = mon.name;
-                    poke = mon.weight;
-                    poke = mon.height;
-                });
+                            poke = mon.name;
+                            poke = mon.weight;
+                            poke = mon.height;
+                        })
+                        .catch( e => {this.errorHandle.pokeApiError("GET", url, e)} );
             },
             fetchSpeciesData(){
                 var idx = this.currentIdx,
@@ -51,7 +52,7 @@
                     this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
                         return obj.version.name === "pearl";
                     });
-                });
+                }).catch( e => {this.errorHandle.pokeApiError("GET", url, e)} );
             },
 
             loadPokeData(){
@@ -75,7 +76,6 @@
         },
         created(){
             this.pokeData = JSON.parse(localStorage.getItem('pokeCache'));
-
             if(!this.pokeData){
                 this.pokeData = {};
             }

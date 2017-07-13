@@ -7,6 +7,14 @@ import App from './App.vue';
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
 import debounce from 'lodash';
+import errorHandle from './assets/scripts/error';
+
+Vue.prototype.$lodash = _;
+Vue.prototype.axios = axios;
+Vue.prototype.eventObject = {
+    keydown : keydown
+};
+Vue.prototype.errorHandle = errorHandle;
 
 //Import Style via a style loader
 require('./assets/scripts/style-loader.js');
@@ -21,15 +29,6 @@ Vue.mixin({
       whichTransitionEnd: require('./mixins/transitionEnd')
   }
 });
-
-
-
-Vue.prototype.$lodash = _;
-Vue.prototype.axios = axios;
-Vue.prototype.eventObject = {
-    keydown : keydown
-};
-
 
 
 window.Pokedex = {};

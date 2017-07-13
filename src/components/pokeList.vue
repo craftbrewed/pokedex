@@ -35,20 +35,19 @@
             loadPokedex(){
                 //load a pokedex
                 this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
-                this.collection = this.collection[ this.currentPokedex ];
+                this.collection = this.completeCollection[ this.currentPokedex ];
+
                 new Promise((res) => {
                     if( !this.collection ){
                         var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
                         this.axios.get(url).then(pokedex => {
-                            var bigCollection = this.completeCollection;
-
                             this.collection = pokedex.data.pokemon_entries;
-
-                            bigCollection[this.currentPokedex] = this.collection;
+                            this.completeCollection[this.currentPokedex] = this.collection;
                             localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
 
                             res();
-                        });
+                        })
+                        .catch( e => { this.errorHandle.pokeApiError("GET", url, e) } );
                     }else{
                         res();
                     }
