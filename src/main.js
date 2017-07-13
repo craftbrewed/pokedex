@@ -8,6 +8,7 @@ import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
 import debounce from 'lodash';
 import errorHandle from './assets/scripts/error';
+import log from './assets/scripts/log'
 
 Vue.prototype.$lodash = _;
 Vue.prototype.axios = axios;
@@ -15,7 +16,7 @@ Vue.prototype.eventObject = {
     keydown : keydown
 };
 Vue.prototype.errorHandle = errorHandle;
-
+window.log = log(3);
 //Import Style via a style loader
 require('./assets/scripts/style-loader.js');
 
