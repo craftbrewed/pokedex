@@ -6,7 +6,14 @@ import App from './App.vue';
 //Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
-import debounce from 'lodash';
+
+//cherry pick lodash, we're already pushing what's acceptable for space
+var _ = {
+    'debounce' : require('lodash/debounce'),
+    'extend'   : require('lodash/extend'),
+    'throttle' : require('lodash/throttle')
+};
+
 import errorHandle from './assets/scripts/error';
 import log from './assets/scripts/log'
 
@@ -15,7 +22,7 @@ Vue.prototype.axios = axios;
 Vue.prototype.eventObject = {
     keydown : keydown
 };
-Vue.prototype.errorHandle = errorHandle;
+Vue.prototype.errorHandle = errorHandle(_);
 window.log = log(3);
 //Import Style via a style loader
 require('./assets/scripts/style-loader.js');
@@ -39,7 +46,7 @@ Pokedex.apiUrls = {
     pokedex: 'https://pokeapi.co/api/v2/pokedex/'
 };
 
-new Vue({
+Pokedex.app = new Vue({
   el: '#app',
   render: h => h(App)
 });

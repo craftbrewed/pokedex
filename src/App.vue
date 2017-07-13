@@ -53,6 +53,8 @@
                         return obj.version.name === "pearl";
                     });
                 }).catch( e => {this.errorHandle.pokeApiError("GET", url, e)} );
+
+
             },
 
             loadPokeData(){
