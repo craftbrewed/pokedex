@@ -1,19 +1,17 @@
+//Vue, Vue Plugins, and App Entry Point
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './App.vue';
 
-
-
-import Vue from 'vue'
-import App from './App.vue'
-
-require('./assets/styles/modules/grid.scss');
-require('./assets/fonts/pokefont/stylesheet.css');
-require('./assets/styles/modules/helpers.scss');
-
-var _ = require('lodash');
+//Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
+import debounce from 'lodash';
 
+//Import Style via a style loader
+require('./assets/scripts/style-loader.js');
 
-
+//...Mixins
 Vue.mixin({
   created(){
       this.transEndEvt = this.whichTransitionEnd();
@@ -24,16 +22,14 @@ Vue.mixin({
   }
 });
 
-/*
- Define common libraries in the Vue prototype
- */
-//===========================================
+
+
 Vue.prototype.$lodash = _;
 Vue.prototype.axios = axios;
-Vue.prototype.eventtObject = {
+Vue.prototype.eventObject = {
     keydown : keydown
 };
-//===========================================
+
 
 
 window.Pokedex = {};
