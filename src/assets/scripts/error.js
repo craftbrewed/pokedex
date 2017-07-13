@@ -7,7 +7,7 @@ var errorHandle = ((function () {
     // if it turns out to not be the case, it's easily refactored into a plain object,
     return {
         pokeApiError: function (requestType, url, errorCode) {
-            console.error("Could not", requestType, url, "\n\texited with:", errorCode);
+            log.write('error', 'Could not', requestType, url, "\n\texited with:", errorCode);
         }
     }
 }))();

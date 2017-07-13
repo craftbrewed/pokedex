@@ -23,24 +23,18 @@ var log = function (level) {
             
             logLevel = level;
         },
-        log = function(logType){
-            if( logLevels[logLevel].indexOf(logType) === -1 ){
-                return;
+        makeHistory = function(type, args){
+            if( history.length > 500 ){
+                log("warn", "Log history exceeded limit, clearing");
+                clearLogHistory(true);
             }
-            var args = Array.prototype.slice.call(arguments, 1);
             history.push({
-                'logType' : logType,
+                'logType' : type,
                 'timestamp': Date.now(),
                 'arguments' : args
             });
-            console[logType].apply(null, args);
-        };
-    
-    setLogLevel(level);
-    return {
-        write : log,
-        setLogLevel : setLogLevel,
-        showLogHistory: function(n){
+        },
+        showLogHistory = function(n){
             var output = history,
                 logType = (console.table) ? 'table' : 'log' ;
 
@@ -51,9 +45,32 @@ var log = function (level) {
             }
             console[logType]( output );
         },
-        clearLogHistory : function(){
+        clearLogHistory = function(show){
+            show = (typeof show === 'undefined') ? true : show;
+            log('info', "Clearing Log History");
+            if(show)
+                showLogHistory();
+
             history = [];
-        }
+
+        },
+        log = function(logType){
+
+            var args = Array.prototype.slice.call(arguments, 1);
+            makeHistory(log, args);
+            if( logLevels[logLevel].indexOf(logType) === -1 ){
+                return;
+            }
+
+            console[logType].apply(null, args);
+        };
+    
+    setLogLevel(level);
+    return {
+        write : log,
+        setLogLevel : setLogLevel,
+        showLogHistory: showLogHistory,
+        clearLogHistory : clearLogHistory
     };
 };
 

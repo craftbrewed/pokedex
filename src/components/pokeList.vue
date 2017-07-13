@@ -44,7 +44,6 @@
                             this.collection = pokedex.data.pokemon_entries;
                             this.completeCollection[this.currentPokedex] = this.collection;
                             localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
-
                             res();
                         })
                         .catch( e => { this.errorHandle.pokeApiError("GET", url, e) } );
