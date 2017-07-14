@@ -1,0 +1,85 @@
+@import "./../vars/pallette";
+.modal-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(101, 101, 101, 0);
+  z-index: 9999999999999999;
+  pointer-events: all;
+  display:none;
+  transition: all 375ms linear;
+}
+.modal-container.open{
+  display: block;
+}
+.modal-container.open.animate{
+  background: rgba(101, 101, 101, 0.85);
+}
+.modal-container .dialog--wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 57%;
+  background-color: #d88000;
+  height: 0;
+  margin: auto;
+  z-index: 999999999999999999;
+  border-bottom: solid 2px $panel--border;
+  border-left: solid 2px $panel--border;
+  border-top-width: 0;
+  border-right-width: 0;
+  transition: all 150ms linear 75ms;
+}
+.modal-container.open.animate .dialog--wrapper{
+  height: 30vh;
+}
+.modal-container .dialog--wrapper:before{
+  content: '';
+  position: absolute;
+  height: calc(100% - 4px);
+  width: 100%;
+  border-right: solid 6px #a06000;
+  border-top: solid 6px #a06000;
+  border-left-width: 0;
+  border-bottom-width: 0;
+}
+.modal-container.can-close .dialog--wrapper:after {
+  content: '\D7';
+  position: absolute;
+  right: 0;
+  top: -10px;
+  font-size: 60px;
+  margin-top: 0;
+  pointer-events: all;
+  cursor: pointer;
+}
+.modal-container .dialog--wrapper .dialog{
+  position: relative;
+  padding: 1.25em;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: hidden;
+}
+.modal-container .dialog--wrapper .dialog p{
+  line-height: 0.8;
+}
+
+.dialog .error--title{
+  font-size: 37px;
+  color: white;
+  margin: 0 0 1em 0;
+}
+.dialog .error--body{
+  font-size: 23px;
+}
+.dialog .error-contact-info{
+
+}
+.dialog .error--pokedex-version{
+
+}

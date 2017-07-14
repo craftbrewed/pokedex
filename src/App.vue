@@ -2,16 +2,18 @@
     <div id="pokedex">
             <top-screen></top-screen>
             <bottom-screen></bottom-screen>
+            <error-modal></error-modal>
     </div>
 </template>
 
 <script type="text/babel">
     import topScreen from './components/topScreen.vue';
     import bottomScreen from './components/bottomScreen.vue';
+    import errorModal from './components/errorDialog/errorModal.vue';
 
     export default {
         name: 'pokedex',
-        components: {topScreen, bottomScreen},
+        components: {topScreen, bottomScreen, errorModal},
         data () {
             return {
                 pokeData: {},
@@ -100,7 +102,10 @@
         overflow-y: hidden;
     }
     #pokedex{
+        /* The Gameboy aspect ratio */
+        position: relative;
         max-width: (2*100vh) / 3;
+        width: 100%;
         margin: 0 auto;
     }
 </style>
