@@ -46,7 +46,7 @@
                             localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
                             res();
                         })
-                        .catch( e => { this.errorHandle.pokeApiError("GET", url, e) } );
+                        .catch( e => { this.errorHandle.pokeApiError("GET", url, e, this.loadPokedex) } );
                     }else{
                         res();
                     }

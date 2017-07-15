@@ -42,7 +42,7 @@
                             poke = mon.weight;
                             poke = mon.height;
                         })
-                        .catch( e => {this.errorHandle.pokeApiError("GET", url, e)} );
+                        .catch( e => {this.errorHandle.pokeApiError("GET", url, e, this.fetchPokemonData)} );
             },
             fetchSpeciesData(){
                 var idx = this.currentIdx,
@@ -54,7 +54,7 @@
                     this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
                         return obj.version.name === "pearl";
                     });
-                }).catch( e => {this.errorHandle.pokeApiError("GET", url, e)} );
+                }).catch( e => {this.errorHandle.pokeApiError("GET", url, e, this.fetchPokemonData)} );
 
 
             },

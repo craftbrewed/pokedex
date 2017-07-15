@@ -1,7 +1,7 @@
 <template>
     <div class="col-4">
         <div class="sprite">
-            <img v-bind:src="currentPokemonSprite">
+            <img id="image" v-bind:src="currentPokemonSprite">
         </div>
     </div>
 </template>
@@ -14,13 +14,38 @@
             }
         },
         methods: {
-            updateSprite(){
-                console.log("Sprite detects list change");
+            updateSprite(sprite){
+                this.currentPokemonSprite = sprite;
+            },
+            ajaxSprite(){
+                var src = this.currentPokemonSprite;
+                this.axios.get(src)
+                        .then( img => {
+                            this.updateSprite(img);
+                        })
+                        .catch(err => {
+                            this.errorHandle.pokeApiError("GET", src, err, this.ajaxSprite);
+                        });
             }
+        },
+        mounted(){
+            this.image = this.$el.querySelector("#image");
+            /*
+            Explanation for this insanity:
+                In the quest for handling errors evenly, if changing the source of an image trows a 404,
+                 we make a ajax request to get more info about it.
+                If the ajax request can load the image, then it's taken care of, if it doesn't we pass
+                 a proper error object to the errorHandle module
+             */
+            this.image.addEventListener('error', (err) => {
+                var imgSrc = err.srcElement.src;
+                console.log(imgSrc);
+                this.ajaxSprite(imgSrc);
+            });
         },
         created(){
             Pokedex.dispatch.$on('pokemonSpriteUpdate', sprite => {
-                this.currentPokemonSprite = sprite;
+                this.updateSprite(sprite);
             });
         }
     }

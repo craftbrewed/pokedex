@@ -22,7 +22,7 @@ Vue.prototype.axios = axios;
 Vue.prototype.eventObject = {
     keydown : keydown
 };
-Vue.prototype.errorHandle = errorHandle(_);
+Vue.prototype.errorHandle = errorHandle();
 window.log = log(3);
 //Import Style via a style loader
 require('./assets/scripts/style-loader.js');
