@@ -98,3 +98,32 @@
   right: 2px;
   top:2px;
 }
+
+@media (max-width: 700px){
+  .top-panel .image-container{
+    height: 23px;
+    bottom: -3px;
+  }
+  .top-panel .image-container img{
+    height: 20px;
+    width: auto;
+  }
+
+  .image-container .pokeball{
+    height: $pokeball-square--mobile+px;
+    width: $pokeball-square--mobile+px;
+    border-width: 2px;
+  }
+
+  .image-container .pokeball:before{
+    width:$pokeball-square--mobile+6+px;
+    top:-4px;
+    border-width:2px
+
+  }
+  .image-container .pokeball:after{
+    width: floor($pokeball-square--mobile/3) + px;
+    height: floor($pokeball-square--mobile/3) + px;
+    border-width: 2px;
+  }
+}
