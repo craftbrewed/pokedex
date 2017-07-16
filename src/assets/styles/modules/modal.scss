@@ -11,10 +11,10 @@
   display:none;
   transition: all 375ms linear;
 }
-.modal-container.open{
+.modal-container.open, .modal-container.halt{
   display: block;
 }
-.modal-container.open.animate{
+.modal-container.open.animate, .modal-container.halt.animate{
   background: rgba(101, 101, 101, 0.85);
 }
 .modal-container .dialog--wrapper{

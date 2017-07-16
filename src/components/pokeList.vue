@@ -37,7 +37,7 @@
                 this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
                 this.collection = this.completeCollection[ this.currentPokedex ];
 
-                new Promise((res) => {
+                new Promise((res, reject) => {
                     if( !this.collection ){
                         var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
                         this.axios.get(url).then(pokedex => {
@@ -46,7 +46,10 @@
                             localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
                             res();
                         })
-                        .catch( e => { this.errorHandle.pokeApiError("GET", url, e, this.loadPokedex) } );
+                        .catch( e => {
+                            this.errorHandle.exception('pokeApiError', e, this.loadPokedex);
+                            reject();
+                        } );
                     }else{
                         res();
                     }

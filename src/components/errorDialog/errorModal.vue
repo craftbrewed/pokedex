@@ -34,15 +34,22 @@
                     'body'  : "This means we have no clue what went wrong...",
                     'version' : "0.1",
                     'email' : "contact@craftbrewed.io",
-                    'canClose' : true
+                    'canClose' : true,
                 },
                 model : {}
             }
         },
         methods: {
+            setHaltState(state){
+                if(state){
+                    this.$el.classList.add('halt', 'animate');
+                }else{
+                    this.$el.classList.remove('halt', 'animate');
+                    this.closeModal();
+                }
+            },
             openModal(data){
                 if(!this.open){
-
                     this.model = this.$lodash.extend(this.modelDefaults, data);
                     this.$el.classList.add('open');
                     setTimeout(() => {
@@ -54,7 +61,7 @@
             },
             closeModal(){
                 if(this.open){
-                    this.$el.classList.remove('open', 'animate');
+                    this.$el.classList.remove('open', 'animate', 'halt');
                     this.model = {};
                     this.open = false;
                 }
@@ -62,7 +69,9 @@
             }
         },
         created(){
-
+            Pokedex.dispatch.$on( 'setHaltState', state =>{
+                this.setHaltState(state);
+            });
             Pokedex.dispatch.$on( 'modalOpen', info =>{
                this.openModal(info);
             });

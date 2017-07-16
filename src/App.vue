@@ -19,7 +19,8 @@
                 pokeData: {},
                 currentPokemon: {},
                 currentIdx: null,
-                speciesUrl: null
+                speciesUrl: null,
+                haltState: false
             }
         },
         methods:{
@@ -42,7 +43,9 @@
                             poke = mon.weight;
                             poke = mon.height;
                         })
-                        .catch( e => {this.errorHandle.pokeApiError("GET", url, e, this.fetchPokemonData)} );
+                        .catch( error => {
+                            this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
+                        } );
             },
             fetchSpeciesData(){
                 var idx = this.currentIdx,
@@ -54,7 +57,9 @@
                     this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
                         return obj.version.name === "pearl";
                     });
-                }).catch( e => {this.errorHandle.pokeApiError("GET", url, e, this.fetchPokemonData)} );
+                }).catch( error => {
+                    this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
+                } );
 
 
             },
@@ -89,6 +94,10 @@
                 this.speciesUrl = data.speciesUrl;
 
                 this.pokemonLookup();
+            });
+            Pokedex.dispatch.$on('setHaltState', state =>{
+                Pokedex.haltState = state;
+
             });
         }
     }

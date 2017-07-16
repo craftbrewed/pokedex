@@ -10,21 +10,27 @@
     export default {
         data(){
             return{
-                currentPokemonSprite: ''
+                currentPokemonSprite: './pokesprites/empty.png'
             }
         },
         methods: {
+            refreshSprite(url){
+                this.currentPokemonSprite = './pokesprites/empty.png';
+                setTimeout(()=>{
+                    this.currentPokemonSprite = url;
+                },1);
+            },
             updateSprite(sprite){
                 this.currentPokemonSprite = sprite;
             },
             ajaxSprite(){
                 var src = this.currentPokemonSprite;
                 this.axios.get(src)
-                        .then( img => {
-                            this.updateSprite(img);
+                        .then( (req) => {
+                            this.refreshSprite(req.config.url);
                         })
                         .catch(err => {
-                            this.errorHandle.pokeApiError("GET", src, err, this.ajaxSprite);
+                            this.errorHandle.exception('pokeApiError', err, this.ajaxSprite);
                         });
             }
         },
@@ -38,8 +44,9 @@
                  a proper error object to the errorHandle module
              */
             this.image.addEventListener('error', (err) => {
+
                 var imgSrc = err.srcElement.src;
-                console.log(imgSrc);
+
                 this.ajaxSprite(imgSrc);
             });
         },
