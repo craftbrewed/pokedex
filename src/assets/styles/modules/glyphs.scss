@@ -1,4 +1,6 @@
 $glyph-sheet: url('../../images/glyphs.png');
+$spritesheet--width: 166px;
+$spritesheet--height: 82px;
 $tr-h: 31px;
 $tr-w: 32px;
 $br-h: 51px;
@@ -46,4 +48,59 @@ button:active .button-glyph.arrow-default-down{
 }
 .button-glyph.book{
     background-position: -($br-w*2)+1 $br-h;
+}
+@media (max-width: 700px){
+    $reduce: 0.62;
+    $spritesheet--width: floor(166px * $reduce);
+    $spritesheet--height: floor(82px * $reduce);
+    $tr-h: floor(31px * $reduce);
+    $tr-w: floor(32px * $reduce);
+    $br-h: floor(51px * $reduce);
+    $br-w: floor(56px * $reduce);
+
+    span.button-glyph{
+        display: inline-block;
+        background-color: transparent;
+        background-image: $glyph-sheet;
+        background-size: $spritesheet--width $spritesheet--height;
+    }
+    .button-glyph.arrow-default,
+    .button-glyph.back{
+        height:$tr-h;
+        width: $tr-w;
+    }
+
+    .button-glyph.search,
+    .button-glyph.swap,
+    .button-glyph.book{
+        height:$br-h;
+        width: $br-w;
+        opacity: 0.7;
+    }
+
+    .button-glyph.arrow-default-up{
+        background-position: 0 0;
+    }
+    button:active .button-glyph.arrow-default-up{
+        background-position: -$tr-w 0;
+    }
+    button:active .button-glyph.arrow-default-down{
+        background-position: -$tr-w*2 0;
+    }
+    .button-glyph.arrow-default-down{
+        background-position: -$tr-w*3 0;
+        margin-right:3px;
+    }
+    .button-glyph.back{
+        background-position: -$tr-w*4 0;
+    }
+    .button-glyph.search{
+        background-position: 0px (-$tr-h);
+    }
+    .button-glyph.swap{
+        background-position: -$br-w $br-h;
+    }
+    .button-glyph.book{
+        background-position: -($br-w*2)+1 $br-h;
+    }
 }
