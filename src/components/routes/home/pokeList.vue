@@ -1,7 +1,7 @@
 <template>
     <div class="col-8">
         <ul class="select" data-size="7">
-            <li v-for="(pokemon, idx) in collection" :class=" { 'first-visible' : idx === 0 } " :data-url="pokemon.pokemon_species.url" :data-entry="pokemon.entry_number">
+            <li v-for="(pokemon, idx) in collection" :class=" { 'first-visible' : idx === 0 } " :data-url="pokemon.pokemon_species.url" :data-entry="pokemon.entry_number" :data-pokeId="pokemon.id">
                 <span class="pokeball"></span>
                 <div>
                     <p class="pokedex-pokemon-number"> {{ self.pad( pokemon.entry_number ) }}</p>
@@ -37,7 +37,7 @@
                 this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
                 this.collection = this.completeCollection[ this.currentPokedex ];
 
-                new Promise((res, reject) => {
+                return new Promise((res, reject) => {
                     if( !this.collection ){
                         var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
                         this.axios.get(url).then(pokedex => {
@@ -69,11 +69,12 @@
             },
             //we set the next 3 siblings via css, but we have to assign values to the previous siblings
             setPrevious(){
+
                 var previous = this.current.previousElementSibling,
-                    n = 0;
+                        n = 0;
 
                 this.previousList.forEach(item => {
-                   item.classList.remove('n1', 'n2', 'n3');
+                    item.classList.remove('n1', 'n2', 'n3');
                 });
                 this.previousList = [];
 
@@ -82,14 +83,29 @@
                     this.previousList.push(previous);
                     previous = previous.previousElementSibling;
                 }
+
+
             },
             setCurrent(idx){
+
                 this.ulIdx = idx;
-                this.current.classList.remove('selected');
+                if(this.current){
+                    this.current.classList.remove('selected');
+                }
                 this.current = this.ulArray[ idx ];
                 this.current.classList.add('selected');
                 this.setPrevious();
                 this.centerListItem();
+
+            },
+            resetTo(idx){
+                //hard reset
+                idx -= 1;
+                Array.prototype.slice.call(this.$el.querySelectorAll('.n1, .n2, .n3, .selected'), 0).forEach( el => {
+                    el.classList.remove('.n1', '.n2', '.n3', '.selected');
+                });
+                this.setCurrent(idx);
+                this.broadcastChange();
             },
             changeItem(delta){
                 var nextIdx = this.ulIdx + delta;
@@ -107,7 +123,7 @@
                 }
 
                 this.setCurrent(nextIdx);
-                this.broadcastChange();
+                this.broadcastChange();this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
             }
         },
         computed: {
@@ -121,15 +137,10 @@
             this.ulRect = this.ul.getBoundingClientRect();
             this.ulMidpoint = this.ulRect.height/2;
 
+
         },
         created(){
-            this.loadPokedex();
-            this.broadcastChange = this.$lodash.debounce(() => {
-                Pokedex.dispatch.$emit('listChange', {
-                    speciesUrl: this.current.dataset.url,
-                    entryNumber: this.pokemon_index_number
-                });
-            }, 150);
+            this.dexPromise = this.loadPokedex();
 
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {
@@ -139,6 +150,26 @@
                     console.error('Critical Error Shutting Down Core Reactor');
                 }
             });
+
+            //call/response from parent. after load, if there's a stored state, resume that state
+            Pokedex.dispatch.$once('pokedexIndexResponse', (idx) => {
+                this.dexPromise.then(()=>{
+                    if(idx !== null){
+                        this.resetTo(idx);
+                    }
+                });
+            });
+            Pokedex.dispatch.$emit('checkPokeIndex');
+
+
+            this.broadcastChange = this.$lodash.debounce(() => {
+                Pokedex.dispatch.$emit('listChange', {
+                    speciesUrl: this.current.dataset.url,
+                    entryNumber: this.current.dataset.entry,
+                    id: this.pokemon_index_number
+                });
+            }, 150);
+
         }
     }
 </script>

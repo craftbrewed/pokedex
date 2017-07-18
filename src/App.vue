@@ -18,6 +18,7 @@
             return {
                 pokeData: {},
                 currentPokemon: {},
+                currentId: null,
                 currentIdx: null,
                 speciesUrl: null,
                 haltState: false
@@ -25,13 +26,13 @@
         },
         methods:{
             updateSprite(){
-                var idx = this.currentIdx,
+                var idx = this.currentId,
                     imagePath = './pokesprites/'+idx+'/front_default/'+idx+'.png';
 
                 Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
             },
             fetchPokemonData() {
-                var idx = this.currentIdx,
+                var idx = this.currentId,
                     url = Pokedex.apiUrls.pokemon+idx;
 
                 return this.axios.get(url).then(mon => {
@@ -48,7 +49,7 @@
                         } );
             },
             fetchSpeciesData(){
-                var idx = this.currentIdx,
+                var idx = this.currentId,
                     url = this.speciesUrl;
 
                 return this.axios.get(url).then(species => {
@@ -69,15 +70,15 @@
                 //cache pokemon
                 Promise.all([pokemonData, speciesData]).then((data) => {
                     localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
-                    this.currentPokemon = this.pokeData[this.currentIdx];
+                    this.currentPokemon = this.pokeData[this.currentId];
                 });
             },
             pokemonLookup(){
                 this.updateSprite();
-                if(!this.pokeData[this.currentIdx]){
+                if(!this.pokeData[this.currentId]){
                     this.loadPokeData();
                 }else{
-                    this.currentPokemon = this.pokeData[this.currentIdx];
+                    this.currentPokemon = this.pokeData[this.currentId];
                 }
             }
         },
@@ -86,13 +87,20 @@
             if(!this.pokeData){
                 this.pokeData = {};
             }
+
             Pokedex.dispatch.$on('listChange', data => {
+                this.currentId = data.id;
                 this.currentIdx = data.entryNumber;
                 this.speciesUrl = data.speciesUrl;
                 this.pokemonLookup();
             });
+
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
+            });
+
+            Pokedex.dispatch.$on('checkPokeIndex', () =>{
+                Pokedex.dispatch.$emit('pokedexIndexResponse', this.currentIdx);
             });
         }
     }
