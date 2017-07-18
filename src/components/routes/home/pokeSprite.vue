@@ -59,8 +59,8 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/vars/pallette.scss";
-    @import "../assets/styles/vars/backgrounds.scss";
+    @import "./../../../assets/styles/vars/pallette.scss";
+    @import "./../../../assets/styles/vars/backgrounds.scss";
 
     .sprite{
         position: relative;

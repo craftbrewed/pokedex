@@ -18,6 +18,8 @@ var _ = {
 import errorHandle from './assets/scripts/error';
 import log from './assets/scripts/log'
 
+Vue.use(VueRouter);
+
 Vue.prototype.$lodash = _;
 Vue.prototype.axios = axios;
 Vue.prototype.eventObject = {

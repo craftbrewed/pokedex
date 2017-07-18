@@ -144,5 +144,5 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/modules/poke-list.scss";
+    @import "../../../assets/styles/modules/poke-list.scss";
 </style>

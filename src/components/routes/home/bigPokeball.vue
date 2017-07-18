@@ -140,7 +140,7 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/vars/pallette.scss";
+    @import "../../../assets/styles/vars/pallette.scss";
     $poke-height: calc( 100% - 26px);
     $border-width: 10px;
     $border-half: $border-width / 2;

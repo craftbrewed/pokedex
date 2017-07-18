@@ -34,8 +34,8 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/vars/pallette.scss";
-    @import "../assets/styles/vars/backgrounds.scss";
+    @import "./../../../assets/styles/vars/pallette.scss";
+    @import "./../../../assets/styles/vars/backgrounds.scss";
 
     .bottom-panel{
         border-top: solid 2px $panel--border;

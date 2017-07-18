@@ -10,6 +10,6 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/modules/glyphs.scss";
-    @import "../assets/styles/modules/button.scss";
+    @import "../../assets/styles/modules/glyphs.scss";
+    @import "../../assets/styles/modules/button.scss";
 </style>

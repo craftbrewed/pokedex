@@ -3,7 +3,7 @@
         <div class="decoration"></div>
             <div class="image-container">
                 <span class="pokeball"></span>
-                <img src="../assets/images/nationalpokedex.png">
+                <img src="../../../assets/images/nationalpokedex.png">
                 <span class="pokeball hang-right"></span>
             </div>
     </div>
@@ -29,5 +29,5 @@
 </script>
 
 <style lang="scss">
-    @import "../assets/styles/modules/topscreen-top-panel.scss";
+    @import "./../../../assets/styles/modules/topscreen-top-panel.scss";
 </style>

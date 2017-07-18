@@ -12,10 +12,10 @@
 </template>
 
 <script type="text/babel">
-    import topScreenTopPanel from './topScreenTopPanel.vue';
-    import pokeSprite from './pokeSprite.vue';
-    import pokeList from './pokeList.vue';
-    import seenObtainedPanel from './seenObtainedPanel.vue'
+    import topScreenTopPanel from './routes/home/topScreenTopPanel.vue';
+    import pokeSprite from './routes/home/pokeSprite.vue';
+    import pokeList from './routes/home/pokeList.vue';
+    import seenObtainedPanel from './routes/home/seenObtainedPanel.vue'
     export default {
 
         components: {

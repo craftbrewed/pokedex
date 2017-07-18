@@ -34,10 +34,10 @@
 
 <script type="text/babel">
 
-    import insets from  './insets.vue';
-    import squareButton from './squareButton.vue';
+    import insets from  './routes/home/insets.vue';
+    import squareButton from './buttons/squareButton.vue';
     import circleButton from './buttons/circleButton.vue';
-    import bigPokeball from './bigPokeball.vue';
+    import bigPokeball from './routes/home/bigPokeball.vue';
 
     export default{
         components: {
