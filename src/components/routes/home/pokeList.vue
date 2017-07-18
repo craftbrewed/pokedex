@@ -16,27 +16,24 @@
     export default {
         data(){
             return{
-                lookupUrl : "http://pokeapi.co/api/v2/pokemon/",
                 self : this,
                 current: null,
                 currentPokedex: 6,
-                ul : null,
-                ulArray: [],
                 ulIdx: 0,
-                firstLi: null,
-                ulRect: null,
-                ulMidpoint: null,
-                url: '',
                 collection: [],
                 previousList: []
             }
         },
         methods:{
-            loadPokedex(){
-                //load a pokedex
+            getCollections(){
+                //the complete collection is an array of collections, i.e. different pokedexes
+                //  the collection is the current pokedex
                 this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
                 this.collection = this.completeCollection[ this.currentPokedex ];
-
+            },
+            loadPokedex(){
+                this.getCollections();
+                //load a pokedex
                 return new Promise((res, reject) => {
                     if( !this.collection ){
                         var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
@@ -67,23 +64,27 @@
 
                 this.ul.scrollTop = scrollPoint;
             },
-            //we set the next 3 siblings via css, but we have to assign values to the previous siblings
-            setPrevious(){
-
-                var previous = this.current.previousElementSibling,
-                        n = 0;
+            //wrapper function for the previousList, clear the array, remove the active classes
+            clearPrevious(){
 
                 this.previousList.forEach(item => {
                     item.classList.remove('n1', 'n2', 'n3');
                 });
                 this.previousList = [];
 
+            },
+            //we set the next 3 siblings via css, but we have to assign values to the previous siblings
+            setPrevious(){
+
+                this.clearPrevious();
+                var previous = this.current.previousElementSibling,
+                    n = 0;
+
                 while(previous && n++ < 3){
                     previous.classList.add("n"+n);
                     this.previousList.push(previous);
                     previous = previous.previousElementSibling;
                 }
-
 
             },
             setCurrent(idx){
@@ -94,36 +95,26 @@
                 }
                 this.current = this.ulArray[ idx ];
                 this.current.classList.add('selected');
-                this.setPrevious();
-                this.centerListItem();
 
             },
-            resetTo(idx){
-                //hard reset
-                idx -= 1;
-                Array.prototype.slice.call(this.$el.querySelectorAll('.n1, .n2, .n3, .selected'), 0).forEach( el => {
-                    el.classList.remove('.n1', '.n2', '.n3', '.selected');
-                });
+            updateList(idx){
+
                 this.setCurrent(idx);
+                this.setPrevious();
+                this.centerListItem();
                 this.broadcastChange();
+
             },
-            changeItem(delta){
+            shift(delta){
                 var nextIdx = this.ulIdx + delta;
                 
                 if(nextIdx > this.collection.length-1){
                     nextIdx = this.collection.length-1;
-                }
-
-                if(nextIdx < 0){
+                }else if(nextIdx < 0){
                     nextIdx = 0;
                 }
 
-                if(nextIdx === this.ulIdx){
-                    return;
-                }
-
-                this.setCurrent(nextIdx);
-                this.broadcastChange();this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
+                this.updateList(nextIdx);
             }
         },
         computed: {
@@ -136,7 +127,7 @@
             this.ul = this.$el.querySelector('.select');
             this.ulRect = this.ul.getBoundingClientRect();
             this.ulMidpoint = this.ulRect.height/2;
-
+            this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
 
         },
         created(){
@@ -145,7 +136,7 @@
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {
                 try{
-                    this.changeItem(e);
+                    this.shift(e);
                 }catch (e){
                     console.error('Critical Error Shutting Down Core Reactor');
                 }
@@ -155,12 +146,11 @@
             Pokedex.dispatch.$once('pokedexIndexResponse', (idx) => {
                 this.dexPromise.then(()=>{
                     if(idx !== null){
-                        this.resetTo(idx);
+                        this.updateList(idx-1);
                     }
                 });
             });
             Pokedex.dispatch.$emit('checkPokeIndex');
-
 
             this.broadcastChange = this.$lodash.debounce(() => {
                 Pokedex.dispatch.$emit('listChange', {
@@ -169,7 +159,6 @@
                     id: this.pokemon_index_number
                 });
             }, 150);
-
         }
     }
 </script>
