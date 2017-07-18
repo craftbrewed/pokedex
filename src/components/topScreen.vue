@@ -1,26 +1,14 @@
 <template>
     <div class="top-screen">
         <div class="container">
-            <top-screen-top-panel></top-screen-top-panel>
-            <div class="row top-screen-borders top-screen-main-panel container direction-row">
-                <poke-sprite></poke-sprite>
-                <poke-list></poke-list>
-            </div>
-            <seen-obtained-panel></seen-obtained-panel>
+            <router-view name="topScreen"></router-view>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
-    import topScreenTopPanel from './routes/home/topScreenTopPanel.vue';
-    import pokeSprite from './routes/home/pokeSprite.vue';
-    import pokeList from './routes/home/pokeList.vue';
-    import seenObtainedPanel from './routes/home/seenObtainedPanel.vue'
-    export default {
 
-        components: {
-            topScreenTopPanel, pokeSprite, pokeList, seenObtainedPanel
-        },
+    export default {
         created(){
             Pokedex.dispatch.$on('topScreenCloseOpen', (callback) => {
                 Pokedex.dispatch.$emit('closeTopPanels');

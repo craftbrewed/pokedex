@@ -6,6 +6,7 @@ import App from './App.vue';
 //Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
+import routes from './assets/scripts/routes';
 
 //cherry pick lodash, we're already pushing what's acceptable for space
 var _ = {
@@ -25,6 +26,7 @@ Vue.prototype.axios = axios;
 Vue.prototype.eventObject = {
     keydown : keydown
 };
+
 Vue.prototype.axios.interceptors.response.use(function(config){
     //here is the global haltState manager. If it's set to true and we've gotten to here, it means there was
     // a successfull retry and now we exit out of all the errors
@@ -37,7 +39,9 @@ Vue.prototype.axios.interceptors.response.use(function(config){
 });
 
 Vue.prototype.errorHandle = errorHandle();
+
 window.log = log(3);
+
 //Import Style via a style loader
 require('./assets/scripts/style-loader.js');
 
@@ -51,7 +55,9 @@ Vue.mixin({
       whichTransitionEnd: require('./mixins/transitionEnd')
   }
 });
-
+var router = new VueRouter({
+    routes : routes(App)
+});
 
 window.Pokedex = {};
 //=== This is used for stopping all function of the app, when an error occurs.
@@ -65,8 +71,9 @@ Pokedex.apiUrls = {
 };
 
 Pokedex.app = new Vue({
-  el: '#app',
-  render: h => h(App)
+    router,
+    el: '#app',
+    render: h => h(App)
 });
 
 

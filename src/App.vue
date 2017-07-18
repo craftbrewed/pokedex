@@ -60,8 +60,6 @@
                 }).catch( error => {
                     this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
                 } );
-
-
             },
 
             loadPokeData(){
@@ -88,16 +86,13 @@
             if(!this.pokeData){
                 this.pokeData = {};
             }
-
             Pokedex.dispatch.$on('listChange', data => {
                 this.currentIdx = data.entryNumber;
                 this.speciesUrl = data.speciesUrl;
-
                 this.pokemonLookup();
             });
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
-
             });
         }
     }
@@ -116,5 +111,8 @@
         max-width: (2*100vh) / 3;
         width: 100%;
         margin: 0 auto;
+    }
+    a{
+        text-decoration: none;
     }
 </style>
