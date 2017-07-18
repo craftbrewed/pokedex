@@ -36,6 +36,10 @@
         overflow: hidden;
         position: relative;
         height: calc(49vh);
+
+        background: $sprite--topscreen-bg;
+        background-size: contain;
+        overflow-y: hidden;
     }
 
     .top-screen-borders{
@@ -44,9 +48,7 @@
     }
 
     .top-screen-main-panel{
-        background: $sprite--topscreen-bg;
-        background-size: contain;
-        overflow-y: hidden;
+
     }
 
 </style>
