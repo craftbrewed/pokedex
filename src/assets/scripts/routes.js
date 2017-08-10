@@ -1,7 +1,8 @@
 "use strict";
 import topScreenHome from '../../components/routes/home/topScreen.vue';
 import bottomScreenHome from '../../components/routes/home/bottomScreen.vue';
-var topScreenInfo, bottomScreenInfo, topScreenSearch, bottomScreenSearch;
+import topScreenInfo from '../../components/routes/info/topScreen.vue'
+var bottomScreenInfo, topScreenSearch, bottomScreenSearch;
 
 var routes = function(){
     return [

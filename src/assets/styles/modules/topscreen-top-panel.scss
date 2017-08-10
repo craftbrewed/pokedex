@@ -1,5 +1,7 @@
 @import '../vars/pallette.scss';
 @import '../vars/image-constants.scss';
+@import '../vars/backgrounds.scss';
+
 .top-panel{
   border-bottom: solid 2px $panel--border;
   position: absolute !important;
@@ -98,7 +100,24 @@
   right: 2px;
   top:2px;
 }
+.top-screen-home, .top-screen-info, .top-screen-search{
+  height: 100%;
+}
+.top-screen-home{
+  background: $sprite--topscreen-default;
+}
+.top-screen-info{
+  background: $sprite--topscreen-info-main;
+}
+.top-screen-search {
+  background: $sprite--topscreen-search;
+}
 
+/*
+=========================================
+  Media Query
+===========================================
+*/
 @media (max-width: 700px){
   .top-panel .image-container{
     height: 23px;

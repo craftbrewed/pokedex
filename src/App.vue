@@ -1,6 +1,6 @@
 <template>
     <div id="pokedex">
-            <top-screen></top-screen>
+            <top-screen :pokeData="pokeData" :currentId="currentId" :currentIdx="currentIdx"></top-screen>
             <bottom-screen></bottom-screen>
             <error-modal></error-modal>
     </div>
@@ -26,10 +26,12 @@
         },
         methods:{
             updateSprite(){
-                var idx = this.currentId,
-                    imagePath = './pokesprites/'+idx+'/front_default/'+idx+'.png';
+                if(this.currentId){
+                    var idx = this.currentId,
+                            imagePath = './pokesprites/'+idx+'/front_default/'+idx+'.png';
 
-                Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
+                    Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
+                }
             },
             fetchPokemonData() {
                 var idx = this.currentId,
@@ -37,12 +39,13 @@
 
                 return this.axios.get(url).then(mon => {
                             this.pokeData[idx] = this.pokeData[idx] || {};
-                            var poke = this.pokeData[idx];
+                            var pokemon = this.pokeData[idx];
                             mon = mon.data;
+                            pokemon.name = mon.name;
+                            pokemon.weight = mon.weight;
+                            pokemon.height = mon.height;
 
-                            poke = mon.name;
-                            poke = mon.weight;
-                            poke = mon.height;
+                            this.pokeData[idx] = pokemon;
                         })
                         .catch( error => {
                             this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
@@ -54,10 +57,13 @@
 
                 return this.axios.get(url).then(species => {
                     this.pokeData[idx] = this.pokeData[idx] || {};
-
+                    console.log(species.data);
                     this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
                         return obj.version.name === "pearl";
-                    });
+                    })[0].flavor_text;
+                    this.pokeData[idx].genera = species.data.genera.filter(obj => {
+                       return obj.language.name === 'en';
+                    })[0].genus;
                 }).catch( error => {
                     this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
                 } );
@@ -94,13 +100,14 @@
                 this.speciesUrl = data.speciesUrl;
                 this.pokemonLookup();
             });
-
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
             });
-
             Pokedex.dispatch.$on('checkPokeIndex', () =>{
                 Pokedex.dispatch.$emit('pokedexIndexResponse', this.currentIdx);
+            });
+            Pokedex.dispatch.$on('pokeSpriteCreate', ()=>{
+                this.updateSprite();
             });
         }
     }

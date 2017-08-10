@@ -13,6 +13,7 @@
                 currentPokemonSprite: './pokesprites/empty.png'
             }
         },
+
         methods: {
             refreshSprite(url){
                 this.currentPokemonSprite = './pokesprites/empty.png';
@@ -54,13 +55,14 @@
             Pokedex.dispatch.$on('pokemonSpriteUpdate', sprite => {
                 this.updateSprite(sprite);
             });
+            Pokedex.dispatch.$emit('pokeSpriteCreate');
         }
     }
 </script>
 
 <style lang="scss">
-    @import "./../../../assets/styles/vars/pallette.scss";
-    @import "./../../../assets/styles/vars/backgrounds.scss";
+    @import "../../assets/styles/vars/pallette.scss";
+    @import "../../assets/styles/vars/backgrounds.scss";
 
     .sprite{
         position: relative;

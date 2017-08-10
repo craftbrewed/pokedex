@@ -22,3 +22,21 @@
   background-color: $panel--light;
   border: solid 2px $panel--border;
 }
+//panel overrides
+
+.panel.color--blue{
+  background-color: $panel--blue;
+  border: solid 2px $panel--blue-light;
+  box-shadow: -2px 4px 0px 0px $panel--blue-dark;
+  border-top:none;
+  border-left: none;
+}
+.panel.color--blue:after{
+  background-color: $panel--blue-dark;
+
+}
+.panel.color--blue:before{
+  background-color: $panel--blue;
+  border: solid 2px $panel--blue-light;
+  box-shadow: -2px 4px 0px 0px $panel--blue-dark;
+}
