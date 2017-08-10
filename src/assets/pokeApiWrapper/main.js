@@ -13,13 +13,16 @@ axios.interceptors.response.use(function(config){
     return Promise.reject(error)
 });
 
-var apiCalls = {
-    urls: {
-        pokemon: 'https://pokeapi.co/api/v2/pokemon/',
-        pokedex: 'https://pokeapi.co/api/v2/pokedex/'
-    },
-    axios: axios,
-    loadPokedex : require('./loadPokedex')
+var pokeApi = function() {
+
 };
 
-export default apiCalls;
+pokeApi.prototype.axios = axios;
+pokeApi.prototype.url = {
+    pokemon: 'https://pokeapi.co/api/v2/pokemon/',
+    pokedex: 'https://pokeapi.co/api/v2/pokedex/'
+};
+
+pokeApi.prototype.loadPokedex = require('./functions/loadPokedex');
+
+export default pokeApi;

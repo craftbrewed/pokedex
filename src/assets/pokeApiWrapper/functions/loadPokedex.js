@@ -1,6 +1,7 @@
 "use strict";
 
 var loadPokedex = function(dexNumber) {
+    console.log(this);
     //safety first;
     dexNumber = (typeof dexNumber === 'undefined') ? 1 : dexNumber;
     
@@ -10,25 +11,19 @@ var loadPokedex = function(dexNumber) {
 
         if(!currentCollection){
             result = new Promise((resolve, reject) => {
-                var url = Pokedex.apiUrls.pokedex+dexNumber+'/';
+                var url = this.url.pokedex+dexNumber+'/';
                 this.axios.get(url).then(pokedex => {
                     currentCollection = pokedex.data.pokemon_entries;
                     completeCollection[this.currentPokedex] = currentCollection;
                     localStorage.setItem('pokedex', JSON.stringify(completeCollection));
-                    resolve({
-                        completeCollection : completeCollection,
-                        currentCollection : currentCollection
-                    });
+                    resolve(currentCollection);
                 }).catch( e => {
                     this.errorHandle.exception('pokeApiError', e, loadPokedex);
                     reject();
                 });
             });
         }else{
-            result = Promise.resolve({
-                completeCollection : completeCollection,
-                currentCollection : currentCollection
-            })
+            result = Promise.resolve(currentCollection)
         }
 
     return result;

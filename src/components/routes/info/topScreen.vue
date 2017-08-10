@@ -23,9 +23,18 @@
     import pokeDescription from '../../modules/pokeDescription.vue';
 
     export default {
-        props: ['pokeData', 'currentId', 'currentIdx'],
+        data(){
+            return{
+                pokemon : {}
+            }
+        },
         components: {
             infoBar, pokeSprite, pokeNameContainer, pokeType, pokeHeightWeight, pokePrint, pokeDescription
+        },
+        created(){
+            Pokedex.dispatch.$on('pokeapi-load', (data) => {
+                this.pokemon = data;
+            });
         }
     }
 </script>

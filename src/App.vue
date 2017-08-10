@@ -1,6 +1,6 @@
 <template>
     <div id="pokedex">
-            <top-screen :pokeData="pokeData" :currentId="currentId" :currentIdx="currentIdx"></top-screen>
+            <top-screen></top-screen>
             <bottom-screen></bottom-screen>
             <error-modal></error-modal>
     </div>
@@ -57,7 +57,6 @@
 
                 return this.axios.get(url).then(species => {
                     this.pokeData[idx] = this.pokeData[idx] || {};
-                    console.log(species.data);
                     this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
                         return obj.version.name === "pearl";
                     })[0].flavor_text;
@@ -100,6 +99,7 @@
                 this.speciesUrl = data.speciesUrl;
                 this.pokemonLookup();
             });
+
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
             });

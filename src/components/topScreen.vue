@@ -1,7 +1,7 @@
 <template>
     <div class="top-screen">
         <div class="container">
-            <router-view name="topScreen" :pokeData="pokeData" :currentId="currentId" :currentIdx="currentIdx"></router-view>
+            <router-view name="topScreen"></router-view>
         </div>
     </div>
 </template>
@@ -9,7 +9,6 @@
 <script type="text/babel">
 
     export default {
-        props: ['pokeData', 'currentId', 'currentIdx'],
         created(){
             Pokedex.dispatch.$on('topScreenCloseOpen', (callback) => {
                 Pokedex.dispatch.$emit('closeTopPanels');

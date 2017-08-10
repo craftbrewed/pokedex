@@ -6,6 +6,7 @@ import App from './App.vue';
 //Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
+import pokeApi from './assets/pokeApiWrapper/main';
 import routes from './assets/scripts/routes';
 
 //cherry pick lodash, we're already pushing what's acceptable for space
@@ -13,7 +14,8 @@ var _ = {
     'debounce' : require('lodash/debounce'),
     'extend'   : require('lodash/extend'),
     'throttle' : require('lodash/throttle'),
-    'isFunction' : require('lodash/isFunction')
+    'isFunction' : require('lodash/isFunction'),
+    'isEmpty' : require('lodash/isEmpty')
 };
 
 import errorHandle from './assets/scripts/error';
@@ -23,6 +25,7 @@ Vue.use(VueRouter);
 
 Vue.prototype.$lodash = _;
 Vue.prototype.axios = axios;
+Vue.prototype.pokeApi = new pokeApi();
 Vue.prototype.eventObject = {
     keydown : keydown
 };

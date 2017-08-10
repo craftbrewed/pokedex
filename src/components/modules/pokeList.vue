@@ -19,42 +19,23 @@
                 self : this,
                 current: null,
                 currentPokedex: 6,
+                ul : null,
                 ulIdx: 0,
                 collection: [],
                 previousList: []
             }
         },
         methods:{
-            getCollections(){
-                //the complete collection is an array of collections, i.e. different pokedexes
-                //  the collection is the current pokedex
-                this.completeCollection = JSON.parse(localStorage.getItem('pokedex')) || {};
-                this.collection = this.completeCollection[ this.currentPokedex ];
-            },
-            loadPokedex(){
-                this.getCollections();
-                //load a pokedex
-                return new Promise((res, reject) => {
-                    if( !this.collection ){
-                        var url = Pokedex.apiUrls.pokedex+this.currentPokedex+'/';
-                        this.axios.get(url).then(pokedex => {
-                            this.collection = pokedex.data.pokemon_entries;
-                            this.completeCollection[this.currentPokedex] = this.collection;
-                            localStorage.setItem('pokedex', JSON.stringify( this.completeCollection ));
-                            res();
-                        })
-                        .catch( e => {
-                            this.errorHandle.exception('pokeApiError', e, this.loadPokedex);
-                            reject();
-                        } );
-                    }else{
-                        res();
-                    }
-                }).then(() =>{
-                    this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
-                    this.current = this.ulArray[this.ulIdx];
-                    this.current.classList.add('selected');
-                    this.broadcastChange();
+            fetchPokedex(){
+                return this.pokeApi.loadPokedex(this.currentPokedex).then((collection) =>{
+                    this.collection = collection;
+                    this.$nextTick(() =>{
+                        this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
+                        this.current = this.ulArray[this.ulIdx];
+                        this.current.classList.add('selected');
+                        this.broadcastChange();
+                    });
+
                 });
             },
             centerListItem(){
@@ -131,7 +112,7 @@
 
         },
         created(){
-            this.dexPromise = this.loadPokedex();
+            this.dexPromise = this.fetchPokedex();
 
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {

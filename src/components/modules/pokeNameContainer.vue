@@ -3,9 +3,13 @@
         <div class="pokeball-container">
             <div class="pokeball"></div>
         </div>
-        <div class="row">
-            <p class="">{{self.pad(this.$parent.currentIdx)}} {{this.$parent.pokeData[this.$parent.currentId].name.toUpperCase()}}</p>
-            <p>{{this.$parent.pokeData[this.$parent.currentId].genera}} Pokémon</p>
+        <div class="row" v-if="pokeLoad">
+            <p class="">
+                {{self.pad(this.pokemon.currentIdx)}} {{(this.pokemon.name) ? this.pokemon.name.toUpperCase() : ''}}
+            </p>
+            <p>
+                {{this.pokemon.genera}} Pokémon
+            </p>
         </div>
     </div>
 </template>
@@ -14,66 +18,26 @@
     export default {
         data(){
             return{
-                self: this
+                self: this,
+                pokemon: {}
+            }
+        },
+        computed: {
+            pokeLoad : function(){
+                return !this.$lodash.isEmpty(this.pokemon);
             }
         },
         mounted(){
 
+        },
+        created(){
+            Pokedex.dispatch.$on('pokeapi-load', data => {
+                this.pokemon = data;
+            });
         }
     }
 </script>
 
 <style lang="scss">
-    @import "../../assets/styles/vars/pallette.scss";
-
-    .name-container{
-        position:relative;
-        background: $name--selected;
-        height:40%;
-        border-radius: 25px;
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
-        box-sizing: border-box;
-        padding: 0 54px;
-        font-size: 25px;
-        font-weight: bold;
-    }
-    .name-container:after{
-        content: ' ';
-        position: absolute;
-        width:10px;
-        height:100%;
-        background: $name--selected;
-        right: -7px;
-        top:0;
-        border-radius: 2px;
-    }
-    .name-container p{
-        margin:0;
-        line-height: 2.3;
-    }
-    .name-container p+p{
-        line-height: 0.5;
-    }
-    .pokeball-container{
-        position: absolute;
-        top: 10px;
-        left:10px;
-        display: block;
-        padding: 2px;
-        height: 34px;
-        width: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 100%;
-    }
-    @media (max-width:700px) {
-        .name-container p{
-            line-height: 1.9;
-        }
-        .name-container p+p{
-            line-height: 0;
-        }
-    }
+    @import "../../assets/styles/modules/name-container.scss";
 </style>
