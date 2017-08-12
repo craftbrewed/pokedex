@@ -47,16 +47,13 @@
             },
             //wrapper function for the previousList, clear the array, remove the active classes
             clearPrevious(){
-
                 this.previousList.forEach(item => {
                     item.classList.remove('n1', 'n2', 'n3');
                 });
                 this.previousList = [];
-
             },
             //we set the next 3 siblings via css, but we have to assign values to the previous siblings
             setPrevious(){
-
                 this.clearPrevious();
                 var previous = this.current.previousElementSibling,
                     n = 0;
@@ -66,25 +63,20 @@
                     this.previousList.push(previous);
                     previous = previous.previousElementSibling;
                 }
-
             },
             setCurrent(idx){
-
                 this.localIdx = idx;
                 if(this.current){
                     this.current.classList.remove('selected');
                 }
                 this.current = this.ulArray[ idx ];
                 this.current.classList.add('selected');
-
             },
             updateList(idx){
-
                 this.setCurrent(idx);
                 this.setPrevious();
                 this.centerListItem();
                 this.broadcastChange();
-
             },
             shift(delta){
                 var nextIdx = this.localIdx + delta;
@@ -119,7 +111,7 @@
             if(this.collection){
                 this.init();
             }
-            Pokedex.dispatch.$on('pokedexLoaded', () => this.init());
+            Pokedex.dispatch.$on('appStart', () => this.init());
 
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {
@@ -131,11 +123,6 @@
             });
 
             this.broadcastChange = this.$lodash.debounce(() => {
-                Pokedex.dispatch.$emit('listChange', {
-                    speciesUrl: this.current.dataset.url,
-                    entryNumber: this.current.dataset.entry,
-                    id: this.pokemon_index_number
-                });
                 this.$store.dispatch('updateIndex', this.localIdx);
             }, 150);
         }

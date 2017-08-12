@@ -16,64 +16,24 @@
         components: {topScreen, bottomScreen, errorModal},
         data () {
             return {
-
-                currentId: null,
-                currentIdx: null,
-                speciesUrl: null,
                 haltState: false
             }
         },
         methods:{
-            updateSprite(){
-                if(this.currentId){
-                    var idx = this.currentId,
-                            imagePath = './pokesprites/'+idx+'/front_default/'+idx+'.png';
 
-                    Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
-                }
-            },
-
-            pokemonLookup(){
-                this.updateSprite();
-            }
         },
         computed:{
-            pokeData(){
-                return this.$store.state.pokemon.pokeCache;
-            },
-            currentPokemon(){
-                return this.$store.getters.current;
-            }
 
         },
         created(){
+            //The Pokedex and subsequent pokemon are vital to the app,
+            //  and we may be fetching this via AJAX, so we'll need to tell components that rely on this data
+            //  that it's ready.
             this.$store.dispatch('initializePokedex').then(() => {
-                Pokedex.dispatch.$emit('pokedexLoaded');
+                Pokedex.dispatch.$emit('appStart');
             });
-
-            Pokedex.dispatch.$on('listChange', data => {
-                this.currentId = data.id;
-                this.currentIdx = data.entryNumber;
-                this.speciesUrl = data.speciesUrl;
-                this.pokemonLookup();
-            });
-
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
-            });
-            Pokedex.dispatch.$on('checkPokeIndex', () =>{
-                Pokedex.dispatch.$emit('pokedexIndexResponse', this.currentIdx);
-            });
-            Pokedex.dispatch.$on('pokeSpriteCreate', ()=>{
-                this.updateSprite();
-            });
-            Pokedex.dispatch.$on('requestPokeData', ()=> {
-                if(this.$lodash.isEmpty(this.currentPokemon)){
-                    //this.pokeApi.loadPokedex(Pokedex.config.currentPokedex).then((data)=>{
-
-                    //});
-                }
-
             });
         }
     }

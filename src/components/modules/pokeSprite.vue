@@ -10,35 +10,24 @@
     export default {
         data(){
             return{
-                //currentPokemonSprite: './pokesprites/empty.png'
+                emptySprite: './pokesprites/empty.png'
             }
         },
 
         methods: {
-            refreshSprite(url){
-                this.currentPokemonSprite = './pokesprites/empty.png';
-                setTimeout(()=>{
-                    this.currentPokemonSprite = url;
-                },1);
-            },
-            updateSprite(sprite){
-                this.currentPokemonSprite = sprite;
-            },
             ajaxSprite(){
                 var src = this.currentPokemonSprite;
-                this.axios.get(src)
-                        .then( (req) => {
-                            this.refreshSprite(req.config.url);
-                        })
-                        .catch(err => {
-                            this.errorHandle.exception('pokeApiError', err, this.ajaxSprite);
-                        });
+                this.axios.get(src).catch(err => {
+                    this.$el.querySelector('#image').src = this.emptySprite;
+                    this.errorHandle.exception('unhandled', err, null);
+                });
             }
         },
         computed:{
             currentPokemonSprite(){
                 var id = this.$store.getters.currentId,
-                    image = './pokesprites/empty.png';
+                    image = this.emptySprite;
+
                 if(id){
                     image =  './pokesprites/'+id+'/front_default/'+id+'.png';
                 }
@@ -61,12 +50,6 @@
 
                 this.ajaxSprite(imgSrc);
             });
-        },
-        created(){
-            Pokedex.dispatch.$on('pokemonSpriteUpdate', sprite => {
-                //this.updateSprite(sprite);
-            });
-            Pokedex.dispatch.$emit('pokeSpriteCreate');
         }
     }
 </script>
