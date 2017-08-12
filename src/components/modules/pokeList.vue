@@ -18,24 +18,24 @@
             return{
                 self : this,
                 current: null,
-                currentPokedex: 6,
                 ul : null,
-                ulIdx: 0,
-                collection: [],
+                localIdx: 0,
                 previousList: []
             }
         },
         methods:{
-            fetchPokedex(){
-                return this.pokeApi.loadPokedex(this.currentPokedex).then((collection) =>{
-                    this.collection = collection;
-                    this.$nextTick(() =>{
-                        this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
-                        this.current = this.ulArray[this.ulIdx];
-                        this.current.classList.add('selected');
-                        this.broadcastChange();
-                    });
+            init(){
+                this.$nextTick(function () {
+                    this.localIdx = this.ulIdx;
+                    this.ul = this.$el.querySelector('.select');
+                    this.ulRect = this.ul.getBoundingClientRect();
+                    this.ulMidpoint = this.ulRect.height/2;
+                    this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
+                    this.current = this.ulArray[this.ulIdx];
+                    this.current.classList.add('selected');
 
+                    this.updateList(this.localIdx);
+                    this.broadcastChange();
                 });
             },
             centerListItem(){
@@ -70,7 +70,7 @@
             },
             setCurrent(idx){
 
-                this.ulIdx = idx;
+                this.localIdx = idx;
                 if(this.current){
                     this.current.classList.remove('selected');
                 }
@@ -87,7 +87,7 @@
 
             },
             shift(delta){
-                var nextIdx = this.ulIdx + delta;
+                var nextIdx = this.localIdx + delta;
                 
                 if(nextIdx > this.collection.length-1){
                     nextIdx = this.collection.length-1;
@@ -99,39 +99,36 @@
             }
         },
         computed: {
+            collection(){
+                return this.$store.state.pokedex.collection;
+            },
             pokemon_index_number: function(){
                 return this.current.dataset.url.split('/').filter(el => {return el !== "";}).pop();
+            },
+            currentPokedex: function(){
+                return Pokedex.config.currentPokedex
+            },
+            ulIdx(){
+                return this.$store.state.pokedex.idx;
             }
         },
         mounted(){
 
-            this.ul = this.$el.querySelector('.select');
-            this.ulRect = this.ul.getBoundingClientRect();
-            this.ulMidpoint = this.ulRect.height/2;
-            this.ulArray = Array.prototype.slice.call(this.ul.childNodes, 0);
-
         },
         created(){
-            this.dexPromise = this.fetchPokedex();
+            if(this.collection){
+                this.init();
+            }
+            Pokedex.dispatch.$on('pokedexLoaded', () => this.init());
 
             //catch events that alter the list
             Pokedex.dispatch.$on('listItemChange', (e) => {
                 try{
                     this.shift(e);
                 }catch (e){
-                    console.error('Critical Error Shutting Down Core Reactor');
+                    console.error(e, "!");
                 }
             });
-
-            //call/response from parent. after load, if there's a stored state, resume that state
-            Pokedex.dispatch.$once('pokedexIndexResponse', (idx) => {
-                this.dexPromise.then(()=>{
-                    if(idx !== null){
-                        this.updateList(idx-1);
-                    }
-                });
-            });
-            Pokedex.dispatch.$emit('checkPokeIndex');
 
             this.broadcastChange = this.$lodash.debounce(() => {
                 Pokedex.dispatch.$emit('listChange', {
@@ -139,6 +136,7 @@
                     entryNumber: this.current.dataset.entry,
                     id: this.pokemon_index_number
                 });
+                this.$store.dispatch('updateIndex', this.localIdx);
             }, 150);
         }
     }

@@ -2,11 +2,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
+import store from './assets/state';
 
 //Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
-import pokeApi from './assets/pokeApiWrapper/main';
+import pokeApi from './assets/pokeApiWrapper/';
 import routes from './assets/scripts/routes';
 
 //cherry pick lodash, we're already pushing what's acceptable for space
@@ -68,14 +69,19 @@ window.Pokedex = {};
 Pokedex.haltState = false;
 //====
 Pokedex.dispatch = new Vue();
+Pokedex.config = {
+    currentPokedex : 6
+};
 Pokedex.apiUrls = {
     pokemon: 'https://pokeapi.co/api/v2/pokemon/',
     pokedex: 'https://pokeapi.co/api/v2/pokedex/'
 };
 
+
 Pokedex.app = new Vue({
     router,
     el: '#app',
+    store,
     render: h => h(App)
 });
 

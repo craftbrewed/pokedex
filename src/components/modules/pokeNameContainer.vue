@@ -34,6 +34,7 @@
             Pokedex.dispatch.$on('pokeapi-load', data => {
                 this.pokemon = data;
             });
+            Pokedex.dispatch.$emit('requestPokeData');
         }
     }
 </script>

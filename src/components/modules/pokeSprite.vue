@@ -10,7 +10,7 @@
     export default {
         data(){
             return{
-                currentPokemonSprite: './pokesprites/empty.png'
+                //currentPokemonSprite: './pokesprites/empty.png'
             }
         },
 
@@ -35,6 +35,17 @@
                         });
             }
         },
+        computed:{
+            currentPokemonSprite(){
+                var id = this.$store.getters.currentId,
+                    image = './pokesprites/empty.png';
+                if(id){
+                    image =  './pokesprites/'+id+'/front_default/'+id+'.png';
+                }
+
+                return image;
+            }
+        },
         mounted(){
             this.image = this.$el.querySelector("#image");
             /*
@@ -53,7 +64,7 @@
         },
         created(){
             Pokedex.dispatch.$on('pokemonSpriteUpdate', sprite => {
-                this.updateSprite(sprite);
+                //this.updateSprite(sprite);
             });
             Pokedex.dispatch.$emit('pokeSpriteCreate');
         }

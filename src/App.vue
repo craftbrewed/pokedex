@@ -16,8 +16,7 @@
         components: {topScreen, bottomScreen, errorModal},
         data () {
             return {
-                pokeData: {},
-                currentPokemon: {},
+
                 currentId: null,
                 currentIdx: null,
                 speciesUrl: null,
@@ -33,65 +32,24 @@
                     Pokedex.dispatch.$emit('pokemonSpriteUpdate', imagePath);
                 }
             },
-            fetchPokemonData() {
-                var idx = this.currentId,
-                    url = Pokedex.apiUrls.pokemon+idx;
 
-                return this.axios.get(url).then(mon => {
-                            this.pokeData[idx] = this.pokeData[idx] || {};
-                            var pokemon = this.pokeData[idx];
-                            mon = mon.data;
-                            pokemon.name = mon.name;
-                            pokemon.weight = mon.weight;
-                            pokemon.height = mon.height;
-
-                            this.pokeData[idx] = pokemon;
-                        })
-                        .catch( error => {
-                            this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
-                        } );
-            },
-            fetchSpeciesData(){
-                var idx = this.currentId,
-                    url = this.speciesUrl;
-
-                return this.axios.get(url).then(species => {
-                    this.pokeData[idx] = this.pokeData[idx] || {};
-                    this.pokeData[idx].description = species.data.flavor_text_entries.filter(obj => {
-                        return obj.version.name === "pearl";
-                    })[0].flavor_text;
-                    this.pokeData[idx].genera = species.data.genera.filter(obj => {
-                       return obj.language.name === 'en';
-                    })[0].genus;
-                }).catch( error => {
-                    this.errorHandle.exception('pokeApiError', error, this.fetchPokemonData)
-                } );
-            },
-
-            loadPokeData(){
-                var pokemonData = this.fetchPokemonData(),
-                    speciesData = this.fetchSpeciesData();
-
-                //cache pokemon
-                Promise.all([pokemonData, speciesData]).then((data) => {
-                    localStorage.setItem('pokeCache', JSON.stringify(this.pokeData));
-                    this.currentPokemon = this.pokeData[this.currentId];
-                });
-            },
             pokemonLookup(){
                 this.updateSprite();
-                if(!this.pokeData[this.currentId]){
-                    this.loadPokeData();
-                }else{
-                    this.currentPokemon = this.pokeData[this.currentId];
-                }
             }
         },
-        created(){
-            this.pokeData = JSON.parse(localStorage.getItem('pokeCache'));
-            if(!this.pokeData){
-                this.pokeData = {};
+        computed:{
+            pokeData(){
+                return this.$store.state.pokemon.pokeCache;
+            },
+            currentPokemon(){
+                return this.$store.getters.current;
             }
+
+        },
+        created(){
+            this.$store.dispatch('initializePokedex').then(() => {
+                Pokedex.dispatch.$emit('pokedexLoaded');
+            });
 
             Pokedex.dispatch.$on('listChange', data => {
                 this.currentId = data.id;
@@ -108,6 +66,14 @@
             });
             Pokedex.dispatch.$on('pokeSpriteCreate', ()=>{
                 this.updateSprite();
+            });
+            Pokedex.dispatch.$on('requestPokeData', ()=> {
+                if(this.$lodash.isEmpty(this.currentPokemon)){
+                    //this.pokeApi.loadPokedex(Pokedex.config.currentPokedex).then((data)=>{
+
+                    //});
+                }
+
             });
         }
     }
