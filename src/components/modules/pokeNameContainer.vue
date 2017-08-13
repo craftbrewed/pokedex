@@ -8,7 +8,7 @@
                 {{self.pad(this.pokemon.currentIdx)}} {{(this.pokemon.name) ? this.pokemon.name.toUpperCase() : ''}}
             </p>
             <p>
-                {{this.pokemon.genera}} Pokémon
+                {{this.pokemon.genera.filter(gen => gen.language.name == 'en')[0].genus}} Pokémon
             </p>
         </div>
     </div>
@@ -18,12 +18,14 @@
     export default {
         data(){
             return{
-                self: this,
-                pokemon: {}
+                self: this
             }
         },
         computed: {
-            pokeLoad : function(){
+            pokemon(){
+                return this.$store.state.pokemon.pokemon;
+            },
+            pokeLoad(){
                 return !this.$lodash.isEmpty(this.pokemon);
             }
         },
@@ -31,10 +33,7 @@
 
         },
         created(){
-            Pokedex.dispatch.$on('pokeapi-load', data => {
-                this.pokemon = data;
-            });
-            Pokedex.dispatch.$emit('requestPokeData');
+
         }
     }
 </script>

@@ -123,6 +123,7 @@
             });
 
             this.broadcastChange = this.$lodash.debounce(() => {
+                this.$store.commit('update', {});
                 this.$store.dispatch('updateIndex', this.localIdx);
             }, 150);
         }
