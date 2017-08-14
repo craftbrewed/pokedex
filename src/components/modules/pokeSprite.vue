@@ -1,9 +1,7 @@
 <template>
-    <div class="col-4">
         <div class="sprite">
             <img id="image" v-bind:src="currentPokemonSprite">
         </div>
-    </div>
 </template>
 
 <script type="text/babel">

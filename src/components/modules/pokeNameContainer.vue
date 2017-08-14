@@ -1,5 +1,5 @@
 <template>
-    <div class="col-8 name-container">
+    <div class="col-12 name-container">
         <div class="pokeball-container">
             <div class="pokeball"></div>
         </div>

@@ -1,12 +1,13 @@
-$type-spriteW:48;
-$type-spriteH: 16;
-$sprite-gapH: 2;
+$type-spriteW:75;
+$type-spriteH: 25;
+$sprite-gapH: 3;
 span.type{
     height:$type-spriteH+px;
     width:$type-spriteW+px;
     display:inline-block;
     background-color: #000066;
     background-image: url('../images/typesheet.png');
+
 }
 .type-normal{
     background-position: 0 0;
@@ -68,4 +69,10 @@ span.type{
 }
 .type-steel{
     background-position: (0px) (-(($type-spriteH+$sprite-gapH)*8)+px);
+}
+@media (max-width:700px){
+    span.type{
+        display: block;
+        margin: 0 auto;
+    }
 }

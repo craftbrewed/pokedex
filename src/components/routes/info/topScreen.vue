@@ -1,12 +1,36 @@
 <template>
     <div class="top-screen-info">
         <info-bar></info-bar>
-        <div class="row top-screen-main-panel container direction-row info--row">
-            <poke-sprite></poke-sprite>
-            <poke-name-container></poke-name-container>
-            <poke-type></poke-type>
-            <poke-height-weight></poke-height-weight>
-            <poke-print></poke-print>
+        <div class="top-screen-main-panel">
+            <div class="container info--container">
+                <div class="row flex">
+                    <div class="col-4">
+                        <poke-sprite></poke-sprite>
+                    </div>
+                    <div class="col-8 full-height">
+                        <div class="row flex name--row">
+                            <poke-name-container></poke-name-container>
+                        </div>
+                        <div class="row flex info--row">
+                            <div class="col-3">
+                                <poke-print></poke-print>
+                            </div>
+                            <div class="col-9">
+                                <div class="row space-left">
+                                    <div class="col-12">
+                                        <poke-type></poke-type>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <poke-height-weight></poke-height-weight>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <poke-description></poke-description>
     </div>
@@ -40,9 +64,25 @@
 </script>
 
 <style lang="scss">
+    .top-screen-main-panel{
+        height: 100%;
+    }
+    .name--row{
+        height:40%;
+    }
     .info--row{
+        height: 60%;
+        margin-top: 5px;
+    }
+    .info--container{
         height:50% !important;
         margin-top:10%;
-        align-items: flex-start!important;
+        flex-direction: row!important;
+    }
+    .full-height{
+        height:100%;
+    }
+    .space-left{
+        padding-left: 5px;
     }
 </style>
