@@ -6,9 +6,14 @@ import loadPokemonData from './functions/loadPokemonData';
 import errorHandle from '../scripts/error';
 
 //axios config
+axios.interceptors.request.use(
+    config => { return config; },
+    error => { return Promise.reject(error) }
+);
 axios.interceptors.response.use(function(config){
     //here is the global haltState manager. If it's set to true and we've gotten to here, it means there was
     // a successful retry and now we exit out of all the errors
+   
     if(Pokedex.haltState){
         Pokedex.dispatch.$emit('setHaltState', false);
     }
