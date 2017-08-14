@@ -14,7 +14,7 @@
                 return this.$store.getters.current.types;
             },
             slotOne(){
-                return 'type-'+this.typeArray[0].type.name;
+                return (this.typeArray[0]) ? 'type-'+this.typeArray[0].type.name : null;
             },
             slotTwo(){
                 return (this.typeArray[1]) ? 'type-'+this.typeArray[1].type.name : null;

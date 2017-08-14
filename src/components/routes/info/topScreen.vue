@@ -15,8 +15,8 @@
                             <div class="col-3">
                                 <poke-print></poke-print>
                             </div>
-                            <div class="col-9">
-                                <div class="row space-left">
+                            <div class="col-9 space-left">
+                                <div class="row">
                                     <div class="col-12">
                                         <poke-type></poke-type>
                                     </div>
@@ -83,6 +83,6 @@
         height:100%;
     }
     .space-left{
-        padding-left: 5px;
+        padding-left: 9px;
     }
 </style>
