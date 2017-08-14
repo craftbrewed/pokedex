@@ -1,7 +1,6 @@
 <template>
     <div class="top-screen-info">
         <info-bar></info-bar>
-        <div class="top-screen-main-panel">
             <div class="container info--container">
                 <div class="row flex">
                     <div class="col-4">
@@ -31,8 +30,9 @@
                     </div>
                 </div>
             </div>
+            <poke-description></poke-description>
         </div>
-        <poke-description></poke-description>
+
     </div>
 
 </template>

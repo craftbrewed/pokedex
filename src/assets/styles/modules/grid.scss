@@ -8,6 +8,11 @@
   flex-direction: row;
   align-items: center;
 }
+.flex-center{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 .row{
   position: relative;
   width:100%;

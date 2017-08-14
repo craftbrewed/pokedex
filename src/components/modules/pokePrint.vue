@@ -30,11 +30,7 @@
     @import '../../assets/styles/vars/pallette.scss';
     $square: 70%;
     $inner-square: $square + 13%;
-    .flex-center{
-        align-items: center;
-        justify-content: center;
-        display: flex;
-    }
+
     .pokePrintCircleOuter{
         width: 80px;
         height:80px;
