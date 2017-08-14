@@ -14,10 +14,10 @@
                 return this.$store.getters.current.types;
             },
             slotOne(){
-                return (this.typeArray[0]) ? 'type-'+this.typeArray[0].type.name : null;
+                return (this.typeArray && this.typeArray[0]) ? 'type-'+this.typeArray[0].type.name : null;
             },
             slotTwo(){
-                return (this.typeArray[1]) ? 'type-'+this.typeArray[1].type.name : null;
+                return (this.typeArray && this.typeArray[1]) ? 'type-'+this.typeArray[1].type.name : null;
             }
         }
     }
