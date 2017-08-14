@@ -37,6 +37,7 @@
     @media (max-width: 700px){
         .pokeHeightWeight p{
             font-size: 25px;
+            line-height: 1.1;
         }
     }
 </style>
