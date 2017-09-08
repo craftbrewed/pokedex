@@ -2,9 +2,9 @@
 import topScreenHome from '../../components/routes/home/topScreen.vue';
 import bottomScreenHome from '../../components/routes/home/bottomScreen.vue';
 
-
+import topScreenInfoRoot from '../../components/routes/info/topScreenRoot.vue';
+import bottomScreenInfoRoot from '../../components/routes/info/bottomScreenRoot.vue';
 import topScreenInfo from '../../components/routes/info/topScreenInfo.vue'
-
 import bottomScreenInfo from '../../components/routes/info/bottomScreenInfo.vue';
 import bottomScreenInfoArea from '../../components/routes/info/bottomScreenArea.vue';
 import bottomScreenInfoCry from '../../components/routes/info/bottomScreenCry.vue';
@@ -23,33 +23,44 @@ var routes = function(){
         {
             path: '/info',
             components: {
-                topScreen: topScreenInfo,
-                bottomScreen: bottomScreenInfo
-            }
+                topScreen: topScreenInfoRoot,
+                bottomScreen: bottomScreenInfoRoot
+            },
+            children:[
+                {
+                    path: '/',
+                    components: {
+                        topScreenInfo: topScreenInfo,
+                        bottomScreenInfo: bottomScreenInfo
+                    }
+                },
+                {
+                    path: 'area',
+                    components: {
+                        topScreenInfo: topScreenInfoArea,
+                        bottomScreenInfo: bottomScreenInfoArea
+                    }
+                },
+                {
+                    path: 'cry',
+                    components: {
+                        topScreenInfo: topScreenInfoCry,
+                        bottomScreenInfo: bottomScreenInfoCry
+                    }
+                },
+                {
+                    path: 'size',
+                    components: {
+                        topScreenInfo: topScreenInfoSize,
+                        bottomScreenInfo: bottomScreenInfoSize
+                    }
+                }
+
+
+            ]
         },
         {
-            path: '/info/area',
-            components: {
-                topScreen: topScreenInfo,
-                bottomScreen: bottomScreenInfoArea
-            }
-        },
-        {
-            path: '/info/cry',
-            components: {
-                topScreen: topScreenInfo,
-                bottomScreen: bottomScreenInfoCry
-            }
-        },
-        {
-            path: '/info/size',
-            components: {
-                topScreen: topScreenInfo,
-                bottomScreen: bottomScreenInfoSize
-            }
-        },
-        {
-            path: '/search', 
+            path: '/search',
             components: {
                 topScreen: topScreenSearch,
                 bottomScreen: bottomScreenSearch

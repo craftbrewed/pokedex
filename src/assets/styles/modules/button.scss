@@ -51,13 +51,12 @@ button.square-button:after{
   top:2px;
   left:0px;
 }
-button.square-button:active{
+button.square-button:active, button.square-button.selected{
   background-color: $button-press;
-  padding-top: 10px;
-  padding-bottom:22px;
+  //padding-bottom:22px;
   color: transparentize(white, 0.2);
 }
-button.square-button:active:before{
+button.square-button:active:before, button.square-button.selected:before{
   position: absolute;
   content: ' ';
   width: 100%;
@@ -70,7 +69,7 @@ button.square-button:active:before{
   top: calc(100% - 9px);
   left:-1px;
 }
-button.square-button:active:after{
+button.square-button:active:after, button.square-button.selected:after{
   border: none;
 }
 button.square-button .button-text{
@@ -82,6 +81,45 @@ button.square-button .button-glyph{
   align-self: flex-end;
   margin: auto 0 auto auto;
 }
+button.square-button.selected .indicator{
+  position: absolute;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  top:-4px;
+  left:-4px;
+}
+button.square-button.selected .indicator span{
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-style: none;
+  border-width: 8px;
+
+}
+button.square-button.selected .indicator .top.left {
+  top:0;left:0;
+  border-top: solid 8px $indicator--red;
+  border-left: solid 8px $indicator--red;
+}
+
+button.square-button.selected .indicator .top.right {
+  right:0;top:0;
+  border-top: solid 8px $indicator--red;
+  border-right: solid 8px $indicator--red;
+}
+button.square-button.selected .indicator .bottom.left {
+  bottom:0;left:0;
+  border-bottom: solid 8px $indicator--red;
+  border-left: solid 8px $indicator--red;
+}
+
+button.square-button.selected .indicator .bottom.right {
+  bottom:0;right:0;
+  border-bottom: solid 8px $indicator--red;
+  border-right: solid 8px $indicator--red;
+}
+
 
 #search-pokemon{
   height:23%;

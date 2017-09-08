@@ -1,6 +1,62 @@
 @import "../vars/pallette";
-.bottom-screen-info{
-  background-color: $panel--purple;
+.screen{
   height: 100%;
   width: 100%;
 }
+.bottom-info{
+  background-color: $panel--purple;
+  border-top: solid 3px $panel--purple-light;
+}
+.button-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 60%;
+}
+.bottom-info button{
+  background: $panel--blue-light;
+  width: 45%;
+  max-height: 60px;
+  line-height: 1;
+  text-align: center;
+  justify-content: space-around;
+}
+.bottom-info button .button-text{
+  width: 100%;
+
+}
+.bottom-info button .arrow{
+  position: relative;
+  display: inline-block;
+  text-shadow: none;
+  height: 23px;
+  width:23px;
+  padding: 4px 4px 4px 5px;
+  font-size: 25px;
+}
+.bottom-info button .arrow:before{
+  position: absolute;
+  content: '';
+  height: 100%;
+  width:100%;
+  background: rgba(0,0,0,0.34);
+  top:2px;
+  border-radius: 50%;
+  left:1px;
+  z-index: -1;
+}
+.bottom-info button .arrow.up{
+  transform: rotate(-90deg);
+  margin-right: 20%;
+}
+
+.bottom-info button .arrow.down{
+  transform: rotate(90deg);
+  margin-left: 20%;
+}
+.bottom-info button .arrow.down:before {
+  top: 1px;
+  left: -1px;
+}
+

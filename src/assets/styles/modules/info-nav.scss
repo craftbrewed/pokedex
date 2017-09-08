@@ -1,0 +1,40 @@
+@import "../vars/pallette.scss";
+
+nav.info{
+  background-color: $panel--green-light;
+  padding: 25px 15px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px $panel--green-dark-border;
+}
+nav.info .column-left{
+  display: flex;
+  min-width: 240px;
+  justify-content: space-around;
+}
+nav.info .column-right {
+  margin-right: 1em;
+}
+nav.info button{
+  width: 53px;
+  height: 40px;
+  display: inline-block;
+  line-height: 0.9;
+  font-variant: small-caps;
+  padding: 0 5px;
+  text-align: center;
+  background: $panel--blue-medium;
+}
+nav.info button.glyph:not(:active){
+  background-color: $panel--pink-dark;
+}
+nav.info button.selected .button-text {
+  display: inline-block;
+  width: 100%;
+  transform: translateY(-3px);
+}
+
+nav.info button.selected:before{
+  border-bottom-width: 3px;
+  height:6px;
+}
