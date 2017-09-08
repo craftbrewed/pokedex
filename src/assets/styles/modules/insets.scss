@@ -1,6 +1,10 @@
 @import "../vars/pallette.scss";
 @import "../vars/image-constants.scss";
 
+.inset{
+  position: absolute;
+}
+
 .inset-line{
   position:absolute;
   background-color: $dark-yellow--background;
@@ -31,4 +35,41 @@
 }
 .inset-line.right{
   right:$line-space;
+}
+
+.inset.square{
+  height: 24px;
+  width: 20px;
+}
+.inset.square.info{
+  background-color: $panel--purple;
+  border-width: 3px;
+  border-style: solid;
+  border-top-color: $panel--purple-dark;
+
+  border-bottom-style: none;
+}
+.inset.square.info:before{
+  content: '';
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
+  box-shadow: 0px 3px 1px 1px $panel--purple-light;
+}
+
+.inset.square.info.left{
+  left: 0;
+  border-right-color: $panel--purple-dark;
+  border-left-style: none;
+}
+.inset.square.info.right{
+  right: 0;
+  border-left-color: $panel--purple-dark;
+  border-right-style: none;
+}
+.inset.square.info.top{
+  top: 35%;
+}
+.inset.square.info.bottom{
+  top: 60%
 }

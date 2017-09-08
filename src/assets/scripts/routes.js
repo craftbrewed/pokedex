@@ -1,12 +1,15 @@
 "use strict";
 import topScreenHome from '../../components/routes/home/topScreen.vue';
 import bottomScreenHome from '../../components/routes/home/bottomScreen.vue';
-import topScreenInfo from '../../components/routes/info/topScreen.vue'
-import bottomScreenInfo from '../../components/routes/info/bottomScreen.vue';
-import bottomScreenInfoArea from '../../components/routes/info/area.vue';
-import bottomScreenInfoCry from '../../components/routes/info/cry.vue';
-import bottomScreenInfoSize from '../../components/routes/info/size.vue';
-let topScreenSearch, bottomScreenSearch;
+
+
+import topScreenInfo from '../../components/routes/info/topScreenInfo.vue'
+
+import bottomScreenInfo from '../../components/routes/info/bottomScreenInfo.vue';
+import bottomScreenInfoArea from '../../components/routes/info/bottomScreenArea.vue';
+import bottomScreenInfoCry from '../../components/routes/info/bottomScreenCry.vue';
+import bottomScreenInfoSize from '../../components/routes/info/bottomScreenSize.vue';
+let topScreenInfoArea, topScreenInfoCry, topScreenInfoSize, topScreenSearch, bottomScreenSearch;
 
 var routes = function(){
     return [
@@ -22,30 +25,28 @@ var routes = function(){
             components: {
                 topScreen: topScreenInfo,
                 bottomScreen: bottomScreenInfo
-            },
-            children: [
-                {
-                    path: '/area',
-                    components: {
-                        topScreen: topScreenInfo,
-                        bottomScreen: bottomScreenInfoArea
-                    }
-                },
-                {
-                    path: '/cry',
-                    components: {
-                        topScreen: topScreenInfo,
-                        bottomScreen: bottomScreenInfoCry
-                    }
-                },
-                {
-                    path: '/size',
-                    components: {
-                        topScreen: topScreenInfo,
-                        bottomScreen: bottomScreenInfoSize
-                    }
-                }
-            ]
+            }
+        },
+        {
+            path: '/info/area',
+            components: {
+                topScreen: topScreenInfo,
+                bottomScreen: bottomScreenInfoArea
+            }
+        },
+        {
+            path: '/info/cry',
+            components: {
+                topScreen: topScreenInfo,
+                bottomScreen: bottomScreenInfoCry
+            }
+        },
+        {
+            path: '/info/size',
+            components: {
+                topScreen: topScreenInfo,
+                bottomScreen: bottomScreenInfoSize
+            }
         },
         {
             path: '/search', 

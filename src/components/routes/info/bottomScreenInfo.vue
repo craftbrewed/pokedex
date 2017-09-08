@@ -1,6 +1,9 @@
 <template>
     <div class="bottom-screen-info">
-
+        <div class="inset square info left top"></div>
+        <div class="inset square info left bottom"></div>
+        <div class="inset square info right top"></div>
+        <div class="inset square info right bottom"></div>
     </div>
 </template>
 
