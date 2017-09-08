@@ -35,7 +35,7 @@
                     this.current.classList.add('selected');
 
                     this.updateList(this.localIdx);
-                    this.broadcastChange();
+                    //this.broadcastChange();
                 });
             },
             centerListItem(){
@@ -76,7 +76,7 @@
                 this.setCurrent(idx);
                 this.setPrevious();
                 this.centerListItem();
-                this.broadcastChange();
+                //this.broadcastChange();
             },
             shift(delta){
                 var nextIdx = this.localIdx + delta;
@@ -121,11 +121,14 @@
                     console.error(e, "!");
                 }
             });
-
+/*
             this.broadcastChange = this.$lodash.debounce(() => {
+
                 this.$store.commit('update', {});
-                this.$store.dispatch('updateIndex', this.localIdx);
+                this.$store.dispatch('updateIndex', this.localIdx).then(() =>{
+                });
             }, 150);
+*/
         }
     }
 </script>

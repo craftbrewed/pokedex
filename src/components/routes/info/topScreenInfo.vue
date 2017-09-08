@@ -1,5 +1,6 @@
 <template>
     <div class="top-screen-info">
+        <div v-show="pokemonChange" class="pokemonLoad"></div>
         <info-bar></info-bar>
             <div class="container info--container">
                 <div class="row flex">
@@ -49,7 +50,15 @@
     export default {
         data(){
             return{
-                pokemon : {}
+                pokemon : {},
+                pokemonChange: false
+            }
+        },
+        methods:{
+            normalizeLoadTransition(ms){
+                return new Promise((resolve, reject) =>{
+                    setTimeout(resolve, ms);
+                })
             }
         },
         components: {
@@ -58,6 +67,15 @@
         created(){
             Pokedex.dispatch.$on('pokeapi-load', (data) => {
                 this.pokemon = data;
+            });
+            Pokedex.dispatch.$on('listItemChange', ()=>{
+                this.pokemonChange = true;
+                this.wait = this.normalizeLoadTransition(500);
+            });
+            Pokedex.dispatch.$on('listItemLoad', ()=>{
+                this.wait.then(() => {
+                    this.pokemonChange = false;
+                });
             });
         }
     }
@@ -84,5 +102,12 @@
     }
     .space-left{
         padding-left: 9px;
+    }
+    .pokemonLoad{
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background-color: #000;
     }
 </style>

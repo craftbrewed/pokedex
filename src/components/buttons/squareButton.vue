@@ -1,5 +1,5 @@
 <template>
-    <button class="square-button">
+    <button class="square-button" @click="buttonClick">
         <slot></slot>
         <slot name="glyph"></slot>
         <div class="indicator" v-show="indicator">
@@ -13,7 +13,14 @@
 
 <script type="text/babel">
     export default {
-        props: ['indicator'],
+        props: ['indicator', 'clickEvent'],
+        methods:{
+            buttonClick(){
+                if(this.$props.clickEvent){
+                    Pokedex.dispatch.$emit('buttonClick', this.$props.clickEvent);
+                }
+            }
+        },
         destroyed(){
 
         },

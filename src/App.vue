@@ -20,7 +20,18 @@
             }
         },
         methods:{
+            shift(delta){
+                let currentIdx =       this.$store.state.pokedex.idx,
+                    collectionLength = this.$store.state.pokedex.collection.length-1,
+                    nextIdx = currentIdx + delta;
+                if(nextIdx > collectionLength){
+                    nextIdx = collectionLength;
+                }else if(nextIdx < 0){
+                    nextIdx = 0;
+                }
+                return nextIdx;
 
+            }
         },
         computed:{
 
@@ -35,6 +46,17 @@
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
             });
+            Pokedex.dispatch.$on('listItemChange', (delta) =>{
+                let nextIdx = this.shift(delta);
+                this.$store.commit('update', {});
+                this.$store.dispatch('updateIndex', nextIdx)
+                        .then(() =>{
+                            Pokedex.dispatch.$emit('listItemLoad');
+                        })
+
+            });
+
+
         }
     }
 </script>
