@@ -1,6 +1,8 @@
 <template>
     <div class="bottom-screen-home">
-            <div class="row full-height">
+        <insets></insets>
+
+        <div class="row full-height">
                 <div class="col-5">
                     <router-link to="/search">
                         <square-button id="search-pokemon">
@@ -39,10 +41,12 @@
     import squareButton from './../../buttons/squareButton.vue';
     import circleButton from './../../buttons/circleButton.vue';
     import bigPokeball from './bigPokeball.vue';
+    import insets from './insets.vue';
+
 
     export default{
         components: {
-            squareButton, circleButton, bigPokeball
+            squareButton, circleButton, bigPokeball, insets
         },
         methods:{
             navUp(){
@@ -60,7 +64,10 @@
 </script>
 
 <style lang="scss">
+    @import "../../../assets/styles/modules/insets.scss";
+
     .bottom-screen-home{
-        height: 100%;
+        height: 98%;
+        padding: 5px 0 5px 10px;
     }
 </style>

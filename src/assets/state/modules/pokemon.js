@@ -1,6 +1,7 @@
 "use strict";
 import _PokeApi from '../../pokeApiWrapper';
-var extend = require('lodash/extend'),
+let extend = require('lodash/extend'),
+    isEmpty = require('lodash/isEmpty'),
     PokeApi = new _PokeApi();
 
 var state = {
@@ -9,6 +10,7 @@ var state = {
 };
 
 var getters = {
+    currentLoaded : state => !isEmpty(state.pokemon),
     current : state => state.pokemon
 };
 

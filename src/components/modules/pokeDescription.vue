@@ -9,10 +9,18 @@
 <script type="text/babel">
     export default {
         computed:{
+            storeLoaded(){
+                return this.$store.getters.currentLoaded;
+            },
             flavor_text(){
-                return this.$store.getters.current.flavor_text_entries.filter(entry=> {
-                    return entry.language.name === 'en' && entry.version.name === 'pearl'
-                })[0].flavor_text;
+                let response = "";
+                if(this.storeLoaded){
+                    response = this.$store.getters.current.flavor_text_entries.filter(entry=> {
+                        return entry.language.name === 'en' && entry.version.name === 'pearl'
+                    })[0].flavor_text;
+                }
+
+                return response;
             }
         }
     }
