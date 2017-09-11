@@ -54,6 +54,7 @@
                 pokemonChange: false
             }
         },
+
         methods:{
             normalizeLoadTransition(ms){
                 return new Promise((resolve, reject) =>{

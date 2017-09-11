@@ -9,6 +9,16 @@
   background-color: transparentize($panel--purple, 0.8);
   border: none;
 }
+.top-area .time-of-day-label{
+  background: $name--selected;
+  max-width: 159px;
+  text-align: center;
+  padding: 8px 0;
+  border-radius: 16px;
+  border: solid 5px $dark-yellow--background;
+  margin-top: -100px;
+  margin-bottom: 50px;
+}
 .top-area .inset-line.left{
   display: none;
 }

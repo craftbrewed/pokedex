@@ -10,7 +10,7 @@ $br-w: 56px;
 
 $daynight--width: 144px;
 $daynight--height: 48px;
-$daynight--square: 48px;
+$daynight--square: 58px;
 
 span.button-glyph{
     display: inline-block;
@@ -56,7 +56,7 @@ button:active .button-glyph.arrow-default-down{
     background-position: -($br-w*2)+1 $br-h;
 }
 
-.day-night{
+div.day-night{
     width: $daynight--square;
     height: $daynight--square;
     background-image: $day-night-glyphs;

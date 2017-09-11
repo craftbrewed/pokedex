@@ -4,6 +4,7 @@
             <insets></insets>
             <div class="row flex-center ">
                 <div class="col-4">
+                    <h1 class="time-of-day-label">{{timeOfDay}}</h1>
                     <poke-sprite overrideBackdrop="pokeball-area"></poke-sprite>
                 </div>
                 <div class="col-8">
@@ -21,6 +22,11 @@
     export default {
         components: {
             areaMap,pokeSprite, insets
+        },
+        computed:{
+            timeOfDay(){
+                return this.$store.getters.getTimeOfDay;
+            }
         }
     }
 </script>

@@ -1,11 +1,13 @@
 @import "../vars/pallette.scss";
 
 nav.info{
+  position: relative;
   background-color: $panel--green-light;
   padding: 25px 15px;
   display: flex;
   justify-content: space-between;
   border-bottom: solid 1px $panel--green-dark-border;
+  z-index: 55;
 }
 nav.info .column-left{
   display: flex;
