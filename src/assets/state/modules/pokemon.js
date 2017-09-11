@@ -1,8 +1,11 @@
 "use strict";
 import _PokeApi from '../../pokeApiWrapper';
+import PokeDataModule from '../../scripts/pokeDataModule';
 let extend = require('lodash/extend'),
+    merge  = require('lodash/merge'),
     isEmpty = require('lodash/isEmpty'),
-    PokeApi = new _PokeApi();
+    PokeApi = new _PokeApi(),
+    pokeData = new PokeDataModule();
 
 var state = {
     pokeCache: JSON.parse(localStorage.getItem('pokeCache')) || {},
@@ -33,7 +36,12 @@ var actions = {
                 PokeApi.loadPokemonData(id, 'pokemon'),
                 PokeApi.loadPokemonData(id, 'species')
             ]).then( responseArray => {
-                var data = extend(responseArray[0], responseArray[1]);
+                let fullResponse = extend(responseArray[0], responseArray[1]),
+                    data = pokeData.filterFullPokeObject(fullResponse);
+
+                console.log(merge({}, data));
+
+
                 commit('cachePokemon', {
                     id : id,
                     data: data
