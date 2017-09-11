@@ -1,0 +1,23 @@
+@import "../vars/pallette";
+
+.top-area .container{
+  position: relative;
+  margin-top: 8%;
+  height: 90%;
+}
+.top-area .inset-line{
+  background-color: transparentize($panel--purple, 0.8);
+  border: none;
+}
+.top-area .inset-line.left{
+  display: none;
+}
+.top-area .inset-line.top{
+  top: 35px;
+}
+.top-area .inset-line.bottom {
+  bottom: 35px;
+}
+.top-area .inset-line.right {
+  right: 35px;
+}

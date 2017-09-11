@@ -4,12 +4,16 @@ import bottomScreenHome from '../../components/routes/home/bottomScreen.vue';
 
 import topScreenInfoRoot from '../../components/routes/info/topScreenRoot.vue';
 import bottomScreenInfoRoot from '../../components/routes/info/bottomScreenRoot.vue';
+
 import topScreenInfo from '../../components/routes/info/topScreenInfo.vue'
 import bottomScreenInfo from '../../components/routes/info/bottomScreenInfo.vue';
+
 import bottomScreenInfoArea from '../../components/routes/info/bottomScreenArea.vue';
+import topScreenInfoArea from '../../components/routes/info/topScreenArea.vue';
+
 import bottomScreenInfoCry from '../../components/routes/info/bottomScreenCry.vue';
 import bottomScreenInfoSize from '../../components/routes/info/bottomScreenSize.vue';
-let topScreenInfoArea, topScreenInfoCry, topScreenInfoSize, topScreenSearch, bottomScreenSearch;
+let topScreenInfoCry, topScreenInfoSize, topScreenSearch, bottomScreenSearch;
 
 var routes = function(){
     return [

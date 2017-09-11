@@ -106,8 +106,11 @@
 .top-screen-home{
   background: $sprite--topscreen-default;
 }
-.top-screen-info{
+.screen.top-info{
   background: $sprite--topscreen-info-main;
+}
+.screen.top-area{
+  background: $sprite--topscreen-area;
 }
 .top-screen-search {
   background: $sprite--topscreen-search;

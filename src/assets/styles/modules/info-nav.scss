@@ -25,8 +25,14 @@ nav.info button{
   text-align: center;
   background: $panel--blue-medium;
 }
+nav.info button:before {
+  border-color: transparentize($panel--blue-medium, 0.2);
+}
 nav.info button.glyph:not(:active){
   background-color: $panel--pink-dark;
+}
+nav.info button.glyph:not(:active):before {
+  border-color: transparentize($panel--pink-dark, 0.2);
 }
 nav.info button.selected .button-text {
   display: inline-block;

@@ -1,0 +1,63 @@
+@import "../vars/pallette.scss";
+@import "../vars/backgrounds.scss";
+
+.sprite{
+  position: relative;
+  border: solid 4px $selector--yellow;
+  width: 80%;
+  margin:0 auto;
+  max-width: 170px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px $selector--shadow;
+  background: $sprite--image-bg;
+}
+.sprite.no-back-drop{
+  box-shadow: none;
+  background: none;
+  border: none;
+}
+.sprite:not(.no-back-drop):before{
+  content: "";
+  display: block;
+  padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.sprite:not(.no-back-drop):after{
+  content: " ";
+  position: absolute;
+  top:0;left:0;right:0;bottom:0;
+  border: 5px solid $selector--blue;
+  border-radius: 10px;
+}
+.sprite img{
+  position: absolute;
+  top:0;bottom:0;right:0;left:0;
+  margin:auto;
+  width:95%;
+  z-index: 99;
+}
+.sprite.no-back-drop img{
+  position: relative;
+}
+
+.sprite.pokeball-area:before{
+  content: '';
+  position: absolute;
+  top: 4%; left:-10px; right: 0;
+  margin: auto;
+  width:84%;
+  height: 43%;
+  background: transparentize($panel--purple, .8);
+  border-top-left-radius: 400px;
+  border-top-right-radius: 400px;
+}
+.sprite.pokeball-area:after {
+  content: '';
+  position: absolute;
+  bottom: 4%; left:-10px; right:0;
+  margin: auto;
+  width:84%;
+  height: 43%;
+  background: transparentize($panel--purple, .8);
+  border-bottom-left-radius: 400px;
+  border-bottom-right-radius: 400px;
+}

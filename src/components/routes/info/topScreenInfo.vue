@@ -1,7 +1,7 @@
 <template>
-    <div class="top-screen-info">
+    <div class="screen top-info">
         <div v-show="pokemonChange" class="pokemonLoad"></div>
-        <info-bar></info-bar>
+
             <div class="container info--container">
                 <div class="row flex">
                     <div class="col-4">
@@ -62,7 +62,7 @@
             }
         },
         components: {
-            infoBar, pokeSprite, pokeNameContainer, pokeType, pokeHeightWeight, pokePrint, pokeDescription
+             pokeSprite, pokeNameContainer, pokeType, pokeHeightWeight, pokePrint, pokeDescription
         },
         created(){
             Pokedex.dispatch.$on('pokeapi-load', (data) => {
@@ -94,7 +94,8 @@
     }
     .info--container{
         height:50% !important;
-        margin-top:10%;
+        margin-top:6%;
+        padding-top:4%;
         flex-direction: row!important;
     }
     .full-height{

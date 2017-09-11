@@ -1,10 +1,16 @@
 $glyph-sheet: url('../../images/glyphs.png');
+$day-night-glyphs: url('../../images/day-night-sprites.png');
+
 $spritesheet--width: 166px;
 $spritesheet--height: 82px;
 $tr-h: 31px;
 $tr-w: 32px;
 $br-h: 51px;
 $br-w: 56px;
+
+$daynight--width: 144px;
+$daynight--height: 48px;
+$daynight--square: 48px;
 
 span.button-glyph{
     display: inline-block;
@@ -49,6 +55,22 @@ button:active .button-glyph.arrow-default-down{
 .button-glyph.book{
     background-position: -($br-w*2)+1 $br-h;
 }
+
+.day-night{
+    width: $daynight--square;
+    height: $daynight--square;
+    background-image: $day-night-glyphs;
+}
+.day-night.morning{
+    background-position: 0 0;
+}
+.day-night.day{
+    background-position: -$daynight--square 0;
+}
+.day-night.night{
+    background-position: -$daynight--square*2 0;
+}
+
 @media (max-width: 700px){
     $reduce: 0.62;
     $spritesheet--width: floor(166px * $reduce);

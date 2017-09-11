@@ -22,6 +22,9 @@
   text-align: center;
   justify-content: space-around;
 }
+.bottom-info button:before{
+  border-color: transparentize($panel--blue-light, 0.2);
+}
 .bottom-info button .button-text{
   width: 100%;
 

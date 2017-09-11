@@ -1,11 +1,18 @@
 <template>
     <div class="info-bar panel color--blue">
-        <h1>INFO</h1>
+        <h1>{{currentPanel}}</h1>
     </div>
 </template>
 
 <script type="text/babel">
-    export default {}
+    export default {
+        computed:{
+            currentPanel(){
+                let paths = this.$route.path.split("/");
+                return paths[paths.length-1].toUpperCase();
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -17,6 +24,7 @@
         box-sizing: border-box;
         position: absolute;
         top: 0;
+        z-index: 999;
     }
     .info-bar h1{
         position:relative;
