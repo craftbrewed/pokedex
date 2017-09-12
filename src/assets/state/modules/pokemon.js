@@ -25,6 +25,20 @@ var mutations = {
         state.pokeCache = state.pokeCache || {};
         state.pokeCache[pokeObject.id] = pokeObject.data;
         localStorage.setItem( 'pokeCache', JSON.stringify(state.pokeCache) );
+    },
+    cacheEncounterList(state, pokeObject){
+        try{
+            let pokeCache = JSON.parse(localStorage.getItem('pokeCache')),
+                id = pokeObject.id,
+                data = pokeObject.data;
+
+            state.pokeCache[id].location_area_encounters = data;
+            pokeCache[id] = state.pokeCache[id];
+
+            localStorage.setItem('pokeCache', JSON.stringify(pokeCache));
+        }catch(e){
+            console.error("D:", e)
+        }
     }
 };
 
@@ -39,9 +53,6 @@ var actions = {
                 let fullResponse = extend(responseArray[0], responseArray[1]),
                     data = pokeData.filterFullPokeObject(fullResponse);
 
-                console.log(merge({}, data));
-
-
                 commit('cachePokemon', {
                     id : id,
                     data: data
@@ -50,6 +61,23 @@ var actions = {
             });
         }else{
             commit('update', response);
+            response = Promise.resolve(response);
+        }
+
+        return response;
+    },
+    getEncounter({commit, state, getters}){
+        let currentId = getters.current.id;
+        let response = state.pokeCache[currentId].location_area_encounters;
+
+        if(typeof response === 'string'){
+            response = PokeApi.loadEncounters(response).then((pokeEncounters) => {
+               commit('cacheEncounterList',{
+                   id:currentId,
+                   data: pokeEncounters
+                });
+            });
+        }else{
             response = Promise.resolve(response);
         }
 

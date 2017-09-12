@@ -1,6 +1,8 @@
 <template>
     <div class="area-map img-container">
-        <img src="../../assets/images/map.png">
+        <div class="overlay">
+            <img src="../../assets/images/map.png">
+        </div>
     </div>
 </template>
 
@@ -9,10 +11,13 @@
 </script>
 
 <style lang="scss">
+
+    .area-map .overlay{
+        margin-top: 20px;
+        padding: 15px;
+    }
     .area-map.img-container img{
         box-sizing: border-box;
-        margin-top: 20px;
         width: 100%;
-        padding: 15px;
     }
 </style>
