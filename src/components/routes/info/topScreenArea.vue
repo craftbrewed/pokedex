@@ -22,7 +22,7 @@
     export default {
         data(){
             return{
-                locations: []
+
             }
         },
         components: {
@@ -32,25 +32,10 @@
             timeOfDay(){
                 return this.$store.getters.getTimeOfDay;
             }
-        },
-        methods:{
-            loadEncounters(){
-                console.log('requesting encounter list');
-                this.$store.dispatch('getEncounter').then((encounterList) =>{
-                    console.log('enounter list loaded', encounterList);
-                    this.locations = encounterList;
-                });
-            }
-        },
-        created(){
 
-            Pokedex.dispatch.$on('appStart', () =>{
-               this.loadEncounters();
-            });
-            Pokedex.dispatch.$on('listItemLoad', ()=>{
-               this.loadEncounters();
-            })
         }
+
+
     }
 </script>
 

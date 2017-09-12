@@ -76,7 +76,8 @@ var actions = {
                    id:currentId,
                    data: pokeEncounters
                 });
-                return pokeEncounters;
+
+                return Promise.resolve(pokeEncounters);
             });
         }else{
             response = Promise.resolve(response);
