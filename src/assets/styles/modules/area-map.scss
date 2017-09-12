@@ -1,0 +1,74 @@
+@import '../vars/pallette';
+
+.area-map.img-container{
+  height: 35vh;
+  width: 100%;
+  box-sizing: border-box;
+
+}
+.area-map.img-container img{
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  z-index: 9998;
+}
+.area-map.img-container img:not(.highlight){
+  //display: none;
+}
+.area-map.img-container .highlight{
+  z-index: 9999;
+  filter: hue-rotate(180deg) brightness(2);
+  animation: pulse 2s linear infinite;
+}
+.area-map .map-notification{
+  position: absolute;
+  top:0;left:0;right:0;bottom:0;
+  height:35px;
+  width: 60%;
+  margin: auto;
+  z-index: 10000;
+  text-align: center;
+  background: $panel--red-light;
+  border: solid 3px $nav-button--red;
+  border-left-width: 7px;
+  border-right-width: 7px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  border-radius: 3px;
+}
+.area-map .map-notification:before{
+  position: absolute;
+  content: '';
+  left: 3px;
+  height: 100%;
+  background-color: $nav-button--red;
+  width:3px;
+  z-index: 10001;
+}
+.area-map .map-notification:after{
+  position: absolute;
+  content: '';
+  right: 3px;
+  height: 100%;
+  background-color: $nav-button--red;
+  width:3px;
+  z-index: 10001;
+}
+.area-map .map-notification .dots{
+  width: 20px;
+  display: inline-block;
+  text-align: left;
+}
+@keyframes pulse {
+  0%{
+    transform: scale(1);
+    opacity: 1;
+  }
+  45%{
+    transform: scale(1.01);
+    opacity: 0;
+  }
+}

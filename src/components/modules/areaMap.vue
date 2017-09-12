@@ -4,7 +4,14 @@
         <img src="../../assets/images/map.png">
         <template v-for="mapPiece in highlightRegions">
             <img :src="mapPieces[mapPiece.name]" class="highlight" v-show="isVisible(mapPiece.condition)">
+
         </template>
+        <div class="map-notification" v-show="locations.length === 0 && !isLoading">
+            Area Unknown
+        </div>
+        <div class="map-notification" v-show="isLoading">
+            Loading Area Info<span class="dots">{{dots}}</span>
+        </div>
 
     </div>
 </template>
@@ -14,7 +21,10 @@
         data(){
             return{
                 locations: [],
-                mapPieces: {}
+                mapPieces: {},
+                isLoading: true,
+                dots: ".",
+                interval: null
             }
         },
         computed:{
@@ -32,7 +42,9 @@
         },
         methods:{
             loadEncounters(){
+                this.isLoading = true;
                 this.$store.dispatch('getEncounter').then((encounterList) =>{
+                    this.isLoading = false;
                     this.locations = encounterList.map((location) =>{
                         return {
                             name : location.name.replace(/-area|sinnoh-/g, ""),
@@ -47,7 +59,17 @@
                 }else{
                     return conditions.filter(condition => {return condition.indexOf(this.timeOfDay.toLowerCase()) > -1}).length;
                 }
-            }
+            },
+           dotInterval(){
+               if(this.dots.length === 3){
+                   this.dots = ".";
+               }else{
+                   this.dots += ".";
+               }
+           }
+        },
+        destroyed(){
+            clearInterval(this.interval);
         },
         created(){
             let _import = require.context('../../assets/images/map_places', false, /\.png$/);
@@ -64,43 +86,15 @@
             });
             Pokedex.dispatch.$on('listItemLoad', ()=>{
                 this.loadEncounters();
-            })
+            });
+
+            clearInterval(this.interval);
+            this.interval = setInterval(this.dotInterval, 1000);
         }
     }
 </script>
 
 <style lang="scss">
+    @import '../../assets/styles/modules/area-map.scss';
 
-    .area-map.img-container{
-        height: 35vh;
-        width: 100%;
-        box-sizing: border-box;
-
-    }
-    .area-map.img-container img{
-        position: absolute;
-        width: 100%;
-        box-sizing: border-box;
-        padding: 15px;
-        z-index: 9998;
-    }
-    .area-map.img-container img:not(.highlight){
-        //display: none;
-    }
-    .area-map.img-container .highlight{
-        z-index: 9999;
-        filter: hue-rotate(180deg) brightness(2);
-        animation: pulse 2s linear infinite;
-    }
-
-    @keyframes pulse {
-        0%{
-            transform: scale(1);
-            opacity: 1;
-        }
-        45%{
-            transform: scale(1.01);
-            opacity: 0;
-        }
-    }
 </style>
