@@ -2,6 +2,12 @@
 const uniq = require('lodash/uniq');
 
 const loadEncounters = function(url){
+    console.trace("encounter api call");
+
+    //check for magikarp error... :(
+    if(url === '/api/v2/pokemon/129/encounters'){
+        return Promise.resolve([]);
+    }
     return this.axios.get(this.url.root+url).then((response) => {
         //map, filter
         let pearlEncounters = response.data.filter(encounter =>{

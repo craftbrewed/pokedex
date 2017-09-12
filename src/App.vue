@@ -43,6 +43,10 @@
             this.$store.dispatch('initializePokedex').then(() => {
                 Pokedex.dispatch.$emit('appStart');
             });
+            this.debouncedListItem = this.$lodash.debounce(()=>{
+                console.log("debouncing");
+                Pokedex.dispatch.$emit('listItemLoad');
+            }, 350);
             Pokedex.dispatch.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
             });
@@ -51,7 +55,7 @@
                 this.$store.commit('update', {});
                 this.$store.dispatch('updateIndex', nextIdx)
                         .then(() =>{
-                            Pokedex.dispatch.$emit('listItemLoad');
+                           this.debouncedListItem();
                         })
 
             });

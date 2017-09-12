@@ -46,15 +46,19 @@
                 this.$store.dispatch('getEncounter').then((encounterList) =>{
                     this.isLoading = false;
                     this.locations = encounterList.map((location) =>{
+                        let name =  location.name.replace(/-area|sinnoh-|sea-/g, "");
+                        if(name.match(/(route-\d\d\d)/g)){
+                            name = name.replace(/(route-\d\d\d)|[^]/g, '$1');
+                        }
                         return {
-                            name : location.name.replace(/-area|sinnoh-/g, ""),
+                            name : name,
                             condition: location.conditions
                         }
                     });
                 });
             },
             isVisible(conditions){
-                if(conditions.includes('universal')){
+                if(conditions.includes('universal') || conditions.includes('radar-off')){
                     return true;
                 }else{
                     return conditions.filter(condition => {return condition.indexOf(this.timeOfDay.toLowerCase()) > -1}).length;
@@ -70,6 +74,7 @@
         },
         destroyed(){
             clearInterval(this.interval);
+            Pokedex.dispatch.$off('listItemLoad', this.loadEncounters);
         },
         created(){
             let _import = require.context('../../assets/images/map_places', false, /\.png$/);
@@ -84,9 +89,10 @@
             Pokedex.dispatch.$on('appStart', () =>{
                 this.loadEncounters();
             });
-            Pokedex.dispatch.$on('listItemLoad', ()=>{
-                this.loadEncounters();
+            Pokedex.dispatch.$on('listItemChange', ()=>{
+               this.isLoading = true;
             });
+            Pokedex.dispatch.$on('listItemLoad', this.loadEncounters);
 
             clearInterval(this.interval);
             this.interval = setInterval(this.dotInterval, 1000);
