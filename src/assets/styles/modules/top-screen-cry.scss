@@ -1,0 +1,43 @@
+@import '../vars/pallette';
+@import '../vars/backgrounds';
+.sprite.cry img{
+  background-color: transparentize($panel--teal, 0.5);
+  width: 100%;
+}
+.square-border-white{
+  border-color: $indicator--white;
+  border-radius: 0;
+  border-width: 6px;
+  border-style: solid;
+
+  box-shadow: 0 0 0 1px $pokefont--grey;
+}
+.sprite.cry{
+
+}
+.sprite.cry:after{
+  border-width: 1px;
+  border-radius: 0;
+  border-color: $pokefont--grey;
+
+}
+
+.top-area .spectrogram-top{
+  max-height: 170px;
+  position: relative;
+  background: $sprite--topscreen-spectrogram-1;
+}
+.top-area .spectrogram-top:before{
+  display: block;
+  content: '';
+  padding-top: 50%;
+}
+.spectrogram-2{
+  height: 18vh;
+  background: $sprite--topscreen-spectrogram-2;
+}
+@media(max-width:600px){
+  .top-area .spectrogram-top{
+    height: 15vh;
+  }
+}

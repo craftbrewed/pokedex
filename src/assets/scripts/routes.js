@@ -12,8 +12,10 @@ import bottomScreenInfoArea from '../../components/routes/info/bottomScreenArea.
 import topScreenInfoArea from '../../components/routes/info/topScreenArea.vue';
 
 import bottomScreenInfoCry from '../../components/routes/info/bottomScreenCry.vue';
+import topScreenInfoCry from '../../components/routes/info/topScreenCry.vue';
+
 import bottomScreenInfoSize from '../../components/routes/info/bottomScreenSize.vue';
-let topScreenInfoCry, topScreenInfoSize, topScreenSearch, bottomScreenSearch;
+let topScreenInfoSize, topScreenSearch, bottomScreenSearch;
 
 var routes = function(){
     return [

@@ -1,5 +1,5 @@
 <template>
-        <div class="sprite" :class="[{'no-back-drop' : overrideBackdrop}, overrideBackdrop]">
+        <div class="sprite" :class="[{'no-back-drop' : overrideBackdrop}, overrideBackdrop,{'square-border-white' : changeBackdrop==='cry'}, changeBackdrop]">
             <img id="image" v-bind:src="currentPokemonSprite">
         </div>
 </template>
@@ -11,7 +11,7 @@
                 emptySprite: './pokesprites/empty.png'
             }
         },
-        props: ['overrideBackdrop'],
+        props: ['overrideBackdrop', 'changeBackdrop'],
         methods: {
             ajaxSprite(){
                 var src = this.currentPokemonSprite;
