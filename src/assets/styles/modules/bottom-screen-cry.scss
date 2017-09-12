@@ -1,0 +1,62 @@
+@import "../vars/pallette";
+.bottom-cry .big-pokeball{
+  width: 30vw;
+  height: 30vw;
+  max-width:350px;
+  max-height: 350px;
+  top:35vh;left:0;right:0;bottom:0;
+  margin: auto;
+  border-color: $pokefont--white;
+  border-width: 5px;
+}
+
+.bottom-cry .big-pokeball .red-half{
+  height: calc(50%);
+}
+
+.bottom-cry .big-pokeball .circle-button{
+  width:50px;
+  height: 50px;
+  background-color: $pokefont--white;
+  padding: 0;
+  color: $button-green;
+  text-shadow: 0 0 2x $panel--green-dark;
+  position: absolute;
+  top: 0;left:0;right:0;bottom:0;
+  margin: auto;
+  padding-left: 5px;
+}
+.bottom-cry .big-pokeball button.circle-button:active  .html-glyph{
+  transform: translateY(-2px);
+}
+.bottom-cry .big-pokeball button.circle-button:active:before{
+  border-top-color: $panel--dark;
+}
+.bottom-cry .big-pokeball button.circle-button:active:after{
+  border-bottom-color: $panel--dark;
+  border-width: 3px;
+
+}
+.bottom-cry .big-pokeball:before, .bottom-cry .big-pokeball .pokeball-inner {
+  border-color: $pokefont--white;
+  border-width: 5px;
+}
+@media(max-width:768px){
+  .bottom-cry .big-pokeball {
+    top: 35vh;
+    width: 43vw;
+    height: 43vw;
+  }
+  .bottom-cry .big-pokeball .circle-button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}
+@media(max-width:500px) {
+  .bottom-cry .big-pokeball {
+    top: 30vh;
+    width: 45vw;
+    height: 45vw;
+  }
+}

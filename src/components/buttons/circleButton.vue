@@ -13,7 +13,8 @@
         },
         methods: {
             click(){
-                this.$emit('click')
+                console.log("click");
+                Pokedex.dispatch.$emit('buttonClick');
             }
         },
         mounted(){

@@ -29,15 +29,16 @@
             },
             cycleDown(){
                 Pokedex.dispatch.$emit('listItemChange', 1);
+            },
+            buttonClick(evt){
+                this[evt]();
             }
         },
         destroyed(){
-            Pokedex.dispatch.$off('buttonClick');
+            Pokedex.dispatch.$off('buttonClick', this.buttonClick);
         },
         created(){
-            Pokedex.dispatch.$on('buttonClick', (evt) =>{
-                this[evt]();
-            })
+            Pokedex.dispatch.$on('buttonClick', this.buttonClick)
         }
     }
 </script>
