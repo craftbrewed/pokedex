@@ -34,17 +34,13 @@
 
             },
             requestFullScreen(){
-
-                if(this.fullScreenAnswer === null){
-                    this.fullScreenAnswer = true;
-                    let element = this.$el;
-                    if (element.requestFullscreen) { // W3C API
-                        element.requestFullscreen();
-                    } else if (element.mozRequestFullScreen) { // Mozilla current API
-                        element.mozRequestFullScreen();
-                    } else if (element.webkitRequestFullScreen) { // Webkit current API
-                        element.webkitRequestFullScreen();
-                    }
+                let element = this.$el;
+                if (element.requestFullscreen) { // W3C API
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { // Mozilla current API
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullScreen) { // Webkit current API
+                    element.webkitRequestFullScreen();
                 }
             }
         },
@@ -56,15 +52,22 @@
                 Pokedex.dispatch.$emit('cancelSpin');
             }
         },
+        mounted(){
+            Pokedex.dispatch.$emit('modalOpen', {
+                'title' : "Requesting Fullscreen",
+                'body'  : "This app works reall well fullscreen... give it a try?",
+                'confirm' : true,
+                'canClose': true,
+                'onConfirm': this.requestFullScreen
+            })
+        },
         created(){
             //The Pokedex and subsequent pokemon are vital to the app,
             //  and we may be fetching this via AJAX, so we'll need to tell components that rely on this data
             //  that it's ready.
             this.$store.dispatch('initializePokedex').then(() => {
                 Pokedex.dispatch.$emit('appStart');
-                if(confirm("this app works really well full screen, interested in trying it out?")){
-                    this.requestFullScreen();
-                }
+
             });
             this.debouncedListItem = this.$lodash.debounce(()=>{
                 Pokedex.dispatch.$emit('listItemLoad');
@@ -80,7 +83,6 @@
                            this.debouncedListItem();
                         })
                         .catch((error) => {})
-
             });
 
 

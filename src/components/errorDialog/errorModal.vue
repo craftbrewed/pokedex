@@ -1,10 +1,21 @@
 <template>
     <div class="error-modal modal-container" v-bind:class="{ 'can-close' : model.canClose, open: this.open }" >
             <div class="dialog--wrapper" >
-                <div class="dialog">
+                <div class="dialog" @click="closeModal">
                     <p class="error--title"> {{model.title}} </p>
                     <p class="error--body"> {{model.body}} </p>
                     <p class="error--status-code" v-if="model.status"> Status Code: {{model.status}}  </p>
+                    <div class="container flex-center height--20">
+                        <div class="row flex flex-center">
+                            <div v-show="model.confirm" :class="[{'col-6' : model.canClose}, {'col-12' : !model.canClose}]">
+                                <button @click="confirmClick">OK</button>
+                            </div>
+                            <div v-show="model.canClose" :class="[{'col-6' : model.confirm}, {'col-12' : !model.confirm}]">
+                                <button @click="closeModal">Exit</button>
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="container bring-to-bottom height--5vh">
                         <div class="row">
                             <div class="col-3">
@@ -35,6 +46,7 @@
                     'version' : "0.1",
                     'email' : "contact@craftbrewed.io",
                     'canClose' : true,
+                    'confirm' : false
                 },
                 model : {}
             }
@@ -66,6 +78,10 @@
                     this.open = false;
                 }
 
+            },
+            confirmClick(){
+                this.model.onConfirm();
+                this.closeModal();
             }
         },
         created(){

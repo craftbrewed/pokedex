@@ -11,6 +11,11 @@
   display:none;
   transition: all 375ms linear;
 }
+.modal-container button{
+  width: 90%;
+  color: $pokefont--grey;
+  text-shadow: none;
+}
 .modal-container.open, .modal-container.halt{
   display: block;
 }
