@@ -44,15 +44,16 @@
             loadEncounters(){
                 this.isLoading = true;
                 this.$store.dispatch('getEncounter').then((encounterList) =>{
+
                     this.isLoading = false;
                     this.locations = encounterList.map((location) =>{
-                        let name =  location.name.replace(/-area|sinnoh-|sea-/g, "");
-                        if(name.match(/(route-\d\d\d)/g)){
-                            name = name.replace(/(route-\d\d\d)|[^]/g, '$1');
-                        }
-                        if(name.match(/(iron-island)|[^]/g)){
-                            name = name.replace(/(iron-island)|[^]/g, '$1');
-                        }
+                        let name = "";
+                        Object.keys(this.mapPieces).forEach((key) => {
+                            if(location.name.indexOf(key) > -1){
+                                name = key;
+                            }
+                        });
+
                         return {
                             name : name,
                             condition: location.conditions

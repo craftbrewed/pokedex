@@ -72,9 +72,12 @@ var actions = {
         return response;
     },
     getEncounter({commit, state, getters}){
-        let currentId = getters.current.id;
-        let response = state.pokeCache[currentId].location_area_encounters;
-
+            let currentId = getters.current.id;
+            let response;
+        try{
+            response = state.pokeCache[currentId].location_area_encounters;
+        }catch(e){
+        }
         if(typeof response === 'string'){
             response = PokeApi.loadEncounters(response).then((pokeEncounters) => {
                commit('cacheEncounterList',{
@@ -83,7 +86,7 @@ var actions = {
                 });
 
                 return Promise.resolve(pokeEncounters);
-            });
+            }).catch((e)=>{});
         }else{
             response = Promise.resolve(response);
         }
