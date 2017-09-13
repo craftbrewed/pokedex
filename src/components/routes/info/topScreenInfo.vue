@@ -66,6 +66,9 @@
              pokeSprite, pokeNameContainer, pokeType, pokeHeightWeight, pokePrint, pokeDescription
         },
         created(){
+            if(!this.$store.getters.currentLoaded){
+                this.pokemonChange = true
+            }
             Pokedex.dispatch.$on('pokeapi-load', (data) => {
                 this.pokemon = data;
             });
@@ -74,9 +77,14 @@
                 this.wait = this.normalizeLoadTransition(500);
             });
             Pokedex.dispatch.$on('listItemLoad', ()=>{
-                this.wait.then(() => {
+                if(this.wait){
+                    this.wait.then(() => {
+                        this.pokemonChange = false;
+                    });
+                }else{
                     this.pokemonChange = false;
-                });
+                }
+
             });
         }
     }

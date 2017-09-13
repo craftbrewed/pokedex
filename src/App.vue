@@ -56,7 +56,7 @@
                         .then(() =>{
                            this.debouncedListItem();
                         })
-                        .catch((error) => {console.log("Caught the error, bruh")})
+                        .catch((error) => {})
 
             });
 
