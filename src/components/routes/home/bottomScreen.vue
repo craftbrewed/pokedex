@@ -58,15 +58,16 @@
                 Pokedex.dispatch.$emit('topScreenCloseOpen', function(){
                     Pokedex.dispatch.$emit('listItemChange', 999, true);
                 });
+            },
+            circleButtonHandler(){
+                this[type]();
             }
         },
         destroyed(){
-            Pokedex.dispatch.$off('buttonClick');
+            Pokedex.dispatch.$off('buttonClick', this.circleButtonHandler);
         },
         created(){
-            Pokedex.dispatch.$on('buttonClick', (type) =>{
-                this[type]();
-            });
+            Pokedex.dispatch.$on('buttonClick', this.circleButtonHandler);
         }
     }
 </script>
