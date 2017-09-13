@@ -7,7 +7,7 @@ import store from './assets/state';
 //Import Libraries for adding to the Vue prototype
 import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
-import pokeApi from './assets/pokeApiWrapper/';
+import PokeApi from './assets/pokeApiWrapper/';
 import routes from './assets/scripts/routes';
 import WaveSurfer from 'wavesurfer.js';
 
@@ -28,7 +28,7 @@ Vue.use(VueRouter);
 Vue.prototype.$lodash = _;
 Vue.prototype.$WaveSurver = WaveSurfer;
 Vue.prototype.axios = axios;
-Vue.prototype.pokeApi = new pokeApi();
+Vue.prototype.pokeApi = new PokeApi();
 Vue.prototype.eventObject = {
     keydown : keydown
 };

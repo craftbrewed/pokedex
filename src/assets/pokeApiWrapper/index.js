@@ -1,22 +1,25 @@
 "use strict";
 
 import axios from 'axios';
+import requests from './functions/requestHandler';
 import loadPokedex from './functions/loadPokedex';
 import loadPokemonData from './functions/loadPokemonData';
 import loadEncounters from './functions/loadEncounters';
 import errorHandle from '../scripts/error';
 
-
-
 //axios config
 axios.interceptors.request.use(
-    config => { return config; },
-    error => { return Promise.reject(error) }
+    (config) => {
+        return config;
+    },
+    error => {
+        return Promise.reject(error)
+    }
 );
+
+
+//Global halt state, i.e. when something goes wrong and we're ready for it.
 axios.interceptors.response.use(function(config){
-    //here is the global haltState manager. If it's set to true and we've gotten to here, it means there was
-    // a successful retry and now we exit out of all the errors
-   
     if(Pokedex.haltState){
         Pokedex.dispatch.$emit('setHaltState', false);
     }
@@ -25,10 +28,8 @@ axios.interceptors.response.use(function(config){
     return Promise.reject(error)
 });
 
-var PokeApi = function() {
-
-};
-
+var PokeApi = function() {};
+PokeApi.prototype.requests = requests;
 PokeApi.prototype.axios       = axios;
 PokeApi.prototype.errorHandle = errorHandle;
 PokeApi.prototype.url = {
