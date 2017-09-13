@@ -54,8 +54,15 @@
                 let cacheClearOption = localStorage.getItem('cacheClearDate');
                 if(!cacheClearOption || parseInt(cacheClearOption, 10) < this.pokeApi.clearCacheDate){
                     localStorage.removeItem('pokeCache');
+                    this.$store.commit('clearCache');
                     localStorage.setItem('cacheClearDate', Date.now());
+                    this.initializePokedex();
                 }
+            },
+            initializePokedex(){
+                this.$store.dispatch('initializePokedex').then(() => {
+                    Pokedex.dispatch.$emit('appStart');
+                });
             }
         },
         computed:{
@@ -80,11 +87,7 @@
             //  and we may be fetching this via AJAX, so we'll need to tell components that rely on this data
             //  that it's ready.
             this.checkClearCache();
-            this.$store.dispatch('initializePokedex').then(() => {
-                Pokedex.dispatch.$emit('appStart');
-
-
-            });
+            this.initializePokedex();
             this.debouncedListItem = this.$lodash.debounce(()=>{
                 Pokedex.dispatch.$emit('listItemLoad');
             }, 350);

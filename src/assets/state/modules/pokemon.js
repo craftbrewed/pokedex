@@ -39,6 +39,9 @@ var mutations = {
         }catch(e){
             console.error("D:", e)
         }
+    },
+    clearCache(){
+        state.pokeCache = {};
     }
 };
 
