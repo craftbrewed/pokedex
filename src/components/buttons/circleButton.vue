@@ -6,6 +6,7 @@
 
 <script type="text/babel">
     export default {
+        props: ['type'],
         data(){
             return{
 

@@ -9,6 +9,7 @@ import keydown from './assets/eventListeners/keydown';
 import axios from 'axios';
 import pokeApi from './assets/pokeApiWrapper/';
 import routes from './assets/scripts/routes';
+import WaveSurfer from 'wavesurfer.js';
 
 //cherry pick lodash, we're already pushing what's acceptable for space
 var _ = {
@@ -25,6 +26,7 @@ import log from './assets/scripts/log'
 Vue.use(VueRouter);
 
 Vue.prototype.$lodash = _;
+Vue.prototype.$WaveSurver = WaveSurfer;
 Vue.prototype.axios = axios;
 Vue.prototype.pokeApi = new pokeApi();
 Vue.prototype.eventObject = {

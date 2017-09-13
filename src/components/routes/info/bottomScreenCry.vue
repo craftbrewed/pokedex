@@ -43,8 +43,7 @@
         },
         methods:{
             playSound(){
-                console.log( this.audioElement);
-                this.audioElement.play();
+               // this.audioElement.play();
             }
         },
         destroyed(){
@@ -53,6 +52,7 @@
         },
         mounted(){
             this.audioElement = this.$el.querySelector("#cryElement");
+
         },
         created(){
             console.log("created");
