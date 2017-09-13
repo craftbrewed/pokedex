@@ -69,8 +69,9 @@
             if(!this.$store.getters.currentLoaded){
                 this.pokemonChange = true
             }
-            Pokedex.dispatch.$on('pokeapi-load', (data) => {
+            Pokedex.dispatch.$on('appStart', (data) => {
                 this.pokemon = data;
+                this.pokemonChange = false;
             });
             Pokedex.dispatch.$on('listItemChange', ()=>{
                 this.pokemonChange = true;
