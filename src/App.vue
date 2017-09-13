@@ -34,9 +34,10 @@
 
             },
             requestFullScreen(){
-                if(this.fullScreenAnswer !== null){
+
+                if(this.fullScreenAnswer === null){
                     this.fullScreenAnswer = true;
-                    element = this.$el;
+                    let element = this.$el;
                     if (element.requestFullscreen) { // W3C API
                         element.requestFullscreen();
                     } else if (element.mozRequestFullScreen) { // Mozilla current API
