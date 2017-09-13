@@ -14,8 +14,7 @@
         },
         methods: {
             click(){
-                console.log("click");
-                Pokedex.dispatch.$emit('buttonClick');
+                Pokedex.dispatch.$emit('buttonClick', this.$props.type);
             }
         },
         mounted(){

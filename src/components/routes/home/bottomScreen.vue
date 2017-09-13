@@ -20,10 +20,10 @@
                 </div>
                 <div class="col-2">
                     <div class="center-btn-container">
-                        <circle-button id="navigation-up" @click="navUp">
+                        <circle-button id="navigation-up"  type="navUp">
                             <span class="button-glyph arrow-default arrow-default-up"></span>
                         </circle-button>
-                        <circle-button  id="navigation-down" @click="navDown">
+                        <circle-button  id="navigation-down" type="navDown">
                             <span class="button-glyph arrow-default arrow-default-down"></span>
                         </circle-button>
                     </div>
@@ -59,6 +59,14 @@
                     Pokedex.dispatch.$emit('listItemChange', 999, true);
                 });
             }
+        },
+        destroyed(){
+            Pokedex.dispatch.$off('buttonClick');
+        },
+        created(){
+            Pokedex.dispatch.$on('buttonClick', (type) =>{
+                this[type]();
+            });
         }
     }
 </script>
