@@ -13,7 +13,8 @@
 }
 .modal-container button{
   width: 90%;
-  color: $pokefont--grey;
+  color: black;
+  font-weight: 100;
   text-shadow: none;
 }
 .modal-container.open, .modal-container.halt{

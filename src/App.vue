@@ -35,12 +35,19 @@
             },
             requestFullScreen(){
                 let element = this.$el;
+                console.log("requesting fullscreen", document);
                 if (element.requestFullscreen) { // W3C API
+                    console.log("standard");
                     element.requestFullscreen();
                 } else if (element.mozRequestFullScreen) { // Mozilla current API
+                    console.log("moz");
                     element.mozRequestFullScreen();
                 } else if (element.webkitRequestFullScreen) { // Webkit current API
+                    console.log("webkit");
                     element.webkitRequestFullScreen();
+                }else if(element.msRequestFullscreen) {
+                    console.log("ms");
+                    element.msRequestFullscreen();
                 }
             }
         },
