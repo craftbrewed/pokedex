@@ -54,9 +54,6 @@
         watch:{
             '$route'(to, from){
                 Pokedex.dispatch.$emit('cancelSpin');
-                if(confirm("this app works really well full screen, interested in trying it out?")){
-                    this.requestFullScreen();
-                }
             }
         },
         created(){
@@ -65,6 +62,9 @@
             //  that it's ready.
             this.$store.dispatch('initializePokedex').then(() => {
                 Pokedex.dispatch.$emit('appStart');
+                if(confirm("this app works really well full screen, interested in trying it out?")){
+                    this.requestFullScreen();
+                }
             });
             this.debouncedListItem = this.$lodash.debounce(()=>{
                 Pokedex.dispatch.$emit('listItemLoad');
