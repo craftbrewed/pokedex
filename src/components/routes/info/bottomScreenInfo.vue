@@ -6,11 +6,11 @@
         <div class="inset square info right bottom"></div>
         <div class="button-container">
             <square-button clickEvent="cycleUp">
-                <span class="button-text"><span class="arrow up">&#10145;</span>BACK</span>
+                <span class="button-text"> <i class="fa fa-arrow-up" aria-hidden="true"></i> BACK</span>
             </square-button>
 
             <square-button clickEvent="cycleDown">
-                <span class="button-text">NEXT<span class="arrow down">&#10145;</span></span>
+                <span class="button-text">NEXT<i class="fa fa-arrow-down" aria-hidden="true"></i></span>
             </square-button>
         </div>
 

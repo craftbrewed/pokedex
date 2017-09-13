@@ -97,6 +97,8 @@ button.square-button.selected .indicator span{
   border-width: 8px;
 
 }
+button.square-button .button-text{
+}
 button.square-button.selected .indicator .top.left {
   top:0;left:0;
   border-top: solid 8px $indicator--red;
