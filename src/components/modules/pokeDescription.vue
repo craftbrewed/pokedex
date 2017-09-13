@@ -54,7 +54,7 @@
     }
     @media(max-width: 700px){
         .pokeDescriptionInner p{
-            font-size:23px;
+            font-size:20px;
             width:90%;
         }
     }
