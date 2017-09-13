@@ -1,5 +1,5 @@
 <template>
-    <div id="pokedex">
+    <div id="pokedex" @touchstart="requestFullScreen">
             <top-screen></top-screen>
             <bottom-screen></bottom-screen>
             <error-modal></error-modal>
@@ -16,7 +16,8 @@
         components: {topScreen, bottomScreen, errorModal},
         data () {
             return {
-                haltState: false
+                haltState: false,
+                fullScreenAnswer: null
             }
         },
         methods:{
@@ -31,6 +32,19 @@
                 }
                 return nextIdx;
 
+            },
+            requestFullScreen(){
+                if(this.fullScreenAnswer !== null){
+                    this.fullScreenAnswer = true;
+                    element = this.$el;
+                    if (element.requestFullscreen) { // W3C API
+                        element.requestFullscreen();
+                    } else if (element.mozRequestFullScreen) { // Mozilla current API
+                        element.mozRequestFullScreen();
+                    } else if (element.webkitRequestFullScreen) { // Webkit current API
+                        element.webkitRequestFullScreen();
+                    }
+                }
             }
         },
         computed:{
