@@ -49,7 +49,9 @@ var actions = {
             response = Promise.all([
                 PokeApi.loadPokemonData(id, 'pokemon'),
                 PokeApi.loadPokemonData(id, 'species')
-            ]).then( responseArray => {
+            ])
+
+            .then( responseArray => {
                 let fullResponse = extend(responseArray[0], responseArray[1]),
                     data = pokeData.filterFullPokeObject(fullResponse);
 
@@ -58,7 +60,10 @@ var actions = {
                     data: data
                 });
                 commit('update', data);
-            });
+            })
+                .catch((error) => {
+                    throw error;
+                })
         }else{
             commit('update', response);
             response = Promise.resolve(response);

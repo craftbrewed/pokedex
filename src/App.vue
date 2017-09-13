@@ -44,7 +44,6 @@
                 Pokedex.dispatch.$emit('appStart');
             });
             this.debouncedListItem = this.$lodash.debounce(()=>{
-                console.log("debouncing");
                 Pokedex.dispatch.$emit('listItemLoad');
             }, 350);
             Pokedex.dispatch.$on('setHaltState', state =>{
@@ -57,6 +56,7 @@
                         .then(() =>{
                            this.debouncedListItem();
                         })
+                        .catch((error) => {console.log("Caught the error, bruh")})
 
             });
 

@@ -1,7 +1,7 @@
 "use strict";
 
 /*
-This stands between requests, and cancels stale ones.
+This stands between registered requests, and cancels stale ones.
 
 This way, when multiple requests fall through the debouncing cracks
  we'll cancel old ones
@@ -10,6 +10,9 @@ const requestHandler = function () {
     let requestQueue = {};
 
     const add = function(request, cancelToken){
+        if(requestQueue[request]){
+            cancel(request);
+        }
         requestQueue[request] = cancelToken;
     };
 
@@ -22,8 +25,10 @@ const requestHandler = function () {
     };
 
     const cancel = function(request){
-        requestQueue[request]();
-        remove(request);
+        if(requestQueue[request]){
+            requestQueue[request]();
+            remove(request);
+        }
     };
 
     const cancelAll = function(){

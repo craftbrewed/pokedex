@@ -1,13 +1,24 @@
 "use strict";
 
 var loadPokemonData = function(id, type){
-    var url = this.url[type]+id+'/';
-    return this.axios.get(url)
-        .then( pokemon => pokemon.data )
+    let url = this.url[type]+id+'/';
+    return this.axios.get(url, {
+        cancelToken : new this.axios.CancelToken( (c) => {
+            this.requests.add(type, c);
+        })
+    })
         .catch( error => {
-            this.errorHandle.exception('pokeApiError', error, loadPokemonData)
+            if(this.axios.isCancel(error)){
+                throw error
+            }else{
+                this.errorHandle.exception('pokeApiError', error, loadPokemonData)
+            }
+        })
+        .then( (pokemon) => {
+            this.requests.remove(type);
+            return pokemon.data;
         });
-    
+
 };
 
 export default loadPokemonData;
