@@ -1,5 +1,5 @@
 <template>
-    <div id="pokedex" @touchstart="requestFullScreen">
+    <div id="pokedex" >
             <top-screen></top-screen>
             <bottom-screen></bottom-screen>
             <error-modal></error-modal>
@@ -54,6 +54,9 @@
         watch:{
             '$route'(to, from){
                 Pokedex.dispatch.$emit('cancelSpin');
+                if(confirm("this app works really well full screen, interested in trying it out?")){
+                    this.requestFullScreen();
+                }
             }
         },
         created(){
