@@ -49,6 +49,13 @@
                     console.log("ms");
                     element.msRequestFullscreen();
                 }
+            },
+            checkClearCache(){
+                let cacheClearOption = localStorage.getItem('cacheClearDate');
+                if(!cacheClearOption || parseInt(cacheClearOption, 10) < this.pokeApi.clearCacheDate){
+                    localStorage.removeItem('pokeCache');
+                    localStorage.setItem('cacheClearDate', Date.now());
+                }
             }
         },
         computed:{
@@ -72,8 +79,10 @@
             //The Pokedex and subsequent pokemon are vital to the app,
             //  and we may be fetching this via AJAX, so we'll need to tell components that rely on this data
             //  that it's ready.
+            this.checkClearCache();
             this.$store.dispatch('initializePokedex').then(() => {
                 Pokedex.dispatch.$emit('appStart');
+
 
             });
             this.debouncedListItem = this.$lodash.debounce(()=>{
