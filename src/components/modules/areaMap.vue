@@ -50,6 +50,9 @@
                         if(name.match(/(route-\d\d\d)/g)){
                             name = name.replace(/(route-\d\d\d)|[^]/g, '$1');
                         }
+                        if(name.match(/(iron-island)|[^]/g)){
+                            name = name.replace(/(iron-island)|[^]/g, '$1');
+                        }
                         return {
                             name : name,
                             condition: location.conditions
