@@ -36,6 +36,11 @@
         computed:{
 
         },
+        watch:{
+            '$route'(to, from){
+                Pokedex.dispatch.$emit('cancelSpin');
+            }
+        },
         created(){
             //The Pokedex and subsequent pokemon are vital to the app,
             //  and we may be fetching this via AJAX, so we'll need to tell components that rely on this data

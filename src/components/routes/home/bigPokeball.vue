@@ -25,9 +25,9 @@
                 this.spinVars.rotated = delta;
             },
             spinAtVelocity(v, count){
-                var a = setInterval(() => {
+                this.spinInterval = setInterval(() => {
                     if(count>0 && this.spinning){
-                        clearInterval(a);
+                        clearInterval(this.spinInterval);
                         count--;
                         this.spinVars.rotated= this.spinVars.rotated+(v * (count/10000));
                         this.rotatePokeball(this.spinVars.rotated);
@@ -35,7 +35,7 @@
                         this.spinAtVelocity(v, count);
                     }else{
                         this.spinning = false;
-                        clearInterval(a);
+                        clearInterval(this.spinInterval);
                     }
                 }, 100/count*2);
             },
@@ -126,7 +126,10 @@
                     this.rotatePokeball(by + this.spinVars.lastSpinDelta);
                 }
             });
-
+            Pokedex.dispatch.$on('cancelSpin', ()=>{
+                this.spinning = false;
+                clearInterval(this.spinInterval);
+            });
             this.emitChange = this.$lodash.throttle(() => {
                 if(this.spinVars.lastSpinDirection >= 0){
                     Pokedex.dispatch.$emit('listItemChange', 1);
