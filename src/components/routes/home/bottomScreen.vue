@@ -59,7 +59,7 @@
                     Pokedex.dispatch.$emit('listItemChange', 999, true);
                 });
             },
-            circleButtonHandler(){
+            circleButtonHandler(type){
                 this[type]();
             }
         },
