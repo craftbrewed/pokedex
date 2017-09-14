@@ -53,6 +53,7 @@
             checkClearCache(){
                 let cacheClearOption = localStorage.getItem('cacheClearDate');
                 if(!cacheClearOption || parseInt(cacheClearOption, 10) < this.pokeApi.clearCacheDate){
+                    console.log("clearing cache");
                     localStorage.removeItem('pokeCache');
                     this.$store.commit('clearCache');
                     localStorage.setItem('cacheClearDate', Date.now());
@@ -60,6 +61,8 @@
                 }
             },
             initializePokedex(){
+                var pokeData = require('./assets/flatfiles/pokedata.json');
+                this.$store.commit('setCache', pokeData);
                 this.$store.dispatch('initializePokedex').then(() => {
                     Pokedex.EventBus.$emit('appStart');
                 });

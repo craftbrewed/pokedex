@@ -29,7 +29,7 @@ axios.interceptors.response.use(function(config){
 });
 
 var PokeApi = function() {};
-PokeApi.prototype.clearCacheDate = 1505346792829;
+PokeApi.prototype.clearCacheDate = 1505419432610;
 PokeApi.prototype.requests = requests();
 PokeApi.prototype.axios       = axios;
 PokeApi.prototype.errorHandle = errorHandle;

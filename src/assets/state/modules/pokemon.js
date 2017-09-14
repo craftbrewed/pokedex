@@ -40,8 +40,12 @@ var mutations = {
             console.error("D:", e)
         }
     },
-    clearCache(){
+    clearCache(state){
         state.pokeCache = {};
+    },
+    setCache(state, cacheObject){
+        state.pokeCache = cacheObject;
+        localStorage.setItem('pokeCache', JSON.stringify(cacheObject));
     }
 };
 
