@@ -48,7 +48,7 @@
         },
         destroyed(){
             console.log("destroyed");
-            Pokedex.dispatch.$off('buttonClick', this.playSound);
+            Pokedex.EventBus.$off('buttonClick', this.playSound);
         },
         mounted(){
             this.audioElement = this.$el.querySelector("#cryElement");
@@ -56,7 +56,7 @@
         },
         created(){
             console.log("created");
-            Pokedex.dispatch.$on('buttonClick', this.playSound);
+            Pokedex.EventBus.$on('buttonClick', this.playSound);
         }
     }
 </script>

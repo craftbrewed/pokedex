@@ -85,16 +85,16 @@
             }
         },
         created(){
-            Pokedex.dispatch.$on( 'setHaltState', state =>{
+            Pokedex.EventBus.$on( 'setHaltState', state =>{
                 this.setHaltState(state);
             });
-            Pokedex.dispatch.$on( 'modalOpen', info =>{
+            Pokedex.EventBus.$on( 'modalOpen', info =>{
                this.openModal(info);
             });
-            Pokedex.dispatch.$on( 'modalClose', () => {
+            Pokedex.EventBus.$on( 'modalClose', () => {
                this.closeModal();
             });
-            Pokedex.dispatch.$on( 'toggleModal',  info => {
+            Pokedex.EventBus.$on( 'toggleModal', info => {
                 (this.open) ? this.closeModal() : this.openModal(info);
             });
 

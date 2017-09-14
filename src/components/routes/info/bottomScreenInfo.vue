@@ -25,20 +25,20 @@
         },
         methods:{
             cycleUp(){
-                Pokedex.dispatch.$emit('listItemChange', -1);
+                Pokedex.EventBus.$emit('listItemChange', -1);
             },
             cycleDown(){
-                Pokedex.dispatch.$emit('listItemChange', 1);
+                Pokedex.EventBus.$emit('listItemChange', 1);
             },
             buttonClick(evt){
                 this[evt]();
             }
         },
         destroyed(){
-            Pokedex.dispatch.$off('buttonClick', this.buttonClick);
+            Pokedex.EventBus.$off('buttonClick', this.buttonClick);
         },
         created(){
-            Pokedex.dispatch.$on('buttonClick', this.buttonClick)
+            Pokedex.EventBus.$on('buttonClick', this.buttonClick)
         }
     }
 </script>

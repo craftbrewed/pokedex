@@ -69,15 +69,15 @@
             if(!this.$store.getters.currentLoaded){
                 this.pokemonChange = true
             }
-            Pokedex.dispatch.$on('appStart', (data) => {
+            Pokedex.EventBus.$on('appStart', (data) => {
                 this.pokemon = data;
                 this.pokemonChange = false;
             });
-            Pokedex.dispatch.$on('listItemChange', ()=>{
+            Pokedex.EventBus.$on('listItemChange', ()=>{
                 this.pokemonChange = true;
                 this.wait = this.normalizeLoadTransition(500);
             });
-            Pokedex.dispatch.$on('listItemLoad', ()=>{
+            Pokedex.EventBus.$on('listItemLoad', ()=>{
                 if(this.wait){
                     this.wait.then(() => {
                         this.pokemonChange = false;

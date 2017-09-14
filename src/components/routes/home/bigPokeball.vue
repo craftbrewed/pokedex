@@ -121,20 +121,20 @@
                 lastSpinDelta: 0,
                 lastSpinDirection: 0
             };
-            Pokedex.dispatch.$on('listItemChange', (by, noSpin) =>{
+            Pokedex.EventBus.$on('listItemChange', (by, noSpin) =>{
                 if(!noSpin && (this.spinning === false || this.spinVars.pointerDown === false)){
                     this.rotatePokeball(by + this.spinVars.lastSpinDelta);
                 }
             });
-            Pokedex.dispatch.$on('cancelSpin', ()=>{
+            Pokedex.EventBus.$on('cancelSpin', ()=>{
                 this.spinning = false;
                 clearInterval(this.spinInterval);
             });
             this.emitChange = this.$lodash.throttle(() => {
                 if(this.spinVars.lastSpinDirection >= 0){
-                    Pokedex.dispatch.$emit('listItemChange', 1);
+                    Pokedex.EventBus.$emit('listItemChange', 1);
                 }else{
-                    Pokedex.dispatch.$emit('listItemChange', -1);
+                    Pokedex.EventBus.$emit('listItemChange', -1);
                 }
 
             }, 50);

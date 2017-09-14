@@ -111,24 +111,16 @@
             if(this.collection){
                 this.init();
             }
-            Pokedex.dispatch.$on('appStart', () => this.init());
+            Pokedex.EventBus.$on('appStart', () => this.init());
 
             //catch events that alter the list
-            Pokedex.dispatch.$on('listItemChange', (e) => {
+            Pokedex.EventBus.$on('listItemChange', (e) => {
                 try{
                     this.shift(e);
                 }catch (e){
                     console.error(e, "!");
                 }
             });
-/*
-            this.broadcastChange = this.$lodash.debounce(() => {
-
-                this.$store.commit('update', {});
-                this.$store.dispatch('updateIndex', this.localIdx).then(() =>{
-                });
-            }, 150);
-*/
         }
     }
 </script>

@@ -78,7 +78,7 @@
         },
         destroyed(){
             clearInterval(this.interval);
-            Pokedex.dispatch.$off('listItemLoad', this.loadEncounters);
+            Pokedex.EventBus.$off('listItemLoad', this.loadEncounters);
         },
         created(){
             let _import = require.context('../../assets/images/map_places', false, /\.png$/);
@@ -90,13 +90,13 @@
             if(!this.$lodash.isEmpty(this.$store.getters.current)){
                 this.loadEncounters();
             }
-            Pokedex.dispatch.$on('appStart', () =>{
+            Pokedex.EventBus.$on('appStart', () =>{
                 this.loadEncounters();
             });
-            Pokedex.dispatch.$on('listItemChange', ()=>{
+            Pokedex.EventBus.$on('listItemChange', ()=>{
                this.isLoading = true;
             });
-            Pokedex.dispatch.$on('listItemLoad', this.loadEncounters);
+            Pokedex.EventBus.$on('listItemLoad', this.loadEncounters);
 
             clearInterval(this.interval);
             this.interval = setInterval(this.dotInterval, 1000);

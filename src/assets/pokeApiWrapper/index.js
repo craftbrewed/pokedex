@@ -21,7 +21,7 @@ axios.interceptors.request.use(
 //Global halt state, i.e. when something goes wrong and we're ready for it.
 axios.interceptors.response.use(function(config){
     if(Pokedex.haltState){
-        Pokedex.dispatch.$emit('setHaltState', false);
+        Pokedex.EventBus.$emit('setHaltState', false);
     }
     return config;
 }, function(error){

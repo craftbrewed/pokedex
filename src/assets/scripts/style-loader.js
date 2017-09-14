@@ -1,6 +1,4 @@
-/*
-    Load All Stylesheets Here
- */
+//global stylesheets
 module.exports = +function(){
     require('../styles/modules/grid.scss');
     require('../fonts/pokefont/stylesheet.css');

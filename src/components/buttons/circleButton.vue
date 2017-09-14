@@ -14,7 +14,7 @@
         },
         methods: {
             click(){
-                Pokedex.dispatch.$emit('buttonClick', this.$props.type);
+                Pokedex.EventBus.$emit('buttonClick', this.$props.type);
             }
         },
         mounted(){

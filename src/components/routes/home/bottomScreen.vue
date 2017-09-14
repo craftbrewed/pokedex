@@ -50,13 +50,13 @@
         },
         methods:{
             navUp(){
-                Pokedex.dispatch.$emit('topScreenCloseOpen', function(){
-                    Pokedex.dispatch.$emit('listItemChange', -999, true);
+                Pokedex.EventBus.$emit('topScreenCloseOpen', function(){
+                    Pokedex.EventBus.$emit('listItemChange', -999, true);
                 });
             },
             navDown(){
-                Pokedex.dispatch.$emit('topScreenCloseOpen', function(){
-                    Pokedex.dispatch.$emit('listItemChange', 999, true);
+                Pokedex.EventBus.$emit('topScreenCloseOpen', function(){
+                    Pokedex.EventBus.$emit('listItemChange', 999, true);
                 });
             },
             circleButtonHandler(type){
@@ -64,10 +64,10 @@
             }
         },
         destroyed(){
-            Pokedex.dispatch.$off('buttonClick', this.circleButtonHandler);
+            Pokedex.EventBus.$off('buttonClick', this.circleButtonHandler);
         },
         created(){
-            Pokedex.dispatch.$on('buttonClick', this.circleButtonHandler);
+            Pokedex.EventBus.$on('buttonClick', this.circleButtonHandler);
         }
     }
 </script>

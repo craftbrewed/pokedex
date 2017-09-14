@@ -17,7 +17,7 @@
         methods:{
             buttonClick(){
                 if(this.$props.clickEvent){
-                    Pokedex.dispatch.$emit('buttonClick', this.$props.clickEvent);
+                    Pokedex.EventBus.$emit('buttonClick', this.$props.clickEvent);
                 }
             }
         },

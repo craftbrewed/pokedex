@@ -10,12 +10,12 @@
 
     export default {
         created(){
-            Pokedex.dispatch.$on('topScreenCloseOpen', (callback) => {
-                Pokedex.dispatch.$emit('closeTopPanels');
-                Pokedex.dispatch.$once('panelsClosed', () => {
+            Pokedex.EventBus.$on('topScreenCloseOpen', (callback) => {
+                Pokedex.EventBus.$emit('closeTopPanels');
+                Pokedex.EventBus.$once('panelsClosed', () => {
                     callback();
                     setTimeout(()=>{
-                        Pokedex.dispatch.$emit('openTopPanels');
+                        Pokedex.EventBus.$emit('openTopPanels');
                     },150)
 
                 });

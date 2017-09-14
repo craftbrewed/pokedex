@@ -66,7 +66,7 @@ var errorHandle = (function () {
                 method = error.config.method;
 
             if(!Pokedex.haltState){
-                Pokedex.dispatch.$emit('setHaltState', true);
+                Pokedex.EventBus.$emit('setHaltState', true);
             }
 
             if(retryLoop(callback)){
@@ -76,7 +76,7 @@ var errorHandle = (function () {
                     error: error,
                     exception: exception
                 };
-                Pokedex.dispatch.$emit('modalOpen', exception(error));
+                Pokedex.EventBus.$emit('modalOpen', exception(error));
                 pollForConnection();
             }
 

@@ -29,7 +29,7 @@ var keydown = (function () {
         //broadcast that event
 
         if(event){
-            Pokedex.dispatch.$emit(event, action);
+            Pokedex.EventBus.$emit(event, action);
         }
     };
 

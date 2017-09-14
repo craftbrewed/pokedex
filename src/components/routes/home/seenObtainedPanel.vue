@@ -23,10 +23,10 @@
             }
         },
         created(){
-            Pokedex.dispatch.$on('closeTopPanels', () =>{
+            Pokedex.EventBus.$on('closeTopPanels', () =>{
                 this.$el.classList.add('closed');
             });
-            Pokedex.dispatch.$on('openTopPanels', () => {
+            Pokedex.EventBus.$on('openTopPanels', () => {
                 this.$el.classList.remove('closed');
             });
         }

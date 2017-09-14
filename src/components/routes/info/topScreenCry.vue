@@ -84,7 +84,7 @@
 
         },
         destroyed(){
-            Pokedex.dispatch.$off('buttonClick', this.audioPlay);
+            Pokedex.EventBus.$off('buttonClick', this.audioPlay);
         },
         watch:{
             'pokeCry' (){
@@ -92,7 +92,7 @@
             }
         },
         created(){
-            Pokedex.dispatch.$on('buttonClick', this.audioPlay);
+            Pokedex.EventBus.$on('buttonClick', this.audioPlay);
         }
 
     }

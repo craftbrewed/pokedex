@@ -1,10 +1,13 @@
 "use strict";
 
-var loadPokemonData = function(id, type){
+var loadPokemonData = function(id, type, cancelable){
+    cancelable = (typeof cancelable === 'undefined') ? true : cancelable;
     let url = this.url[type]+id+'/';
     return this.axios.get(url, {
         cancelToken : new this.axios.CancelToken( (c) => {
-            this.requests.add(type, c);
+            if(cancelable){
+                this.requests.add(type, c);
+            }
         })
     })
         .catch( error => {

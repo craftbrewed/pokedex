@@ -1,7 +1,8 @@
 "use strict";
 const uniq = require('lodash/uniq');
 
-const loadEncounters = function(url){
+const loadEncounters = function(url, cancelable){
+    cancelable = (typeof cancelable === 'undefined') ? true : cancelable;
 
     //check for magikarp error... :(
     if(url === '/api/v2/pokemon/129/encounters'){
@@ -9,7 +10,9 @@ const loadEncounters = function(url){
     }
     return this.axios.get(this.url.root+url,{
         cancelToken : new this.axios.CancelToken( (c) => {
-            this.requests.add('loadEncounters', c);
+            if(cancelable){
+                this.requests.add('loadEncounters', c);
+            }
         })
     }).then((response) => {
         //map, filter

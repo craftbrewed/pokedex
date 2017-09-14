@@ -13,13 +13,13 @@
     export default {
         created(){
             this.transitionEndListener = function(e){
-                Pokedex.dispatch.$emit('panelsClosed');
+                Pokedex.EventBus.$emit('panelsClosed');
             };
-            Pokedex.dispatch.$on('closeTopPanels', () =>{
+            Pokedex.EventBus.$on('closeTopPanels', () =>{
                 this.$el.addEventListener(this.transEndEvt, this.transitionEndListener);
                 this.$el.classList.add('closed');
             });
-            Pokedex.dispatch.$on('openTopPanels', () => {
+            Pokedex.EventBus.$on('openTopPanels', () => {
                 this.$el.removeEventListener(this.transEndEvt, this.transitionEndListener);
                 this.$el.classList.remove('closed');
 

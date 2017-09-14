@@ -61,7 +61,7 @@
             },
             initializePokedex(){
                 this.$store.dispatch('initializePokedex').then(() => {
-                    Pokedex.dispatch.$emit('appStart');
+                    Pokedex.EventBus.$emit('appStart');
                 });
             }
         },
@@ -70,11 +70,11 @@
         },
         watch:{
             '$route'(to, from){
-                Pokedex.dispatch.$emit('cancelSpin');
+                Pokedex.EventBus.$emit('cancelSpin');
             }
         },
         mounted(){
-            Pokedex.dispatch.$emit('modalOpen', {
+            Pokedex.EventBus.$emit('modalOpen', {
                 'title' : "Requesting Fullscreen",
                 'body'  : "This app works reall well fullscreen... give it a try?",
                 'confirm' : true,
@@ -89,12 +89,12 @@
             this.checkClearCache();
             this.initializePokedex();
             this.debouncedListItem = this.$lodash.debounce(()=>{
-                Pokedex.dispatch.$emit('listItemLoad');
+                Pokedex.EventBus.$emit('listItemLoad');
             }, 350);
-            Pokedex.dispatch.$on('setHaltState', state =>{
+            Pokedex.EventBus.$on('setHaltState', state =>{
                 Pokedex.haltState = state;
             });
-            Pokedex.dispatch.$on('listItemChange', (delta) =>{
+            Pokedex.EventBus.$on('listItemChange', (delta) =>{
                 let nextIdx = this.shift(delta);
                 this.$store.commit('update', {});
                 this.$store.dispatch('updateIndex', nextIdx)
