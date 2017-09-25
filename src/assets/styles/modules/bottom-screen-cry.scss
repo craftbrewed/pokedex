@@ -4,8 +4,8 @@
   height: 30vw;
   max-width:350px;
   max-height: 350px;
-  top:35vh;left:0;right:0;bottom:0;
-  margin: auto;
+  top:0;left:0;right:0;bottom:0;
+  margin:auto;
   border-color: $pokefont--white;
   border-width: 5px;
 }
@@ -26,6 +26,95 @@
   margin: auto;
   padding-left: 5px;
 }
+.bottom-cry .slider--container{
+  position: relative;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 68%;
+  margin: 0 auto;
+  background-color: $light-yellow--background;
+  border: solid 2px $pokefont--grey;
+//  border-bottom-style: none ;
+  border-right-style: none;
+  border-top-style: none;
+  border-radius: 25px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 50;
+
+}
+.bottom-cry .background--color-peach{
+  background-color: $border--peach-color;
+}
+.bottom-cry .slider--container-inner{
+  position: relative;
+  border: solid 3px $border--peach-color;
+  background-color: $bottom-panel-border--dark;
+  width: 72%;
+  padding: 3px 1px;
+  margin: 1em auto;
+}
+.bottom-cry .slider--container-inner:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left:0;
+  width: 100%;
+  background-color: $pokefont--white;
+  height:1px;
+}
+.bottom-cry .slider--container-inner .slider{
+  margin: 0 auto;
+  transform: translateY(5px);
+}
+.bottom-cry .slider--label{
+  background-color: $pokefont--white;
+  width: 72%;
+  border: solid 3px $bottom-panel-border--dark;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 3px;
+}
+.bottom-cry .decoration--column{
+  position: absolute;
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100px;
+  background-color: $border--peach-color;
+  z-index: 45;
+}
+.bottom-cry .bottom-decoration{
+  height: 50%;
+  background-color: $border--peach-color;
+  border-radius: 25px;
+  border: solid 2px $pokefont--grey;
+  border-left-style: none;
+  border-top-left-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2px;
+}
+.bottom-cry .panner--container{
+  margin: 0 auto;
+  width: 80%;
+  height: 40%;
+  border: solid 2px $pokefont--grey;
+  border-radius: 10px;
+  border-top-color: $bottom-panel-border--light;
+  border-left-color: $bottom-panel-border--light;
+  background-color: $bottom-panel-border--dark;
+  display: flex;
+  align-items: center;
+  z-index: 99;
+}
+.bottom-cry .panner{
+  margin: 0 auto;
+}
 .bottom-cry .big-pokeball button.circle-button:active  .html-glyph{
   transform: translateY(-2px);
 }
@@ -43,7 +132,7 @@
 }
 @media(max-width:768px){
   .bottom-cry .big-pokeball {
-    top: 35vh;
+    margin-top: 2em;
     width: 43vw;
     height: 43vw;
   }
@@ -55,8 +144,16 @@
 }
 @media(max-width:500px) {
   .bottom-cry .big-pokeball {
-    top: 30vh;
     width: 45vw;
     height: 45vw;
+  }
+
+  .bottom-cry .bottom-decoration{
+    height: 40%;
+    align-items: flex-start;
+    padding-top: 1em;
+  }
+  .bottom-cry .panner--container{
+    height: 60%;
   }
 }

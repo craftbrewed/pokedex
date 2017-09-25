@@ -70,6 +70,51 @@ div.day-night{
 .day-night.night{
     background-position: -$daynight--square*2 0;
 }
+/*
+Audio Sliders and Panner
+*/
+$audio-glyphs: url('../../images/audio-spritesheet.png');
+
+$slider-width:  80px;
+$slider-height: 22px;
+$panner-width:  51px;
+$panner-height: 51px;
+
+div.audio-glyph{
+    background-image: $audio-glyphs;
+}
+div.audio-glyph.slider{
+    width:$slider-width;
+    height: $slider-height;
+}
+div.audio-glyph.slider{
+    &.left--3{
+        background-position: 0 0;
+    }
+    &.left--2{
+        background-position: -$slider-width 0;
+    }
+    &.left--1{
+        background-position: -$slider-width*2 0;
+    }
+    &.center{
+        background-position: -$slider-width*3 0;
+    }
+    &.right--3{
+        background-position: 0px (-$slider-height);
+    }
+    &.right--2{
+        background-position: -$slider-width (-$slider-height);
+    }
+    &.right--1{
+        background-position: -$slider-width*2 (-$slider-height);
+    }
+}
+div.audio-glyph.panner{
+    width: $panner-width;
+    height: $panner-height;
+    background-position: 0px (-$slider-height*2);
+}
 
 @media (max-width: 700px){
     $reduce: 0.62;

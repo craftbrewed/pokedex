@@ -29,7 +29,9 @@
   position: relative;
   display: inline-block;
 }
-
+[class^="col-"].full-height{
+  height: 100%;
+}
 .col-12{
   width:100%;
 }
